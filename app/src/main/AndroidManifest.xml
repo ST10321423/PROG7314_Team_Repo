@@ -15,6 +15,15 @@
         android:theme="@style/Theme.PROG7314_Universe"
         tools:targetApi="31">
         <activity
+            android:name=".SavingsGoalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateSavingsContributionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateSavingsGoalActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddEditHabitActivity"
             android:exported="false" />
         <activity
