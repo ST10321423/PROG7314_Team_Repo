@@ -37,7 +37,7 @@ class TaskActivity : AppCompatActivity() {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             val title = data?.getStringExtra("title") ?: ""
             val description = data?.getStringExtra("description") ?: ""
-            val task = Task(taskList.size + 1, title, description)
+            val task = Task((taskList.size + 1).toString(), title, description)
             taskAdapter.addTask(task)
         }
     }
