@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/ic_dashboard" />
+
+    <item
+        android:id="@+id/exams"
+        android:title="Exams"
+        android:icon="@drawable/ic_exams" />
+
+    <item
+        android:id="@+id/tasks"
+        android:title="Tasks"
+        android:icon="@drawable/ic_tasks" />
+
+    <item
+        android:id="@+id/habits"
+        android:title="Habits"
+        android:icon="@drawable/ic_habits" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings" />
+</menu>

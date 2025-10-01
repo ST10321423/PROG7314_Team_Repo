@@ -18,39 +18,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:textSize="38sp"
+            android:textAlignment="textStart"
+            android:text="Create an Account"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="@color/on_surface"
-            android:gravity="center"
-            android:layout_marginBottom="16dp"
-           />
 
-        <!-- Sign Up Link -->
-        <LinearLayout
+            android:layout_marginBottom="8dp" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="32dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Don't have an account? "
-                android:textSize="18sp"
-                android:textColor="@color/on_surface" />
-
-            <TextView
-                android:id="@+id/signUpText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Up"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/primary" />
-
-        </LinearLayout>
+            android:text="Enter your details to create your account"
+            android:textSize="16sp"
+            android:textColor="@color/on_surface"
+            android:textAlignment="textStart"
+            android:layout_marginBottom="32dp" />
 
         <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
@@ -73,8 +56,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:textSize="18sp"
-                android:padding="16dp"/>
+                android:textSize="16sp"
+                android:padding="16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,51 +82,47 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:padding="16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Remember Me and Forgot Password Row -->
-        <RelativeLayout
+        <!-- Confirm Password Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmPasswordInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            app:boxCornerRadiusTopStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:boxStrokeColor="@color/outline_variant"
+            app:boxBackgroundColor="@color/surface"
+            app:boxStrokeWidth="1dp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
-            <!-- Remember Me Checkbox -->
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/rememberMeCheckbox"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confirmPasswordEditText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Remember me"
-                android:textSize="14sp"
-                android:textColor="@color/on_surface"
-                app:buttonTint="@color/primary"
-                android:layout_alignParentStart="true" />
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:textSize="16sp"
+                android:padding="16dp" />
 
-            <!-- Forgot Password -->
-            <TextView
-                android:id="@+id/forgotPasswordText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Forgot Password ?"
-                android:textSize="14sp"
-                android:textColor="@color/primary"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        </RelativeLayout>
-
-        <!-- Log In Button -->
+        <!-- Sign Up Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginButton"
+            android:id="@+id/signUpButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Log In"
+            android:text="Sign Up"
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="18dp"
-            app:backgroundTint="@color/primary1"
+            app:backgroundTint="@color/primary"
             android:textColor="@color/on_primary"
             android:layout_marginBottom="24dp"
             style="@style/Widget.Material3.Button" />
@@ -157,7 +136,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/on_surface"
+                android:background="@color/outline_variant"
                 android:layout_centerVertical="true" />
 
             <TextView
@@ -165,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:text="Or"
                 android:textSize="14sp"
-                android:textColor="@color/on_surface"
+                android:textColor="@color/outline_variant"
                 android:paddingHorizontal="16dp"
                 android:background="@color/surface_container"
                 android:layout_centerInParent="true" />
@@ -187,7 +166,7 @@
             android:layout_marginBottom="12dp"
             style="@style/Widget.Material3.Button.OutlinedButton"
             app:icon="@drawable/ic_google"
-            app:iconTint="@null" />
+            app:iconTint="@null"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/facebookButton"
@@ -203,6 +182,32 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             app:icon="@drawable/ic_facebook"
             app:iconTint="@null" />
+
+        <!-- Sign In Link -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? "
+                android:textSize="14sp"
+                android:textColor="@color/on_surface" />
+
+            <TextView
+                android:id="@+id/signInText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign In"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

@@ -7,4 +7,37 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="surface_container">#F3EDF7</color>
+    <color name="surface">#FFFBFE</color>
+    <color name="on_surface">#1C1B1F</color>
+    <color name="outline_variant">#CAC4D0</color>
+    <color name="primary">#6750A4</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="m3_sys_light_surface_container">#FFF7F9FD</color>
+    <color name="m3_sys_light_surface">#FFFFFFFF</color>
+    <color name="m3_sys_light_on_surface">#FF1A1C1E</color>
+    <color name="m3_sys_light_on_surface_variant">#FF42474E</color>
+    <color name="m3_sys_light_outline_variant">#FFC2C7CE</color>
+    <color name="m3_sys_light_primary">#FF006399</color>
+    <color name="m3_sys_light_on_primary">#FFFFFFFF</color>
+    <color name="m3_sys_light_error">#FFBA1A1A</color>
+
+    <!-- Dashboard Colors -->
+    <color name="background">#F8FAFC</color>
+    <color name="text_primary">#1E293B</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="primary1">#3B82F6</color>
+    <color name="success">#10B981</color>
+    <color name="warning">#F59E0B</color>
+    <color name="error">#EF4444</color>
+
+    <!-- Bottom Navigation Colors -->
+    <color name="bottom_nav_color">#selector_bottom_nav</color>
+    <color name="bottom_nav_selected">#3B82F6</color>
+    <color name="bottom_nav_unselected">#64748B</color>
+
+    <color name="rounded_edittext_stroke">#FFE0E0E0</color>
+    <color name="switch_thumb">#FFFFFF</color>
+    <color name="switch_track">#E8E8E8</color>
 </resources>
