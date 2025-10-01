@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services") version "4.4.3"
+    id ("kotlin-kapt")
 }
 
 android {
@@ -61,6 +62,17 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
     // Google Sign-In
     implementation("com.google.android.gms:play-services-auth:21.1.1")
+
+    // Room
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+
+    // Firebase Firestore
+    implementation ("com.google.firebase:firebase-firestore-ktx:25.0.0")
+
+
+
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
