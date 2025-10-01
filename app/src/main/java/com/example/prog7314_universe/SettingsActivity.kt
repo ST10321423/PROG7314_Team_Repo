@@ -1,5 +1,6 @@
 package com.example.prog7314_universe
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -11,6 +12,7 @@ import android.provider.Settings
 import android.text.format.DateFormat
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
@@ -225,6 +227,7 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     private fun sendTestNotification() {
         if (Build.VERSION.SDK_INT >= 33 &&
             !NotificationManagerCompat.from(this).areNotificationsEnabled()) {
