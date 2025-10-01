@@ -12,8 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PROG7314_Universe"
+        android:theme="@style/Base.Theme.PROG7314_Universe"
         tools:targetApi="31">
+        <activity
+            android:name=".AddContributionActivity"
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="false" />
@@ -27,7 +30,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.PROG7314_Universe">
+            android:theme="@style/Base.Theme.PROG7314_Universe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
