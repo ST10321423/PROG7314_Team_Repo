@@ -70,6 +70,14 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
 
+    // DataStore for settings
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // Notifications
+    implementation("androidx.core:core-ktx:1.13.1")
+
+    // Biometric
+    implementation("androidx.biometric:biometric:1.1.0")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
     // Google Sign-In
