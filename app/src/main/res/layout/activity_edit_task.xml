@@ -278,16 +278,17 @@
         </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/AddHabitButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Add Task"
+            android:layout_height="56dp"
+            android:text="Edit Task"
             android:textSize="16sp"
             android:textStyle="bold"
-            style="@style/Widget.Material3.Button"
-            app:icon="@drawable/ic_add_24dp"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp" />
+            app:cornerRadius="18dp"
+            app:backgroundTint="@color/primary1"
+            android:textColor="@color/on_primary"
+            android:layout_marginBottom="24dp"
+            style="@style/Widget.Material3.Button" />
 
 
 

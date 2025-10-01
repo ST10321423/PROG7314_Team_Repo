@@ -404,21 +404,20 @@
         </LinearLayout>
 
         <!-- Log Out Button -->
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log Out"
-            android:textStyle="bold"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/AddHabitButton"
+            android:layout_width="300dp"
+            android:layout_gravity="center"
+            android:layout_height="56dp"
+            android:text="Logout"
             android:textSize="16sp"
-            android:background="@drawable/logout_background_button"
-            android:textColor="@color/on_surface"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp" />
+            android:textStyle="bold"
+            app:cornerRadius="18dp"
+            app:backgroundTint="@color/primary1"
+            android:textColor="@color/on_primary"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            style="@style/Widget.Material3.Button" />
 
     </LinearLayout>
 

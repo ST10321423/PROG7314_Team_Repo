@@ -316,7 +316,9 @@
             app:backgroundTint="@color/primary1"
             android:textColor="@color/on_primary"
             android:layout_marginBottom="24dp"
-            style="@style/Widget.Material3.Button" />
+            style="@style/Widget.Material3.Button"
+            app:iconGravity="textStart"
+            app:icon="@drawable/ic_add_24dp"/>
 
     </LinearLayout>
 </ScrollView>
