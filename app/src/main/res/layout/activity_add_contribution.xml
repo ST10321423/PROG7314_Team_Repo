@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Exam"
+            android:text="Add Contribution"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="?attr/colorOnSurface"
@@ -28,10 +28,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="Amount"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="15dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -44,7 +45,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Exam name/code"
+                android:hint="R"
                 android:textSize="16sp"
                 android:padding="16dp" />
 
@@ -57,7 +58,8 @@
             android:text="Date"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -79,10 +81,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Module"
+            android:text="Goal"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -95,96 +98,24 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Module Name or Code"
+                android:hint="Select a Goal"
                 android:textSize="16sp"
                 android:padding="16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- Start Time Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start time"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                app:boxBackgroundColor="#94d5ca"
-                app:boxCornerRadius="12dp"
-                app:boxStrokeColor="?attr/colorOutlineVariant"
-                app:boxStrokeWidth="1dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="02:00 PM"
-                    android:textSize="16sp"
-                    android:padding="16dp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                app:boxBackgroundColor="#94d5ca"
-                app:boxCornerRadius="12dp"
-                app:boxStrokeColor="?attr/colorOutlineVariant"
-                app:boxStrokeWidth="1dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="04:00 PM"
-                    android:textSize="16sp"
-                    android:padding="16dp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <!-- Description Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:boxBackgroundColor="#94d5ca"
-            app:boxCornerRadius="12dp"
-            app:boxStrokeColor="?attr/colorOutlineVariant"
-            app:boxStrokeWidth="1dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:hint="Description"
-                android:textSize="16sp"
-                android:padding="16dp"
-                android:gravity="top"
-                android:inputType="textMultiLine" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="80dp">
 
 
 
@@ -192,13 +123,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Add Exam"
+            android:text="Add Contribution"
             android:textSize="16sp"
             android:textStyle="bold"
             style="@style/Widget.Material3.Button"
             app:icon="@drawable/ic_add_24dp"
             app:iconGravity="textStart"
-            app:iconPadding="8dp" />
+            app:iconPadding="8dp"/>
+</LinearLayout>
+
 
         <!-- Divider -->
         <View

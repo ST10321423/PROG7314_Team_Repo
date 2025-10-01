@@ -50,6 +50,17 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    implementation("androidx.datastore:datastore-preferences:1.0.0") //DataStore Manager Implemented
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.10.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+
+
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     implementation("com.google.android.material:material:1.12.0")
@@ -58,6 +69,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
     // Google Sign-In
@@ -77,7 +89,11 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    implementation(libs.appcompat)
+
     implementation(libs.androidx.recyclerview)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
