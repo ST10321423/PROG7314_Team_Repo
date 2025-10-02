@@ -21,7 +21,7 @@ class AddTransactionActivity : AppCompatActivity() {
 
         // Initialize UI elements
         val amountEditText = findViewById<EditText>(R.id.amountEditText)
-        val goalSpinner = findViewById<Spinner>(R.id.goalSpinner)
+        val goalSpinner = findViewById<Spinner>(R.id.spinnerGoals)
         val dateTextView = findViewById<TextView>(R.id.dateTextView)
         val addButton = findViewById<Button>(R.id.addButton)
         val backButton = findViewById<Button>(R.id.backButton)
@@ -42,5 +42,7 @@ class AddTransactionActivity : AppCompatActivity() {
         // Set button colors and styles
         addButton.setBackgroundColor(ContextCompat.getColor(this, R.color.button_background))
         backButton.setBackgroundColor(ContextCompat.getColor(this, R.color.button_background))
+
+
     }
 }

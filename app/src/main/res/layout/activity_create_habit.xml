@@ -29,7 +29,9 @@
             android:text="Habit Type"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="@color/main1"
+            android:padding="10dp"/>
 
 
 
@@ -66,7 +68,9 @@
             android:text="Habit Name"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="@color/green"
+            android:padding="10dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -91,7 +95,9 @@
             android:text="Repeat"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="@color/success"
+            android:padding="10dp"/>
 
         <RadioGroup
             android:id="@+id/repeatGroup"
@@ -132,7 +138,9 @@
             android:text="On These Days:"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="@color/warning"
+            android:padding="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -226,7 +234,10 @@
             android:text="Do It At:"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"
+            android:background="@color/purple_500"
+            android:padding="10dp"/>
 
         <RadioGroup
             android:id="@+id/timeGroup"
@@ -267,14 +278,41 @@
             android:text="Difficulty"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="@color/error"
+            android:padding="10dp"/>
 
-        <Spinner
-            android:id="@+id/difficultySpinner"
+        <RadioGroup
+            android:id="@+id/difficultyGroup"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/spinner_background" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <RadioButton
+                android:id="@+id/rbEasy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Easy"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rbMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Medium"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rbHard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hard"
+                android:textSize="14sp" />
+        </RadioGroup>
 
         <!-- End Habit On -->
         <TextView

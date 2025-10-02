@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
-    android:background="@color/surface_container">
+    android:background="@color/surface_container"
+    tools:context=".LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -174,7 +176,7 @@
 
         <!-- Social Login Buttons -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/googleButton"
+            android:id="@+id/googleLoginButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Continue with Google"

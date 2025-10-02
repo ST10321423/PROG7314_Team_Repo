@@ -28,19 +28,21 @@
         android:layout_marginBottom="8dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/RoundedTextInputLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+    app:boxBackgroundMode="outline"
+    app:boxBackgroundColor="#94d5ca">
+
+    <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
+        android:hint="Cape Town Trip"
+        android:textSize="16sp"
+        android:padding="16dp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Cape Town Trip"
-            android:textSize="16sp"
-            android:minHeight="48dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+</com.google.android.material.textfield.TextInputLayout>
 
     <!-- Target Deadline Section -->
     <TextView
@@ -53,17 +55,19 @@
         android:layout_marginBottom="8dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/RoundedTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="16dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="#94d5ca">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="08/01/2026"
+            android:hint="Enter Date"
             android:textSize="16sp"
-            android:minHeight="48dp" />
+            android:padding="16dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,28 +80,32 @@
         android:textColor="#000000"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="20dp"/>
+
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/RoundedTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="16dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="#94d5ca">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="R15000.00"
             android:textSize="16sp"
-            android:minHeight="48dp" />
+            android:padding="16dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp">
 
 
 
-
-
-
-    <!-- Next Button -->
+  <!-- Next Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/AddHabitButton"
         android:layout_width="match_parent"
@@ -109,6 +117,16 @@
         app:backgroundTint="@color/primary1"
         android:textColor="@color/on_primary"
         android:layout_marginBottom="24dp"
-        style="@style/Widget.Material3.Button" />
+        style="@style/Widget.Material3.Button"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
 
 </LinearLayout>

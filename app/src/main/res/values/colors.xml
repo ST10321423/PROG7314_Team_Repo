@@ -52,4 +52,7 @@
 
     <color name="divider_color">#FFE0E0E0</color>
     <color name="section_background">#FFFFFFFF</color>
+    <color name="main1">#94d5ca</color>
+    <color name="yellow">#E6DC29</color>
+    <color name="green">#8BE629</color>
 </resources>
