@@ -16,23 +16,14 @@
         android:theme="@style/Base.Theme.PROG7314_Universe"
         tools:targetApi="31">
         <activity
-
+            android:name=".HabitsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateHabitActivity"
+            android:label="Create Habit"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity
             android:name=".AddContributionActivity"
-
-            android:name=".SavingsGoalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CreateSavingsContributionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CreateSavingsGoalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddEditHabitActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HabitListActivity"
-
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
