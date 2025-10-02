@@ -11,8 +11,9 @@ android {
 
     defaultConfig {
         applicationId = "com.example.prog7314_universe"
-        minSdk = 24
-        targetSdk = 35
+
+        minSdk = 28
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -60,7 +61,39 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
 
-    // Google Sign-In (Play Services)
+
+    // Unit test (JVM)
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.13.12")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+    testImplementation("app.cash.turbine:turbine:1.1.0") // Flow testing
+    testImplementation("org.robolectric:robolectric:4.13")
+
+    // Android instrumented tests
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    implementation("com.google.android.material:material:1.12.0")
+
+    //  Firebase BOM + Auth + Firestore
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
+    // DataStore for settings
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // Notifications
+    implementation("androidx.core:core-ktx:1.13.1")
+
+    // Biometric
+    implementation("androidx.biometric:biometric:1.1.0")
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
+    // Google Sign-In
+
     implementation("com.google.android.gms:play-services-auth:21.1.1")
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
