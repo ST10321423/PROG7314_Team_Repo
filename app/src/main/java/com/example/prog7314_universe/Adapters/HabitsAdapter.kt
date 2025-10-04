@@ -38,19 +38,57 @@ class HabitAdapter(
 
     override fun onBindViewHolder(h: VH, pos: Int) {
         val item = getItem(pos)
-        h.b.tvName.text = item.habit.name
-        h.b.tvStreak.text = "Streak: ${item.currentStreak}"
 
+        // Habit name
+        h.b.tvName.text = item.habit.name
+
+        // Streak
+        h.b.tvStreak.text = " Streak: ${item.currentStreak} days"
+
+        // Checkbox
         h.b.cbComplete.setOnCheckedChangeListener(null)
         h.b.cbComplete.isChecked = item.completedToday
         h.b.cbComplete.isEnabled = item.isDueToday
 
-        h.b.tvDueBadge.text = if (item.isDueToday) "Due Today" else "Not Due"
-        h.b.tvDueBadge.setBackgroundColor(Color.parseColor(if (item.isDueToday) "#E8F5E9" else "#F5F5F5"))
+        // Due badge
+        if (item.isDueToday) {
+            h.b.tvDueBadge.text = "Due Today"
+            h.b.tvDueBadge.setBackgroundColor(Color.parseColor("#E8F5E9"))
+            h.b.tvDueBadge.setTextColor(Color.parseColor("#2E7D32"))
+        } else {
+            h.b.tvDueBadge.text = "Not Due"
+            h.b.tvDueBadge.setBackgroundColor(Color.parseColor("#F5F5F5"))
+            h.b.tvDueBadge.setTextColor(Color.parseColor("#666666"))
+        }
 
+        // Time of day
+        h.b.tvTimeOfDay.text = item.habit.timeOfDay?.capitalize() ?: "Anytime"
+
+        // Difficulty
+        val difficultyEmoji = when (item.habit.difficulty?.lowercase()) {
+            "easy" -> "😊 Easy"
+            "medium" -> "💪 Medium"
+            "hard" -> "🔥 Hard"
+            else -> "Medium"
+        }
+        h.b.tvDifficulty.text = difficultyEmoji
+
+        // Applies strikethrough if completed
+        if (item.completedToday) {
+            h.b.tvName.paintFlags = h.b.tvName.paintFlags or
+                    android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+            h.b.tvName.alpha = 0.6f
+        } else {
+            h.b.tvName.paintFlags = h.b.tvName.paintFlags and
+                    android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            h.b.tvName.alpha = 1.0f
+        }
+
+        // Click listeners
         h.b.cbComplete.setOnCheckedChangeListener { _, checked ->
             onToggle(item.habit, checked)
         }
+
         h.b.btnEdit.setOnClickListener {
             onEdit(item.habit)
         }

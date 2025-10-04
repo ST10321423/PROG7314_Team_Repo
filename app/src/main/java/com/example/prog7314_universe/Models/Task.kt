@@ -1,7 +1,7 @@
 package com.example.prog7314_universe.Models
 
 data class Task(
-    val id: String = "",
+    var id: String = "",
     val title: String = "",
     val description: String = "",
     val dueDate: String = "",      // keep as ISO-8601 string ("" = no due date)

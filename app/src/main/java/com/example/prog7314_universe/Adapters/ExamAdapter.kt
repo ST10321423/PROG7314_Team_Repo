@@ -1,11 +1,9 @@
 package com.example.prog7314_universe.Adapters
 
-import android.app.AlertDialog
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +11,19 @@ import com.example.prog7314_universe.R
 import com.example.prog7314_universe.Models.Exam
 
 class ExamAdapter(
-    private val context: Context,
-    private val examList: MutableList<Exam>
+    private var examList: List<Exam>,
+    private val onEdit: (Exam) -> Unit,
+    private val onDelete: (Exam) -> Unit,
+    private val onToggleComplete: (Exam, Boolean) -> Unit
 ) : RecyclerView.Adapter<ExamAdapter.ExamViewHolder>() {
 
     inner class ExamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val subject: TextView = itemView.findViewById(R.id.examSubject)
-        val date: TextView = itemView.findViewById(R.id.examDate)
-        val description: TextView = itemView.findViewById(R.id.examDescription)
+        val checkBox: CheckBox = itemView.findViewById(R.id.cbExamComplete)
+        val subject: TextView = itemView.findViewById(R.id.tvExamSubject)
+        val module: TextView = itemView.findViewById(R.id.tvExamModule)
+        val date: TextView = itemView.findViewById(R.id.tvExamDate)
+        val time: TextView = itemView.findViewById(R.id.tvExamTime)
+        val description: TextView = itemView.findViewById(R.id.tvExamDescription)
         val btnEdit: ImageButton = itemView.findViewById(R.id.btnEditExam)
         val btnDelete: ImageButton = itemView.findViewById(R.id.btnDeleteExam)
     }
@@ -33,49 +36,48 @@ class ExamAdapter(
 
     override fun onBindViewHolder(holder: ExamViewHolder, position: Int) {
         val exam = examList[position]
-        holder.subject.text = exam.subject
-        holder.date.text = exam.date
-        holder.description.text = exam.description
 
-        holder.btnEdit.setOnClickListener { showEditDialog(exam, position) }
+        holder.checkBox.setOnCheckedChangeListener(null)
+        holder.checkBox.isChecked = exam.isCompleted
+
+        holder.subject.text = exam.subject
+        holder.module.text = exam.module
+        holder.date.text = exam.date
+        holder.time.text = if (exam.startTime.isNotEmpty() && exam.endTime.isNotEmpty()) {
+            "${exam.startTime} - ${exam.endTime}"
+        } else {
+            "Time not set"
+        }
+        holder.description.text = exam.description.ifEmpty { "No description" }
+
+        // Applies strikethrough if completed
+        if (exam.isCompleted) {
+            holder.subject.paintFlags = holder.subject.paintFlags or
+                    android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+            holder.subject.alpha = 0.5f
+        } else {
+            holder.subject.paintFlags = holder.subject.paintFlags and
+                    android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            holder.subject.alpha = 1.0f
+        }
+
+        holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
+            onToggleComplete(exam, isChecked)
+        }
+
+        holder.btnEdit.setOnClickListener {
+            onEdit(exam)
+        }
 
         holder.btnDelete.setOnClickListener {
-            examList.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, examList.size)
+            onDelete(exam)
         }
     }
 
     override fun getItemCount() = examList.size
 
-    fun addExam(exam: Exam) {
-        examList.add(exam)
-        notifyItemInserted(examList.size - 1)
-    }
-
-    private fun showEditDialog(exam: Exam, position: Int) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_exam, null)
-        val editSubject = dialogView.findViewById<EditText>(R.id.editExamSubject)
-        val editDate = dialogView.findViewById<EditText>(R.id.editExamDate)
-        val editDescription = dialogView.findViewById<EditText>(R.id.editExamDescription)
-
-        editSubject.setText(exam.subject)
-        editDate.setText(exam.date)
-        editDescription.setText(exam.description)
-
-        AlertDialog.Builder(context)
-            .setTitle("Edit Exam")
-            .setView(dialogView)
-            .setPositiveButton("Save") { _, _ ->
-                val updatedExam = exam.copy(
-                    subject = editSubject.text.toString(),
-                    date = editDate.text.toString(),
-                    description = editDescription.text.toString()
-                )
-                examList[position] = updatedExam
-                notifyItemChanged(position)
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+    fun updateList(newList: List<Exam>) {
+        examList = newList
+        notifyDataSetChanged()
     }
 }

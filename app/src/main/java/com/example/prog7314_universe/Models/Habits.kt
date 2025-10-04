@@ -16,13 +16,22 @@ data class Habit(
     var updatedAt: Timestamp? = null
 ) {
     companion object {
+        //Convert day index (Monday = 1 ... Sunday = 7) to bit position
         fun dayToBit(dayIndexMon1: Int): Int {
-            // Kotlin DayOfWeek.MONDAY.value == 1 … SUNDAY == 7  → map to Sun=1 … Sat=64
-            val sunFirst = intArrayOf(2,4,8,16,32,64,1) // Mon..Sun -> bit
+            // Kotlin DayOfWeek.MONDAY.value == 1 … SUNDAY == 7
+            // Map to: Sun=1, Mon=2, Tue=4, Wed=8, Thu=16, Fri=32, Sat=64
+            val sunFirst = intArrayOf(2, 4, 8, 16, 32, 64, 1) // Mon..Sun -> bit
             return sunFirst[dayIndexMon1 - 1]
         }
-        fun maskFor(daysMon1: Set<Int>): Int = daysMon1.fold(0) { acc, d -> acc or dayToBit(d) }
+
+        //Creates a mask from a set of days (Monday-1 based)
+        fun maskFor(daysMon1: Set<Int>): Int =
+            daysMon1.fold(0) { acc, d -> acc or dayToBit(d) }
+
+        //Checks if habit is due today based on mask and current day
+
         fun isDueToday(daysMask: Int, mondayIs1: Int): Boolean {
+            if (daysMask == 0) return true // Daily habit (no specific days)
             val bit = dayToBit(mondayIs1)
             return (daysMask and bit) != 0
         }

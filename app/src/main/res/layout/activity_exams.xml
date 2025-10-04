@@ -1,374 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="16dp">
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Title -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Exams"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Search tasks text -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Search exams..."
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_marginBottom="16dp"
-            android:padding="12dp"
-            android:background="@drawable/search_background" />
-
-        <!-- Filter tabs -->
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="All (6)"
-                android:textSize="14sp"
-                android:textColor="#000000"
+                android:text="Exams"
+                android:textSize="35sp"
                 android:textStyle="bold"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp"
-                android:background="@drawable/tab_active_background" />
+                android:textColor="#000000"
+                android:layout_marginBottom="8dp" />
 
+            <!-- Search -->
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvSearch"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Completed (4)"
+                android:text="Search exams..."
                 android:textSize="14sp"
                 android:textColor="#666666"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp" />
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:background="@drawable/search_background"
+                android:clickable="true"
+                android:focusable="true" />
 
-        </LinearLayout>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0E0E0"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Task List -->
-
-        <!-- Lab Report -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="@drawable/task_item_background"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <!-- Checkbox -->
-            <CheckBox
-                android:id="@+id/checkbox_lab_report"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:button="@drawable/custom_checkbox" />
-
-            <!-- Task details -->
+            <!-- Filter tabs -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvFilterAll"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lab Report"
-                    android:textSize="18sp"
+                    android:text="All (0)"
+                    android:textSize="14sp"
                     android:textColor="#000000"
                     android:textStyle="bold"
-                    android:layout_marginBottom="4dp" />
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/tab_active_background"
+                    android:clickable="true"
+                    android:focusable="true" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvFilterCompleted"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Biology 101"
+                    android:text="Completed (0)"
                     android:textSize="14sp"
                     android:textColor="#666666"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5/14/2025"
-                        android:textSize="14sp"
-                        android:textColor="#666666" />
-
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:background="#666666"
-                        android:layout_marginHorizontal="8dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2h 30m"
-                        android:textSize="14sp"
-                        android:textColor="#666666" />
-
-                </LinearLayout>
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="16dp"
+                    android:clickable="true"
+                    android:focusable="true" />
 
             </LinearLayout>
 
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0" />
+
         </LinearLayout>
 
-        <!-- Math Problem Set -->
-        <LinearLayout
+        <!-- Loading Indicator -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <!-- Empty State -->
+        <TextView
+            android:id="@+id/tvEmptyState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="@drawable/task_item_background"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_gravity="center"
+            android:layout_marginTop="48dp"
+            android:text="No exams yet\nTap + to add your first exam"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:visibility="gone" />
 
-            <!-- Checkbox -->
-            <CheckBox
-                android:id="@+id/checkbox_math_problems"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:button="@drawable/custom_checkbox" />
-
-            <!-- Task details -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Math Problem Set"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Calculus II"
-                    android:textSize="14sp"
-                    android:textColor="#666666"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5/16/2025"
-                        android:textSize="14sp"
-                        android:textColor="#666666" />
-
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:background="#666666"
-                        android:layout_marginHorizontal="8dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1h 30m"
-                        android:textSize="14sp"
-                        android:textColor="#666666" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Research Paper Outline 1 -->
-        <LinearLayout
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewExams"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="@drawable/task_item_background"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <!-- Checkbox -->
-            <CheckBox
-                android:id="@+id/checkbox_research_paper_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:button="@drawable/custom_checkbox" />
-
-            <!-- Task details -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Research Paper Outline"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Environmental Science"
-                    android:textSize="14sp"
-                    android:textColor="#666666"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5/17/2025"
-                        android:textSize="14sp"
-                        android:textColor="#666666" />
-
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:background="#666666"
-                        android:layout_marginHorizontal="8dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2h"
-                        android:textSize="14sp"
-                        android:textColor="#666666" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Research Paper Outline 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="@drawable/task_item_background"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <!-- Checkbox -->
-            <CheckBox
-                android:id="@+id/checkbox_research_paper_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:button="@drawable/custom_checkbox" />
-
-            <!-- Task details -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Research Paper Outline"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Environmental Science"
-                    android:textSize="14sp"
-                    android:textColor="#666666"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5/17/2025"
-                        android:textSize="14sp"
-                        android:textColor="#666666" />
-
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:background="#666666"
-                        android:layout_marginHorizontal="8dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2h"
-                        android:textSize="14sp"
-                        android:textColor="#666666" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="8dp"
+            android:clipToPadding="false" />
 
     </LinearLayout>
 
-</ScrollView>
+    <!-- FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddExam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add"
+        android:contentDescription="Add new exam"
+        app:tint="@android:color/white"
+        app:backgroundTint="#12bfa2" />
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/rounded_bottom_nav"
+        app:itemIconTint="@drawable/bottom_nav_icon_colour"
+        app:itemTextColor="@drawable/bottom_nav_text_color"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

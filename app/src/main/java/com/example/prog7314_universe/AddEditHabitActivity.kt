@@ -140,4 +140,6 @@ class AddEditHabitActivity : AppCompatActivity() {
                 .document(it).delete().addOnSuccessListener { finish() }
         }
     }
+
+
 }

@@ -17,6 +17,7 @@ appcompatVersion = "1.7.1"
 material3 = "1.4.0"
 
 recyclerview = "1.4.0"
+preferenceKtx = "1.2.1"
 
 
 [libraries]
@@ -43,6 +44,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+androidx-preference-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preferenceKtx" }
 
 
 [plugins]

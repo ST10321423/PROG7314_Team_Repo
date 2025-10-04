@@ -1,367 +1,304 @@
 package com.example.prog7314_universe
 
-import android.Manifest
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.text.format.DateFormat
-import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresPermission
+import android.widget.Button
+import android.widget.SeekBar
+import android.widget.Spinner
+import android.widget.Switch
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.prog7314_universe.R
-import com.example.prog7314_universe.UserPrefs
-import com.example.prog7314_universe.UserPrefsKeys
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import androidx.preference.PreferenceManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.util.Calendar
 
 class SettingsActivity : AppCompatActivity() {
 
-    private val auth by lazy { FirebaseAuth.getInstance() }
-    private val db   by lazy { FirebaseFirestore.getInstance() }
-    private lateinit var prefs: UserPrefs
-
-    // UI
+    // Views
+    private lateinit var tvUserName: TextView
     private lateinit var tvUserEmail: TextView
-    private lateinit var rgTheme: RadioGroup
-    private lateinit var spLanguage: Spinner
-    private lateinit var spTextScale: Spinner
-    private lateinit var swReduceMotion: Switch
-    private lateinit var swNotif: Switch
-    private lateinit var rowReminderTime: LinearLayout
-    private lateinit var tvReminderTime: TextView
-    private lateinit var swBiometric: Switch
-    private lateinit var btnTestNotif: Button
-    private lateinit var btnExportData: Button
-    private lateinit var btnClearLocal: Button
+    private lateinit var switchDarkMode: SwitchMaterial
+    private lateinit var spinnerLanguage: Spinner
+    private lateinit var seekBarTextSize: SeekBar
+    private lateinit var tvTextSizeValue: TextView
+    private lateinit var switchNotifications: SwitchMaterial
+    private lateinit var switchTaskReminders: SwitchMaterial
+    private lateinit var switchExamAlerts: SwitchMaterial
+    private lateinit var switchHabitReminders: SwitchMaterial
     private lateinit var btnLogout: Button
-    private lateinit var btnDelete: Button
+    private lateinit var btnDeleteAccount: Button
+    private lateinit var bottomNavigationView: BottomNavigationView
 
-    private val requestNotifPerm = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted -> if (!granted) openAppSettings() }
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    private lateinit var prefManager: PreferenceManager
 
-    private val createDocLauncher = registerForActivityResult(
-        ActivityResultContracts.CreateDocument("application/json")
-    ) { uri -> if (uri != null) lifecycleScope.launch { writeExport(uri) } }
-
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        prefs = UserPrefs(this)
+        prefManager = PreferenceManager(this)
 
-        bindViews()
-        populateDropdowns()
-        loadExisting()
-        attachListeners()
-        ensureNotifChannel()
-
-        tvUserEmail.text = auth.currentUser?.email ?: "Unknown user"
+        initializeViews()
+        loadUserInfo()
+        loadSettings()
+        setupListeners()
+        setupBottomNavigation()
     }
 
-    private fun bindViews() {
+    private fun initializeViews() {
+        // User Info
+        tvUserName = findViewById(R.id.tvUserName)
         tvUserEmail = findViewById(R.id.tvUserEmail)
-        rgTheme     = findViewById(R.id.rgTheme)
-        spLanguage  = findViewById(R.id.spLanguage)
-        spTextScale = findViewById(R.id.spTextScale)
-        swReduceMotion = findViewById(R.id.swReduceMotion)
-        swNotif     = findViewById(R.id.swEnableNotifications)
-        rowReminderTime = findViewById(R.id.rowReminderTime)
-        tvReminderTime = findViewById(R.id.tvReminderTime)
-        swBiometric  = findViewById(R.id.swBiometric)
-        btnTestNotif = findViewById(R.id.btnSendTestNotification)
-        btnExportData= findViewById(R.id.btnExportData)
-        btnClearLocal= findViewById(R.id.btnClearLocal)
-        btnLogout    = findViewById(R.id.btnLogout)
-        btnDelete    = findViewById(R.id.btnDeleteAccount)
+
+        // Theme & Display
+        switchDarkMode = findViewById(R.id.switchDarkMode)
+        spinnerLanguage = findViewById(R.id.spinnerLanguage)
+        seekBarTextSize = findViewById(R.id.seekBarTextSize)
+        tvTextSizeValue = findViewById(R.id.tvTextSizeValue)
+
+        // Notifications
+        switchNotifications = findViewById(R.id.switchNotifications)
+        switchTaskReminders = findViewById(R.id.switchTaskReminders)
+        switchExamAlerts = findViewById(R.id.switchExamAlerts)
+        switchHabitReminders = findViewById(R.id.switchHabitReminders)
+
+        // Account Actions
+        btnLogout = findViewById(R.id.btnLogout)
+        btnDeleteAccount = findViewById(R.id.btnDeleteAccount)
+
+        // Bottom Navigation
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
     }
 
-    private fun populateDropdowns() {
-        spLanguage.adapter = ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item,
-            listOf("English (en)", "Afrikaans (af)", "Zulu (zu)")
-        )
-        spTextScale.adapter = ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item,
-            listOf("Small (0.9x)", "Default (1.0x)", "Large (1.1x)", "Huge (1.2x)")
-        )
-    }
-
-    private fun loadExisting() = lifecycleScope.launch {
-        val p = prefs.flow.first()
-
-        // Theme
-        when (p[UserPrefsKeys.THEME] ?: "system") {
-            "system" -> rgTheme.check(R.id.rbThemeSystem)
-            "light"  -> rgTheme.check(R.id.rbThemeLight)
-            "dark"   -> rgTheme.check(R.id.rbThemeDark)
-        }
-
-        // Language
-        spLanguage.setSelection(
-            when (p[UserPrefsKeys.LANG] ?: "en") {
-                "af" -> 1; "zu" -> 2; else -> 0
-            }
-        )
-
-        // Text scale
-        val scale = p[UserPrefsKeys.TEXT_SCALE] ?: 1.0f
-        val scaleIdx = when {
-            scale <= 0.9f -> 0
-            scale < 1.05f -> 1
-            scale < 1.15f -> 2
-            else -> 3
-        }
-        spTextScale.setSelection(scaleIdx)
-
-        swReduceMotion.isChecked = p[UserPrefsKeys.REDUCE_MOTION] ?: false
-        swNotif.isChecked        = p[UserPrefsKeys.NOTIF_ENABLED] ?: false
-
-        val hour = p[UserPrefsKeys.REMINDER_HOUR] ?: 18
-        val min  = p[UserPrefsKeys.REMINDER_MIN] ?: 0
-        tvReminderTime.text = formatTime(hour, min)
-
-        swBiometric.isChecked = p[UserPrefsKeys.BIOMETRIC] ?: false
-    }
-
-    private fun attachListeners() {
-        rgTheme.setOnCheckedChangeListener { _, id ->
-            lifecycleScope.launch {
-                val value = when(id) {
-                    R.id.rbThemeLight -> "light"
-                    R.id.rbThemeDark  -> "dark"
-                    else              -> "system"
-                }
-                prefs.setTheme(value)
-                applyTheme(value)
-            }
-        }
-
-        spLanguage.setOnItemSelectedListener { code ->
-            lifecycleScope.launch { prefs.setLang(code); applyLocale(code) }
-        }
-
-        spTextScale.setOnItemSelectedListener { idx ->
-            val scale = listOf(0.9f, 1.0f, 1.1f, 1.2f)[idx]
-            lifecycleScope.launch { prefs.setTextScale(scale); applyTextScale(scale) }
-        }
-
-        swReduceMotion.setOnCheckedChangeListener { _, checked ->
-            lifecycleScope.launch { prefs.setReduceMotion(checked) }
-        }
-
-        swNotif.setOnCheckedChangeListener { _, checked ->
-            lifecycleScope.launch {
-                prefs.setNotificationsEnabled(checked)
-                if (checked && Build.VERSION.SDK_INT >= 33) {
-                    requestNotifPerm.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-                }
-            }
-        }
-
-        rowReminderTime.setOnClickListener { openTimePicker() }
-        btnTestNotif.setOnClickListener { sendTestNotification() }
-
-        swBiometric.setOnCheckedChangeListener { _, checked ->
-            if (checked) enableBiometricOrExplain() else lifecycleScope.launch { prefs.setBiometric(false) }
-        }
-
-        btnExportData.setOnClickListener {
-            createDocLauncher.launch("universe-export.json")
-        }
-        btnClearLocal.setOnClickListener { clearLocalData() }
-
-        btnLogout.setOnClickListener { signOut() }
-        btnDelete.setOnClickListener { deleteAccountFlow() }
-    }
-
-    /* ---------- APPLY SETTINGS ---------- */
-
-    private fun applyTheme(mode: String) {
-        val m = when(mode) {
-            "light" -> AppCompatDelegate.MODE_NIGHT_NO
-            "dark"  -> AppCompatDelegate.MODE_NIGHT_YES
-            else    -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        }
-        AppCompatDelegate.setDefaultNightMode(m)
-    }
-
-    private fun applyLocale(lang: String) {
-        val locales = LocaleListCompat.forLanguageTags(
-            when (lang) { "af" -> "af"; "zu" -> "zu"; else -> "en" }
-        )
-        AppCompatDelegate.setApplicationLocales(locales)
-        recreate() // apply to this activity now
-    }
-
-    private fun applyTextScale(scale: Float) {
-        val conf = resources.configuration
-        conf.fontScale = scale
-        @Suppress("DEPRECATION")
-        resources.updateConfiguration(conf, resources.displayMetrics)
-        recreate()
-    }
-
-    /* ---------- NOTIFICATIONS ---------- */
-
-    private fun ensureNotifChannel() {
-        if (Build.VERSION.SDK_INT >= 26) {
-            val ch = NotificationChannel("universe_default", "UNIverse", NotificationManager.IMPORTANCE_DEFAULT)
-            getSystemService(NotificationManager::class.java).createNotificationChannel(ch)
-        }
-    }
-
-    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
-    private fun sendTestNotification() {
-        if (Build.VERSION.SDK_INT >= 33 &&
-            !NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-            openAppSettings(); return
-        }
-        val notif = NotificationCompat.Builder(this, "universe_default")
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle("UNIverse")
-            .setContentText("Notifications are enabled 🎉")
-            .setAutoCancel(true)
-            .build()
-        NotificationManagerCompat.from(this).notify(42, notif)
-    }
-
-    private fun openTimePicker() {
-        val cal = Calendar.getInstance()
-        val is24 = DateFormat.is24HourFormat(this)
-        val dlg = android.app.TimePickerDialog(this, { _, h, m ->
-            lifecycleScope.launch {
-                prefs.setReminder(h, m)
-                tvReminderTime.text = formatTime(h, m)
-                // TODO: schedule your real daily reminder here (AlarmManager/WorkManager)
-            }
-        }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), is24)
-        dlg.show()
-    }
-
-    private fun formatTime(h: Int, m: Int): String = String.format("%02d:%02d", h, m)
-
-    private fun openAppSettings() {
-        startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-            putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-        })
-    }
-
-    /* ---------- BIOMETRIC ---------- */
-
-    private fun enableBiometricOrExplain() {
-        val mgr = androidx.biometric.BiometricManager.from(this)
-        val can = mgr.canAuthenticate(androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK)
-        if (can == androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS) {
-            val promptInfo = androidx.biometric.BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Enable biometric unlock")
-                .setSubtitle("Use your fingerprint/face to unlock UNIverse")
-                .setNegativeButtonText("Cancel")
-                .build()
-            val prompt = androidx.biometric.BiometricPrompt(this,
-                mainExecutor,
-                object : androidx.biometric.BiometricPrompt.AuthenticationCallback() {
-                    override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
-                        super.onAuthenticationSucceeded(result)
-                        lifecycleScope.launch { prefs.setBiometric(true) }
-                        Toast.makeText(this@SettingsActivity, "Biometric enabled", Toast.LENGTH_SHORT).show()
-                    }
-                    override fun onAuthenticationError(code: Int, err: CharSequence) {
-                        super.onAuthenticationError(code, err)
-                        Toast.makeText(this@SettingsActivity, "$err", Toast.LENGTH_SHORT).show()
-                        swBiometric.isChecked = false
-                    }
-                })
-            prompt.authenticate(promptInfo)
+    private fun loadUserInfo() {
+        val user = auth.currentUser
+        if (user != null) {
+            tvUserName.text = user.displayName ?: "User"
+            tvUserEmail.text = user.email ?: "No email"
         } else {
-            Toast.makeText(this, "No biometric enrolled on this device", Toast.LENGTH_LONG).show()
-            swBiometric.isChecked = false
+            tvUserName.text = "Guest"
+            tvUserEmail.text = "Not logged in"
         }
     }
 
-    /* ---------- PRIVACY ---------- */
-
-    private suspend fun writeExport(uri: Uri) {
-        // TODO: replace with real repositories (tasks/exams/habits/savings)
-        val json = """
-            {
-              "user": {"uid":"${auth.currentUser?.uid}","email":"${auth.currentUser?.email}"},
-              "settings": {
-                "theme": "${prefs.flow.first()[UserPrefsKeys.THEME] ?: "system"}",
-                "language": "${prefs.flow.first()[UserPrefsKeys.LANG] ?: "en"}"
-              }
+    private fun loadSettings() {
+        lifecycleScope.launch {
+            // Theme
+            prefManager.isDarkMode.collect { isDark ->
+                switchDarkMode.isChecked = isDark
             }
-        """.trimIndent()
-        contentResolver.openOutputStream(uri)?.use { it.write(json.toByteArray()) }
-        Toast.makeText(this, "Exported to ${uri.lastPathSegment}", Toast.LENGTH_LONG).show()
+        }
+
+        lifecycleScope.launch {
+            // Text Size
+            prefManager.textScale.collect { scale ->
+                seekBarTextSize.progress = ((scale - 0.8f) * 100).toInt()
+                tvTextSizeValue.text = "${(scale * 100).toInt()}%"
+            }
+        }
+
+        lifecycleScope.launch {
+            // Notifications
+            prefManager.notificationsEnabled.collect { enabled ->
+                switchNotifications.isChecked = enabled
+                updateNotificationSwitches(enabled)
+            }
+        }
+
+        lifecycleScope.launch {
+            prefManager.taskRemindersEnabled.collect { enabled ->
+                switchTaskReminders.isChecked = enabled
+            }
+        }
+
+        lifecycleScope.launch {
+            prefManager.examAlertsEnabled.collect { enabled ->
+                switchExamAlerts.isChecked = enabled
+            }
+        }
+
+        lifecycleScope.launch {
+            prefManager.habitRemindersEnabled.collect { enabled ->
+                switchHabitReminders.isChecked = enabled
+            }
+        }
     }
 
-    private fun clearLocalData() {
-        // TODO: clear Room DB tables, caches, etc.
-        Toast.makeText(this, "Local data cleared (stub)", Toast.LENGTH_SHORT).show()
-    }
+    private fun setupListeners() {
+        // Dark Mode Toggle
+        switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                prefManager.setDarkMode(isChecked)
+                applyTheme(isChecked)
+            }
+        }
 
-    /* ---------- ACCOUNT ---------- */
+        // Text Size Slider
+        seekBarTextSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val scale = 0.8f + (progress / 100f * 0.4f) // 0.8 to 1.2
+                tvTextSizeValue.text = "${(scale * 100).toInt()}%"
+            }
 
-    private fun signOut() {
-        auth.signOut()
-        GoogleSignIn.getClient(
-            this, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-        ).signOut()
-        startActivity(Intent(this, LoginActivity::class.java))
-        finishAffinity()
-    }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
-    private fun deleteAccountFlow() {
-        // Re-auth with Google then delete Firebase user and Firestore doc
-        val acct = GoogleSignIn.getLastSignedInAccount(this)
-        if (acct == null) { Toast.makeText(this, "Please sign in again", Toast.LENGTH_LONG).show(); return }
-        val cred = com.google.firebase.auth.GoogleAuthProvider.getCredential(acct.idToken, null)
-        auth.currentUser?.reauthenticate(cred)?.addOnSuccessListener {
-            val uid = auth.currentUser!!.uid
-            db.collection("users").document(uid).delete().addOnCompleteListener {
-                auth.currentUser!!.delete().addOnCompleteListener {
-                    Toast.makeText(this, "Account deleted", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this, LoginActivity::class.java)); finishAffinity()
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                val scale = 0.8f + (seekBar!!.progress / 100f * 0.4f)
+                lifecycleScope.launch {
+                    prefManager.setTextScale(scale)
+                    Toast.makeText(
+                        this@SettingsActivity,
+                        "Text size updated. Restart app to apply.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-        }?.addOnFailureListener { e ->
-            Toast.makeText(this, "Re-auth failed: ${e.message}", Toast.LENGTH_LONG).show()
+        })
+
+        // Master Notifications Toggle
+        switchNotifications.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                prefManager.setNotificationsEnabled(isChecked)
+                updateNotificationSwitches(isChecked)
+            }
+        }
+
+        // Individual Notification Toggles
+        switchTaskReminders.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                prefManager.setTaskRemindersEnabled(isChecked)
+            }
+        }
+
+        switchExamAlerts.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                prefManager.setExamAlertsEnabled(isChecked)
+            }
+        }
+
+        switchHabitReminders.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                prefManager.setHabitRemindersEnabled(isChecked)
+            }
+        }
+
+        // Logout Button
+        btnLogout.setOnClickListener {
+            showLogoutDialog()
+        }
+
+        // Delete Account Button
+        btnDeleteAccount.setOnClickListener {
+            showDeleteAccountDialog()
         }
     }
 
-    /* ---------- Small helpers for Spinner callbacks ---------- */
-    private fun Spinner.setOnItemSelectedListener(onSelect: (index: Int) -> Unit) {
-        this.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: android.widget.AdapterView<*>, v: android.view.View?, pos: Int, id: Long) {
-                onSelect(pos)
+    private fun setupBottomNavigation() {
+        bottomNavigationView.selectedItemId = R.id.settings
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.dashboard -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+                R.id.tasks -> {
+                    Toast.makeText(this, "Tasks feature coming soon!", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.exams -> {
+                    startActivity(Intent(this, ExamsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+                R.id.habits -> {
+                    startActivity(Intent(this, HabitListActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+                R.id.settings -> true
+                else -> false
             }
-            override fun onNothingSelected(parent: android.widget.AdapterView<*>) {}
         }
     }
-    private fun Spinner.setOnItemSelectedListener(mapToLang: (langCode: String) -> Unit) { /* overloaded not used */ }
-    private fun Spinner.setOnItemSelectedListenerLang(onLang: (String) -> Unit) {
-        this.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: android.widget.AdapterView<*>, v: android.view.View?, pos: Int, id: Long) {
-                val lang = when(pos){ 1->"af"; 2->"zu"; else->"en" }; onLang(lang)
+
+    private fun updateNotificationSwitches(enabled: Boolean) {
+        switchTaskReminders.isEnabled = enabled
+        switchExamAlerts.isEnabled = enabled
+        switchHabitReminders.isEnabled = enabled
+
+        if (!enabled) {
+            switchTaskReminders.alpha = 0.5f
+            switchExamAlerts.alpha = 0.5f
+            switchHabitReminders.alpha = 0.5f
+        } else {
+            switchTaskReminders.alpha = 1.0f
+            switchExamAlerts.alpha = 1.0f
+            switchHabitReminders.alpha = 1.0f
+        }
+    }
+
+    private fun applyTheme(isDark: Boolean) {
+        if (isDark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+        recreate() // Restart activity to apply theme
+    }
+
+    private fun showLogoutDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Logout") { _, _ ->
+                auth.signOut()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finishAffinity() // Close all activities
             }
-            override fun onNothingSelected(parent: android.widget.AdapterView<*>) {}
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showDeleteAccountDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Account")
+            .setMessage("Are you sure you want to permanently delete your account? This action cannot be undone.")
+            .setPositiveButton("Delete") { _, _ ->
+                deleteAccount()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun deleteAccount() {
+        val user = auth.currentUser
+        if (user != null) {
+            user.delete()
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Account deleted", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finishAffinity()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this,
+                        "Failed to delete account: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
         }
     }
 }

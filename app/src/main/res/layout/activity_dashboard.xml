@@ -25,6 +25,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hello, Alex!"
@@ -33,6 +34,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thursday, May 15"
@@ -43,11 +45,14 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/ivProfile"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/ic_profile"
                 android:background="@drawable/circle_background"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true" />
 
         </LinearLayout>
 
@@ -60,12 +65,15 @@
 
             <!-- Tasks Completed Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardTasksCompleted"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardElevation="4dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -82,6 +90,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tvTasksCompleted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="7/12"
@@ -96,12 +105,15 @@
 
             <!-- Study Hours Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardStudyHours"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardElevation="4dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -118,6 +130,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tvStudyHours"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.5h"
@@ -125,164 +138,6 @@
                         android:textSize="32sp"
                         android:textStyle="bold"
                         android:paddingTop="8dp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Upcoming Assignments"
-                                android:textColor="#000000"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="See all >"
-                                android:textColor="#666666"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                        <!-- Assignment Items -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingTop="8dp">
-
-                            <!-- Term Paper -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingVertical="8dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Term paper"
-                                    android:textColor="#000000"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="History T01"
-                                        android:textColor="#666666"
-                                        android:textSize="12sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Due tomorrow"
-                                        android:textColor="#FF6B6B"
-                                        android:textSize="12sp" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <!-- Problem Set -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingVertical="8dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Problem set 3"
-                                    android:textColor="#000000"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="Calculus II"
-                                        android:textColor="#666666"
-                                        android:textSize="12sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Due in 3 days"
-                                        android:textColor="#666666"
-                                        android:textSize="12sp" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <!-- Lab Report -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingVertical="8dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Lab Report"
-                                    android:textColor="#000000"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="Biology T01"
-                                        android:textColor="#666666"
-                                        android:textSize="12sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Due in 5 days"
-                                        android:textColor="#666666"
-                                        android:textSize="12sp" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -312,6 +167,181 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- Upcoming Assignments Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Upcoming Assignments"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvSeeAllAssignments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See all >"
+                        android:textColor="#666666"
+                        android:textSize="14sp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+                <!-- Assignment Items Container -->
+                <LinearLayout
+                    android:id="@+id/assignmentsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp">
+
+                    <!-- Assignment items will be here - you can populate dynamically -->
+                    <!-- For now keeping the static ones -->
+
+                    <!-- Term Paper -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Term paper"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="History T01"
+                                android:textColor="#666666"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Due tomorrow"
+                                android:textColor="#FF6B6B"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Problem Set -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Problem set 3"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Calculus II"
+                                android:textColor="#666666"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Due in 3 days"
+                                android:textColor="#666666"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Lab Report -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lab Report"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Biology T01"
+                                android:textColor="#666666"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Due in 5 days"
+                                android:textColor="#666666"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <!-- Courses and Upcoming Assignments Section -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -321,12 +351,15 @@
 
             <!-- Courses Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardCourses"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardElevation="4dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -350,15 +383,19 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvSeeAllCourses"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="See all >"
                             android:textColor="#666666"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:clickable="true"
+                            android:focusable="true" />
 
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tvCoursesCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5"
@@ -371,7 +408,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Upcoming Assignments Card -->
+            <!-- Empty card placeholder -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -414,16 +451,20 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvSeeAllSchedule"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="See all >"
                         android:textColor="#666666"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:clickable="true"
+                        android:focusable="true" />
 
                 </LinearLayout>
 
-                <!-- Schedule Items -->
+                <!-- Schedule Items Container -->
                 <LinearLayout
+                    android:id="@+id/scheduleContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
