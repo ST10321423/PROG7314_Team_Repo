@@ -59,8 +59,7 @@ class AddContributionActivity : AppCompatActivity() {
             finish()
         }
 
-        // Optional back button if you add one to the layout:
-        b.btnBack?.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+
     }
 
     private fun showDatePicker() {
