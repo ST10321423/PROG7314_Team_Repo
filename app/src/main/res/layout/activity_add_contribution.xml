@@ -13,6 +13,7 @@
 
         <!-- Header -->
         <TextView
+            android:id="@+id/tvHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Contribution"
@@ -21,10 +22,9 @@
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="24dp"
             android:layout_marginLeft="3dp"
-            android:layout_marginTop="30dp"
-            />
+            android:layout_marginTop="30dp" />
 
-        <!-- Title Section -->
+        <!-- Amount -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,9 +32,10 @@
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -43,15 +44,16 @@
             app:boxBackgroundColor="#94d5ca">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="R"
+                android:inputType="numberDecimal"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Date Section -->
+        <!-- Date -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,25 +61,31 @@
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
             app:boxBackgroundMode="outline"
-            app:boxBackgroundColor="#94d5ca">
+            app:boxBackgroundColor="#94d5ca"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_calendar_24dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Saturday, November 28, 2025"
+                android:focusable="false"
+                android:clickable="true"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Goal -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,56 +93,46 @@
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
+        <!-- Material Exposed Dropdown (AutoCompleteTextView inside TIL) -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilGoal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
             app:boxBackgroundMode="outline"
-            app:boxBackgroundColor="#94d5ca">
+            app:boxBackgroundColor="#94d5ca"
+            android:drawableEnd="@drawable/dropdown"
+            android:drawablePadding="8dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/actvGoal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Select a Goal"
+                android:inputType="none"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-
-
-
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="80dp">
-
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/AddHabitButton"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Add Contribution"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:cornerRadius="18dp"
-        app:backgroundTint="@color/primary1"
-        android:textColor="@color/on_primary"
-        android:layout_marginBottom="24dp"
-        style="@style/Widget.Material3.Button"
-        app:icon="@drawable/ic_add_24dp"
-        app:iconGravity="textStart"/>
-</LinearLayout>
-
+        <!-- Add button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddContribution"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Add Contribution"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="18dp"
+            app:backgroundTint="@color/primary1"
+            android:textColor="@color/on_primary"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="24dp"
+            style="@style/Widget.Material3.Button"
+            app:icon="@drawable/ic_add_24dp"
+            app:iconGravity="textStart" />
 
         <!-- Divider -->
         <View
@@ -143,11 +141,5 @@
             android:background="?attr/colorOutlineVariant"
             android:layout_marginBottom="24dp" />
 
-
-
-
-
     </LinearLayout>
-
-
 </ScrollView>

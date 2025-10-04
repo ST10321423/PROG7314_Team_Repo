@@ -2,26 +2,32 @@ package com.example.prog7314_universe
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.switchmaterial.SwitchMaterial
-import java.util.*
+import androidx.core.content.ContextCompat
+import com.example.prog7314_universe.databinding.ActivityCreateHabitBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
+import com.google.firebase.Timestamp
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class CreateHabitActivity : AppCompatActivity() {
 
-    private lateinit var habitNameEditText: EditText
-    private lateinit var dayViews: List<TextView>
-    private lateinit var endDateButton: Button
-    private lateinit var difficultySpinner: Spinner
-    private lateinit var addHabitButton: Button
-    private lateinit var reminderSwitch: SwitchMaterial
+    private lateinit var b: ActivityCreateHabitBinding
 
-    private val selectedDays = mutableSetOf<Int>()
+    private val selectedDays = mutableSetOf<Int>() // 0..6 (Sun..Sat)
     private val calendar = Calendar.getInstance()
+    private val dateFmt = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_habit)
+        b = ActivityCreateHabitBinding.inflate(layoutInflater)
+        setContentView(b.root)
 
         initializeViews()
         setupDaySelection()
@@ -30,144 +36,164 @@ class CreateHabitActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-        habitNameEditText = findViewById(R.id.habitNameEditText)
-        endDateButton = findViewById(R.id.endDateButton)
-        difficultySpinner = findViewById(R.id.difficultySpinner)
-        addHabitButton = findViewById(R.id.addHabitButton)
-        reminderSwitch = findViewById(R.id.reminderSwitch)
+        // Set defaults
+        b.regularHabit.isChecked = true
+        b.daily.isChecked = true
+        b.morning.isChecked = true
 
-        // Initialize day views
-        dayViews = listOf(
-            findViewById(R.id.sunday),
-            findViewById(R.id.monday),
-            findViewById(R.id.tuesday),
-            findViewById(R.id.wednesday),
-            findViewById(R.id.thursday),
-            findViewById(R.id.friday),
-            findViewById(R.id.saturday)
-        )
+
+        b.endDateButton.text = "Select Date"
     }
 
     private fun setupDaySelection() {
-        dayViews.forEachIndexed { index, textView ->
-            textView.setOnClickListener {
-                toggleDaySelection(index, textView)
-            }
+
+        val dayViews: List<TextView> = listOf(
+            b.sunday, b.monday, b.tuesday, b.wednesday, b.thursday, b.friday, b.saturday
+        )
+
+        dayViews.forEachIndexed { index, tv ->
+            tv.setOnClickListener { toggleDaySelection(index, tv) }
         }
     }
 
     private fun toggleDaySelection(dayIndex: Int, dayView: TextView) {
+        val selectedBg = R.drawable.day_selected
+        val unselectedBg = R.drawable.day_unselected
+        val selectedText = ContextCompat.getColor(this, android.R.color.white)
+        val unselectedText = ContextCompat.getColor(this, android.R.color.black)
+
         if (selectedDays.contains(dayIndex)) {
             selectedDays.remove(dayIndex)
-            dayView.setBackgroundResource(R.drawable.day_unselected)
-            dayView.setTextColor(resources.getColor(android.R.color.black, theme))
+            dayView.setBackgroundResource(unselectedBg)
+            dayView.setTextColor(unselectedText)
         } else {
             selectedDays.add(dayIndex)
-            dayView.setBackgroundResource(R.drawable.day_selected)
-            dayView.setTextColor(resources.getColor(android.R.color.white, theme))
+            dayView.setBackgroundResource(selectedBg)
+            dayView.setTextColor(selectedText)
         }
     }
 
     private fun setupSpinner() {
-        val difficulties = arrayOf("Easy", "Medium", "Hard")
+        val difficulties = listOf("Easy", "Medium", "Hard")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, difficulties)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        difficultySpinner.adapter = adapter
+        b.difficultySpinner.adapter = adapter
     }
 
     private fun setupClickListeners() {
-        endDateButton.setOnClickListener {
-            showDatePicker()
+        b.endDateButton.setOnClickListener { showDatePicker() }
+        b.addHabitButton.setOnClickListener { createHabit() }
+
+
+        b.repeatGroup.setOnCheckedChangeListener { _, checkedId ->
+            val weeklySelected = checkedId == R.id.weekly
+            b.sunday.parent?.let { it as? android.view.View }?.visibility =
+                if (weeklySelected) android.view.View.VISIBLE else android.view.View.GONE
+            if (!weeklySelected) selectedDays.clear()
         }
-
-        addHabitButton.setOnClickListener {
-            createHabit()
-        }
-
-        // Set default selections
-        findViewById<RadioButton>(R.id.regularHabit).isChecked = true
-        findViewById<RadioButton>(R.id.daily).isChecked = true
-        findViewById<RadioButton>(R.id.morning).isChecked = true
-
-
     }
 
     private fun showDatePicker() {
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val y = calendar.get(Calendar.YEAR)
+        val m = calendar.get(Calendar.MONTH)
+        val d = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(
-            this,
-            { _, selectedYear, selectedMonth, selectedDay ->
-                val selectedDate = Calendar.getInstance().apply {
-                    set(selectedYear, selectedMonth, selectedDay)
-                }
-                endDateButton.text = String.format(
-                    "%02d/%02d/%d",
-                    selectedMonth + 1,
-                    selectedDay,
-                    selectedYear
-                )
-            },
-            year,
-            month,
-            day
-        )
-        datePickerDialog.show()
+        DatePickerDialog(this, { _, yy, mm, dd ->
+            calendar.set(yy, mm, dd, 0, 0, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
+            b.endDateButton.text = dateFmt.format(calendar.time)
+        }, y, m, d).show()
     }
 
     private fun createHabit() {
-        val habitName = habitNameEditText.text.toString().trim()
-
+        val habitName = b.habitNameEditText.text?.toString()?.trim().orEmpty()
         if (habitName.isEmpty()) {
-            Toast.makeText(this, "Please enter a habit name", Toast.LENGTH_SHORT).show()
-            return
+            toast("Please enter a habit name"); return
         }
 
-        // Get selected values
-        val habitType = if (findViewById<RadioButton>(R.id.regularHabit).isChecked) "Regular" else "OneTime"
-        val repeat = when {
-            findViewById<RadioButton>(R.id.daily).isChecked -> "Daily"
-            findViewById<RadioButton>(R.id.weekly).isChecked -> "Weekly"
-            findViewById<RadioButton>(R.id.monthly).isChecked -> "Monthly"
+
+        val habitType = if (b.regularHabit.isChecked) "Regular" else "OneTime"
+        val repeat = when (b.repeatGroup.checkedRadioButtonId) {
+            R.id.daily -> "Daily"
+            R.id.weekly -> "Weekly"
+            R.id.monthly -> "Monthly"
             else -> "Daily"
         }
-        val timeOfDay = when {
-            findViewById<RadioButton>(R.id.morning).isChecked -> "Morning"
-            findViewById<RadioButton>(R.id.afternoon).isChecked -> "Afternoon"
-            findViewById<RadioButton>(R.id.night).isChecked -> "Night"
+
+        if (repeat == "Weekly" && selectedDays.isEmpty()) {
+            toast("Select at least one day for a weekly habit"); return
+        }
+
+        val timeOfDay = when (b.timeGroup.checkedRadioButtonId) {
+            R.id.morning -> "Morning"
+            R.id.afternoon -> "Afternoon"
+            R.id.night -> "Night"
             else -> "Morning"
         }
-        val difficulty = difficultySpinner.selectedItem as String
-        val hasReminder = reminderSwitch.isChecked
-        val endDate = endDateButton.text.toString()
+        val difficulty = (b.difficultySpinner.selectedItem as? String) ?: "Easy"
+        val hasReminder = b.reminderSwitch.isChecked
+        val endDate = b.endDateButton.text?.toString()?.takeIf { it.isNotBlank() && it != "Select Date" } ?: ""
 
-        // Here you would save the habit to your database
+
         val habit = Habit(
             name = habitName,
             type = habitType,
             repeat = repeat,
-            selectedDays = selectedDays.toList(),
+            selectedDays = selectedDays.toList().sorted(),
             timeOfDay = timeOfDay,
             difficulty = difficulty,
-            endDate = endDate,
+            endDate = endDate,          // String yyyy-MM-dd or ""
             hasReminder = hasReminder
         )
 
-        Toast.makeText(this, "Habit created successfully!", Toast.LENGTH_SHORT).show()
-        finish()
+        // --- Firestore SAVE ---
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid == null) { toast("Not signed in"); return }
+
+        val db = Firebase.firestore
+        val docRef = db.collection("users").document(uid).collection("habits").document()
+
+        val payload = hashMapOf(
+            "id" to docRef.id,
+            "name" to habit.name,
+            "type" to habit.type,                  // Regular | OneTime
+            "repeat" to habit.repeat,              // Daily | Weekly | Monthly
+            "selectedDays" to habit.selectedDays,  // [0..6]
+            "timeOfDay" to habit.timeOfDay,        // Morning | Afternoon | Night
+            "difficulty" to habit.difficulty,      // Easy | Medium | Hard
+            "endDate" to habit.endDate,            // String
+            "hasReminder" to habit.hasReminder,
+            "createdAt" to Timestamp.now(),
+            "updatedAt" to Timestamp.now()
+        )
+
+        b.addHabitButton.isEnabled = false
+
+        docRef.set(payload)
+            .addOnSuccessListener {
+                toast("Habit created successfully!")
+                finish()
+            }
+            .addOnFailureListener { e ->
+                b.addHabitButton.isEnabled = true
+                toast("Failed to save: ${e.message}")
+            }
+    }
+
+    private fun toast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
 
-// Data class for habit
+// ---- Top-level model ---
 data class Habit(
     val name: String,
-    val type: String,
-    val repeat: String,
-    val selectedDays: List<Int>,
-    val timeOfDay: String,
-    val difficulty: String,
-    val endDate: String,
+    val type: String,             // Regular | OneTime
+    val repeat: String,           // Daily | Weekly | Monthly
+    val selectedDays: List<Int>,  // 0..6 = Sun..Sat (only for Weekly)
+    val timeOfDay: String,        // Morning | Afternoon | Night
+    val difficulty: String,       // Easy | Medium | Hard
+    val endDate: String,          // "yyyy-MM-dd" or ""
     val hasReminder: Boolean
 )
+

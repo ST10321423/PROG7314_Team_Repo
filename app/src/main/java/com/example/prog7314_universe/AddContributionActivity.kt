@@ -1,46 +1,85 @@
-package com.example.myapp
+package com.example.prog7314_universe
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
 import com.example.prog7314_universe.R
+import com.example.prog7314_universe.databinding.ActivityAddContributionBinding
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
-class AddTransactionActivity : AppCompatActivity() {
+class AddContributionActivity : AppCompatActivity() {
+
+    private lateinit var b: ActivityAddContributionBinding
+    private val calendar: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_contribution)
+        b = ActivityAddContributionBinding.inflate(layoutInflater)
+        setContentView(b.root)
 
-        // Set status bar color to match the design
+        // Status bar color (optional; keep your color)
         window.statusBarColor = ContextCompat.getColor(this, R.color.status_bar_color)
 
-        // Initialize UI elements
-        val amountEditText = findViewById<EditText>(R.id.amountEditText)
-        val goalSpinner = findViewById<Spinner>(R.id.goalSpinner)
-        val dateTextView = findViewById<TextView>(R.id.dateTextView)
-        val addButton = findViewById<Button>(R.id.addButton)
-        val backButton = findViewById<Button>(R.id.backButton)
+        // ------- Goals dropdown (Material AutoCompleteTextView) -------
+        // TODO: replace with your ViewModel/Repo data. Using sample items for now:
+        val goals = listOf("Cape Town Trip", "Another Goal", "Third Goal")
+        b.actvGoal.setAdapter(ArrayAdapter(this, android.R.layout.simple_list_item_1, goals))
 
-        // Set initial values
-        amountEditText.setText("R 550.00")
-        amountEditText.setBackgroundColor(ContextCompat.getColor(this, R.color.amount_background))
-        dateTextView.text = "21 August 2025"
-        dateTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.date_background))
+        // ------- Date picker -------
+        b.etDate.setOnClickListener { showDatePicker() }
+        // default date (today)
+        b.etDate.setText(formatDate(calendar.time))
 
-        // Set up spinner with goals
-        val goals = arrayOf("Cape Town Trip", "Another Goal", "Third Goal")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, goals)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        goalSpinner.adapter = adapter
-        goalSpinner.setBackgroundColor(ContextCompat.getColor(this, R.color.goal_background))
+        // ------- Save button -------
+        b.btnAddContribution.setOnClickListener {
+            val amountText = b.etAmount.text?.toString()?.trim().orEmpty()
+            val amount = amountText.replace("R", "").trim().toDoubleOrNull()
+            if (amount == null || amount <= 0) {
+                toast("Enter a valid amount")
+                return@setOnClickListener
+            }
 
-        // Set button colors and styles
-        addButton.setBackgroundColor(ContextCompat.getColor(this, R.color.button_background))
-        backButton.setBackgroundColor(ContextCompat.getColor(this, R.color.button_background))
+            val goalName = b.actvGoal.text?.toString()?.trim().orEmpty()
+            if (goalName.isEmpty()) {
+                toast("Select a goal")
+                return@setOnClickListener
+            }
+
+            val pickedDate = calendar.time // use Timestamp(pickedDate) if Firestore
+
+            // TODO: Replace with your repo save call
+            // e.g. contributionRepo.add(userId, goalId, amount, pickedDate) { success -> ... }
+            toast("Contribution added: R${"%.2f".format(amount)} to \"$goalName\" on ${formatDate(pickedDate)}")
+            finish()
+        }
+
+        // Optional back button if you add one to the layout:
+        b.btnBack?.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
     }
+
+    private fun showDatePicker() {
+        DatePickerDialog(
+            this,
+            { _, year, month, day ->
+                calendar.set(year, month, day, 0, 0, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
+                b.etDate.setText(formatDate(calendar.time))
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+
+    private fun formatDate(date: Date): String =
+        SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault()).format(date)
+
+    private fun toast(msg: String) =
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }

@@ -53,21 +53,41 @@ class SavingsGoalActivity : ComponentActivity() {
 
         vm.getSavingsGoals(userId).observe(this) { list ->
             goals = list
-            val names = list.map { it.goalName }
-            b.goalTypeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, names).apply {
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            if (goals.isEmpty()) {
+                b.tvGoalName.text = "No goals yet"
+                b.txtAmount.text = "R0.00"
+                b.txtProgress.text = "0% • 0 days left"
+                b.progressCircle.setProgressCompat(0, false)
+                adapter.updateList(emptyList())
+                return@observe
             }
 
+            val names = goals.map { it.goalName }
+            b.goalTypeSpinner.adapter = ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, names
+            ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
             b.goalTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                     val g = goals[pos]
                     selectedGoalId = g.id
+                    b.tvGoalName.text = g.goalName
                     updateProgress(g)
                     loadContributions(g.id)
                 }
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
+        }
+        b.btnStatistic.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+
+        b.btnAdd.setOnClickListener {
+            val intent = Intent(this, AddContributionActivity::class.java)
+            intent.putExtra("USER_ID", userId)
+            intent.putExtra("GOAL_ID", selectedGoalId)
+            startActivity(intent)
         }
     }
 
@@ -76,9 +96,9 @@ class SavingsGoalActivity : ComponentActivity() {
         contribVm.getContributions(userId, goal.id).observe(this) { list ->
             val total = list.sumOf { it.amount }
             val progress = if (goal.targetAmount > 0) ((total / goal.targetAmount) * 100).toInt() else 0
-            b.txtAmount.text = "R${total.toInt()}"
+            b.txtAmount.text = "R%.2f".format(total)
             b.txtProgress.text = "You've saved $progress% of your goal!"
-            b.progressCircle.setProgressCompat(progress, true)
+            b.progressCircle.setProgressCompat(progress.coerceIn(0, 100), true)
         }
     }
 

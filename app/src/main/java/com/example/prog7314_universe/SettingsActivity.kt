@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
@@ -37,14 +37,14 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private val auth by lazy { FirebaseAuth.getInstance() }
-    private lateinit var prefManager: PreferenceManager
+    private lateinit var prefManager: com.example.prog7314_universe.utils.PrefManager
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        prefManager = PreferenceManager(this)
+        prefManager = com.example.prog7314_universe.utils.PrefManager(applicationContext)
 
         initializeViews()
         loadUserInfo()

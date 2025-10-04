@@ -306,7 +306,7 @@
 
         <!-- Add Habit Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/AddHabitButton"
+            android:id="@+id/addHabitButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Add Habit"
