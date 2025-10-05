@@ -138,14 +138,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.tasks -> {
-                    //TODO Temporarily disabled - Jedial will implement
-                    Toast.makeText(this, "Tasks feature coming soon!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, TaskActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
                     true
-                    // Uncomment when ready:
-                    // startActivity(Intent(this, TaskActivity::class.java))
-                    // overridePendingTransition(0, 0)
-                    // true
                 }
+
                 R.id.exams -> {
                     startActivity(Intent(this, ExamsActivity::class.java))
                     overridePendingTransition(0, 0)

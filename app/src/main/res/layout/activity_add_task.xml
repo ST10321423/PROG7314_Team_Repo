@@ -21,8 +21,7 @@
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="24dp"
             android:layout_marginLeft="3dp"
-            android:layout_marginTop="30dp"
-            />
+            android:layout_marginTop="30dp" />
 
         <!-- Title Section -->
         <TextView
@@ -42,12 +41,12 @@
             app:boxBackgroundColor="#94d5ca">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTaskTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Complete Job Applications"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Date Section -->
@@ -73,7 +72,6 @@
                 android:hint="Saturday, November 28, 2025"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Start Time Section -->
@@ -107,7 +105,6 @@
                     android:hint="02:00 PM"
                     android:textSize="16sp"
                     android:padding="16dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -126,9 +123,7 @@
                     android:hint="04:00 PM"
                     android:textSize="16sp"
                     android:padding="16dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
 
         <!-- Description Section -->
@@ -150,6 +145,7 @@
             app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTaskDescription"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:hint="Complete outstanding applications"
@@ -157,7 +153,6 @@
                 android:padding="16dp"
                 android:gravity="top"
                 android:inputType="textMultiLine" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Add Category Section -->
@@ -183,7 +178,6 @@
                 android:hint="Work"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Category Chips -->
@@ -224,61 +218,16 @@
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Design Covid 18"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="UIUX"
                 app:chipBackgroundColor="?attr/colorSecondaryContainer"
                 app:chipStrokeColor="?attr/colorOutlineVariant"
                 app:chipStrokeWidth="1dp"
                 app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UX Design"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Website"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="COVID"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UIUX Designer"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
         </com.google.android.material.chip.ChipGroup>
 
+        <!-- Save Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/AddHabitButton"
+            android:id="@+id/btnSaveTask"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Add Task"
@@ -290,11 +239,7 @@
             android:layout_marginBottom="24dp"
             style="@style/Widget.Material3.Button"
             app:icon="@drawable/ic_add_24dp"
-            app:iconGravity="textStart"/>
-
-
-
-
+            app:iconGravity="textStart" />
 
         <!-- Divider -->
         <View
@@ -303,15 +248,5 @@
             android:background="?attr/colorOutlineVariant"
             android:layout_marginBottom="24dp" />
 
-
-
-
-
-
-
-
-
     </LinearLayout>
-
-
 </ScrollView>
