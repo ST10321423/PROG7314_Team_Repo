@@ -33,7 +33,7 @@
     <color name="error">#EF4444</color>
 
     <!-- Bottom Navigation Colors -->
-    <color name="bottom_nav_color">#selector_bottom_nav</color>
+    <color name="bottom_nav_color">#FF0000</color>
     <color name="bottom_nav_selected">#3B82F6</color>
     <color name="bottom_nav_unselected">#64748B</color>
 
