@@ -6,7 +6,6 @@
     android:padding="16dp"
     android:background="@color/on_primary">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,9 +20,8 @@
             android:textStyle="bold"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="24dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="30dp"
-            />
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="30dp" />
 
         <!-- Title Section -->
         <TextView
@@ -48,7 +46,6 @@
                 android:hint="Complete Job Applications"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Date Section -->
@@ -74,7 +71,6 @@
                 android:hint="Saturday, November 28, 2025"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Start Time Section -->
@@ -98,7 +94,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 app:boxBackgroundColor="#94d5ca"
-                app:boxCornerRadius="12dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
                 app:boxStrokeColor="?attr/colorOutlineVariant"
                 app:boxStrokeWidth="1dp">
 
@@ -108,7 +104,6 @@
                     android:hint="02:00 PM"
                     android:textSize="16sp"
                     android:padding="16dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -117,7 +112,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 app:boxBackgroundColor="#94d5ca"
-                app:boxCornerRadius="12dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
                 app:boxStrokeColor="?attr/colorOutlineVariant"
                 app:boxStrokeWidth="1dp">
 
@@ -127,9 +122,7 @@
                     android:hint="04:00 PM"
                     android:textSize="16sp"
                     android:padding="16dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
 
         <!-- Description Section -->
@@ -146,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:boxBackgroundColor="#94d5ca"
-            app:boxCornerRadius="12dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
             app:boxStrokeColor="?attr/colorOutlineVariant"
             app:boxStrokeWidth="1dp">
 
@@ -158,7 +151,6 @@
                 android:padding="16dp"
                 android:gravity="top"
                 android:inputType="textMultiLine" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Add Category Section -->
@@ -184,7 +176,6 @@
                 android:hint="Work"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Category Chips -->
@@ -195,6 +186,7 @@
             app:singleLine="false"
             app:chipSpacing="8dp">
 
+            <!-- (chips unchanged) -->
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -275,7 +267,6 @@
                 app:chipStrokeColor="?attr/colorOutlineVariant"
                 app:chipStrokeWidth="1dp"
                 app:chipCornerRadius="18dp" />
-
         </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.button.MaterialButton
@@ -291,26 +282,11 @@
             android:layout_marginBottom="24dp"
             style="@style/Widget.Material3.Button" />
 
-
-
-
-
         <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?attr/colorOutlineVariant"
             android:layout_marginBottom="24dp" />
-
-
-
-
-
-
-
-
-
     </LinearLayout>
-
-
 </ScrollView>

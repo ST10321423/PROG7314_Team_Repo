@@ -20,11 +20,10 @@
             android:textStyle="bold"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="24dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="30dp"
-            />
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="30dp" />
 
-        <!-- Title Section -->
+        <!-- Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,10 +46,9 @@
                 android:hint="Exam name/code"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Date Section -->
+        <!-- Date -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,9 +71,9 @@
                 android:hint="Saturday, November 28, 2025"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Module -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,11 +96,9 @@
                 android:hint="Module Name or Code"
                 android:textSize="16sp"
                 android:padding="16dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <!-- Start Time Section -->
+        <!-- Time -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,7 +119,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 app:boxBackgroundColor="#94d5ca"
-                app:boxCornerRadius="12dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
                 app:boxStrokeColor="?attr/colorOutlineVariant"
                 app:boxStrokeWidth="1dp">
 
@@ -133,7 +129,6 @@
                     android:hint="02:00 PM"
                     android:textSize="16sp"
                     android:padding="16dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -142,7 +137,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 app:boxBackgroundColor="#94d5ca"
-                app:boxCornerRadius="12dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
                 app:boxStrokeColor="?attr/colorOutlineVariant"
                 app:boxStrokeWidth="1dp">
 
@@ -152,12 +147,10 @@
                     android:hint="04:00 PM"
                     android:textSize="16sp"
                     android:padding="16dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
 
-        <!-- Description Section -->
+        <!-- Description -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -171,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:boxBackgroundColor="#94d5ca"
-            app:boxCornerRadius="12dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
             app:boxStrokeColor="?attr/colorOutlineVariant"
             app:boxStrokeWidth="1dp">
 
@@ -183,10 +176,7 @@
                 android:padding="16dp"
                 android:gravity="top"
                 android:inputType="textMultiLine" />
-
         </com.google.android.material.textfield.TextInputLayout>
-
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/AddHabitButton"
@@ -207,11 +197,5 @@
             android:layout_height="1dp"
             android:background="?attr/colorOutlineVariant"
             android:layout_marginBottom="24dp" />
-
-
-
-
     </LinearLayout>
-
-
 </ScrollView>

@@ -21,10 +21,10 @@
             android:textStyle="bold"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="24dp"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:layout_marginTop="30dp" />
 
-        <!-- Subject Section -->
+        <!-- Subject -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,10 +49,9 @@
                 android:textSize="16sp"
                 android:padding="16dp"
                 android:inputType="text" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Module Section -->
+        <!-- Module -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,10 +76,9 @@
                 android:textSize="16sp"
                 android:padding="16dp"
                 android:inputType="text" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Date Section -->
+        <!-- Date -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,10 +105,9 @@
                 android:focusable="false"
                 android:clickable="true"
                 android:inputType="none" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Time Section -->
+        <!-- Time -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,7 +128,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 app:boxBackgroundColor="#94d5ca"
-                app:boxCornerRadius="12dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
                 app:boxStrokeColor="?attr/colorOutlineVariant"
                 app:boxStrokeWidth="1dp">
 
@@ -145,7 +142,6 @@
                     android:focusable="false"
                     android:clickable="true"
                     android:inputType="none" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -154,7 +150,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 app:boxBackgroundColor="#94d5ca"
-                app:boxCornerRadius="12dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
                 app:boxStrokeColor="?attr/colorOutlineVariant"
                 app:boxStrokeWidth="1dp">
 
@@ -168,12 +164,10 @@
                     android:focusable="false"
                     android:clickable="true"
                     android:inputType="none" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
 
-        <!-- Description Section -->
+        <!-- Description -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -187,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             app:boxBackgroundColor="#94d5ca"
-            app:boxCornerRadius="12dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
             app:boxStrokeColor="?attr/colorOutlineVariant"
             app:boxStrokeWidth="1dp">
 
@@ -200,7 +194,6 @@
                 android:padding="16dp"
                 android:gravity="top"
                 android:inputType="textMultiLine" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Save Button -->
@@ -219,7 +212,7 @@
             app:icon="@drawable/ic_add_24dp"
             app:iconGravity="textStart"/>
 
-        <!-- Cancel Button -->
+        <!-- Cancel -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
@@ -240,8 +233,5 @@
             android:layout_height="1dp"
             android:background="?attr/colorOutlineVariant"
             android:layout_marginBottom="24dp" />
-
-
     </LinearLayout>
-
 </ScrollView>
