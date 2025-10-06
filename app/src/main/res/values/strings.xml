@@ -65,4 +65,7 @@
     <string name="great_job">Great job!</string>
     <string name="no_habits_due_today">No habits due today</string>
     <string name="no_completed_habits">No completed habits today</string>
+
+    <string name="default_web_client_id">1021947947057-s5bgomu5s4e52m7ock59ecbe4st6go41.apps.googleusercontent.com</string>
+
 </resources>
