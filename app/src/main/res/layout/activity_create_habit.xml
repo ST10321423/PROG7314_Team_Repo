@@ -50,7 +50,7 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etName"
+                    android:id="@+id/etHabitName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="e.g., Morning Workout, Read 30 minutes"
@@ -81,7 +81,7 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etColor"
+                    android:id="@+id/etHabitColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="#4CAF50"
@@ -100,13 +100,26 @@
                 android:textColor="@color/on_surface"
                 android:layout_marginBottom="8dp" />
 
-            <Spinner
-                android:id="@+id/spinnerTime"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTime"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/spinner_background"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/spinnerHabitTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select Time"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:textSize="16sp"
+                    android:padding="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Difficulty Section -->
             <TextView
@@ -188,15 +201,68 @@
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbTues"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbWed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="W"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbThurs"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbFri"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="F"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbSat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="S"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbSun"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="S"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
 
-                    <!-- ... repeat Tue–Sun ... -->
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Save Button -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSave"
+                android:id="@+id/btnSaveHabit"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Save Habit"
@@ -212,7 +278,7 @@
 
             <!-- Delete Button -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnDelete"
+                android:id="@+id/btnDeleteHabit"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Delete Habit"

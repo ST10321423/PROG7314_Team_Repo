@@ -49,7 +49,7 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextExamSubject"
+                    android:id="@+id/etExamSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="e.g., Mathematics, Physics"
@@ -76,7 +76,7 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextExamModule"
+                    android:id="@+id/etExamModule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Module name or code"
@@ -106,13 +106,14 @@
                     android:id="@+id/editTextExamDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Saturday, November 28, 2025"
+                    android:hint="Select a Date"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:focusable="false"
                     android:clickable="true"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <!-- Time -->
             <TextView
@@ -140,7 +141,7 @@
                     app:boxStrokeWidth="1dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextStartTime"
+                        android:id="@+id/etStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Start: 02:00 PM"
@@ -162,7 +163,7 @@
                     app:boxStrokeWidth="1dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextEndTime"
+                        android:id="@+id/etEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="End: 04:00 PM"
@@ -193,7 +194,7 @@
                 app:boxStrokeWidth="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextExamDescription"
+                    android:id="@+id/etExamDescription"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:hint="Additional notes or details"

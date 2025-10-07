@@ -1,78 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
-    <LinearLayout
+    <!-- Scrollable content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
 
-        <!-- Goal selector -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Goal"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" />
-
-        <Spinner
-            android:id="@+id/goalTypeSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Header Section (dynamic) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="24dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvGoalName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Goal Name"
-                android:textSize="24sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="6dp" />
-
-            <TextView
-                android:id="@+id/txtProgress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0% • 0 days left"
-                android:textSize="16sp"
-                android:textColor="#666666" />
-        </LinearLayout>
-
-        <!-- Active Savings Card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/rounded_card_background"
-            android:padding="20dp"
-            android:layout_marginBottom="24dp"
-            android:elevation="2dp">
-
+            <!-- Header Section -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New York Road Trip"
+                    android:textSize="24sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="60% • 20 days left"
+                    android:textSize="16sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+            <!-- Active Savings Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_card_background"
+                android:padding="20dp"
+                android:layout_marginBottom="24dp"
+                android:elevation="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Active Savings"
                     android:textSize="18sp"
@@ -80,89 +63,174 @@
                     android:layout_marginBottom="8dp" />
 
                 <TextView
-                    android:id="@+id/txtAmount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="R0.00"
+                    android:text="R8500.00"
                     android:textSize="32sp"
                     android:textColor="#000000"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/progressCircle"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                style="@style/Widget.Material3.CircularProgressIndicator"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="0"
-                app:indicatorSize="56dp"
-                app:trackThickness="6dp"
-                app:indicatorDirectionCircular="clockwise"
-                app:indicatorInset="0dp"
-                app:showAnimationBehavior="inward"
-                app:hideAnimationBehavior="outward"
-                app:indicatorColor="#12BFA2"
-                app:trackColor="#DDDDDD" />
-        </LinearLayout>
-
-        <!-- Buttons Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
-
-            <!-- Back -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnStatistic"
-                android:layout_width="0dp"
+            <!-- Buttons Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="#12BFA2"
-                android:text="Back"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:padding="12dp"
-                style="@style/Widget.Material3.Button" />
+                android:orientation="horizontal"
+                android:layout_marginBottom="32dp">
 
-            <!-- Add Contribution -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAdd"
-                android:layout_width="0dp"
+
+
+                <!-- Add Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddtoSavings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#12BFA2"
+                    android:text="Add"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    style="@style/Widget.Material3.Button" />
+
+            </LinearLayout>
+
+            <!-- Activity Section Header -->
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="#12BFA2"
-                android:text="Add Contribution"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:padding="12dp"
-                style="@style/Widget.Material3.Button" />
+                android:text="Activity"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Activity List -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Activity Item 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_card_background">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="↑ R1200.00"
+                        android:textSize="16sp"
+                        android:textColor="#12BFA2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yesterday"
+                        android:textSize="16sp"
+                        android:textColor="#666666" />
+
+                </LinearLayout>
+
+                <!-- Activity Item 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_card_background">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="↑ R3000.00"
+                        android:textSize="16sp"
+                        android:textColor="#12BFA2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dec 10, 2024"
+                        android:textSize="16sp"
+                        android:textColor="#666666" />
+
+                </LinearLayout>
+
+                <!-- Activity Item 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_card_background">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="↑ R4300.00"
+                        android:textSize="16sp"
+                        android:textColor="#12BFA2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nov 26, 2024"
+                        android:textSize="16sp"
+                        android:textColor="#666666" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="32dp">
+
+                    <!-- Back Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSavingsGoalBack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:backgroundTint="#12BFA2"
+                        android:text="Back"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        style="@style/Widget.Material3.Button" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
+    </ScrollView>
 
-        <!-- Activity Section Header -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Activity"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
+    <!-- Fixed Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_bottom_nav"
+        app:itemIconTint="@drawable/bottom_nav_icon_colour"
+        app:itemTextColor="@drawable/bottom_nav_text_color"
+        app:menu="@menu/bottom_navigation_menu" />
 
-        <!-- Activity List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contributionsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
-
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

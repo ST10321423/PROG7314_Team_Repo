@@ -5,22 +5,20 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddExamActivity : AppCompatActivity() {
 
-    private lateinit var tvTitle: TextView
-    private lateinit var editSubject: EditText
-    private lateinit var editModule: EditText
-    private lateinit var editDate: EditText
-    private lateinit var editStartTime: EditText
-    private lateinit var editEndTime: EditText
-    private lateinit var editDescription: EditText
+    private lateinit var editSubject: TextInputEditText
+    private lateinit var editModule: TextInputEditText
+    private lateinit var editDate: TextInputEditText
+    private lateinit var editStartTime: TextInputEditText
+    private lateinit var editEndTime: TextInputEditText
+    private lateinit var editDescription: TextInputEditText
     private lateinit var btnSave: Button
     private lateinit var btnCancel: Button
 
@@ -41,7 +39,6 @@ class AddExamActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-        tvTitle = findViewById(R.id.tvTitle)
         editSubject = findViewById(R.id.editTextExamSubject)
         editModule = findViewById(R.id.editTextExamModule)
         editDate = findViewById(R.id.editTextExamDate)
@@ -57,7 +54,7 @@ class AddExamActivity : AppCompatActivity() {
 
         if (examId != null) {
             // Edit mode
-            tvTitle.text = "Edit Exam"
+            title = "Edit Exam"
             btnSave.text = "Update Exam"
 
             editSubject.setText(intent.getStringExtra(ExamsActivity.EXTRA_EXAM_SUBJECT))
@@ -75,7 +72,7 @@ class AddExamActivity : AppCompatActivity() {
             editDescription.setText(intent.getStringExtra(ExamsActivity.EXTRA_EXAM_DESCRIPTION))
         } else {
             // Add mode
-            tvTitle.text = "Add Exam"
+            title = "Add Exam"
             btnSave.text = "Save Exam"
         }
     }
@@ -88,12 +85,12 @@ class AddExamActivity : AppCompatActivity() {
 
         // Start time picker
         editStartTime.setOnClickListener {
-            showTimePicker(true)
+            showTimePicker(isStartTime = true)
         }
 
         // End time picker
         editEndTime.setOnClickListener {
-            showTimePicker(false)
+            showTimePicker(isStartTime = false)
         }
 
         // Save button
@@ -135,7 +132,6 @@ class AddExamActivity : AppCompatActivity() {
         TimePickerDialog(
             this,
             { _, selectedHour, selectedMinute ->
-                // Format: "02:00 PM"
                 val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
                 calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
                 calendar.set(Calendar.MINUTE, selectedMinute)
@@ -152,7 +148,7 @@ class AddExamActivity : AppCompatActivity() {
             },
             hour,
             minute,
-            false // 12-hour format
+            false // false = 12-hour format
         ).show()
     }
 

@@ -50,7 +50,7 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etName"
+                    android:id="@+id/etEditHabitName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="e.g., Morning Workout, Read 30 minutes"
@@ -81,7 +81,7 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etColor"
+                    android:id="@+id/etEditHabitColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="#4CAF50"
@@ -100,13 +100,27 @@
                 android:textColor="@color/on_surface"
                 android:layout_marginBottom="8dp" />
 
-            <Spinner
-                android:id="@+id/spinnerTime"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTime"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/spinner_background"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/spinnerEditHabitTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select Time"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:textSize="16sp"
+                    android:padding="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <!-- Difficulty Section -->
             <TextView
@@ -125,7 +139,7 @@
                 android:layout_marginBottom="16dp">
 
                 <RadioButton
-                    android:id="@+id/rbEasy"
+                    android:id="@+id/rbEditEasy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -134,7 +148,7 @@
                     android:padding="8dp" />
 
                 <RadioButton
-                    android:id="@+id/rbMedium"
+                    android:id="@+id/rbEditMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -144,7 +158,7 @@
                     android:padding="8dp" />
 
                 <RadioButton
-                    android:id="@+id/rbHard"
+                    android:id="@+id/rbEditHard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -180,7 +194,7 @@
 
                     <!-- Your CheckBoxes (Mon–Sun) remain unchanged -->
                     <CheckBox
-                        android:id="@+id/cbMon"
+                        android:id="@+id/cbMonEdit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -188,15 +202,69 @@
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbTuesEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbWedEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="W"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbThursEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbFriEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="F"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbSatEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="S"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cbSunEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="S"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:button="@drawable/custom_checkbox" />
 
-                    <!-- ... repeat Tue–Sun ... -->
+
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Save Button -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSave"
+                android:id="@+id/btnEditHabit"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Save Habit"
@@ -212,7 +280,7 @@
 
             <!-- Delete Button -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnDelete"
+                android:id="@+id/btnDeleteHabit"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Delete Habit"

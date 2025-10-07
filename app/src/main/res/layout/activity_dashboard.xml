@@ -161,7 +161,7 @@
                 app:cardElevation="4dp">
 
                 <Button
-                    android:id="@+id/addTaskButton"
+                    android:id="@+id/addTaskBtnDash"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/gradient_purple"
@@ -339,7 +339,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tvSeeAllSchedule"
+                            android:id="@+id/tvSeeAllClassSchedule"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="See all >"

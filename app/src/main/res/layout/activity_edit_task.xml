@@ -48,7 +48,7 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextTaskTitle"
+                    android:id="@+id/etEditTaskTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Complete Job Applications"
@@ -74,11 +74,15 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditExamDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Saturday, November 28, 2025"
+                    android:hint="Select a Date"
                     android:textSize="16sp"
-                    android:padding="16dp" />
+                    android:padding="16dp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Start & End Time -->
@@ -107,6 +111,7 @@
                     app:boxStrokeWidth="1dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEditTaskStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="02:00 PM"
@@ -125,6 +130,7 @@
                     app:boxStrokeWidth="1dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEditTaskEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="04:00 PM"
@@ -152,7 +158,7 @@
                 app:boxStrokeWidth="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextTaskDescription"
+                    android:id="@+id/etEditTaskDescription"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:hint="Complete outstanding applications"
@@ -180,6 +186,7 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditTaskCat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Work"
@@ -188,56 +195,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Category Chips -->
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:singleLine="false"
-                app:chipSpacing="8dp">
 
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="UI Design"
-                    app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                    app:chipStrokeColor="?attr/colorOutlineVariant"
-                    app:chipStrokeWidth="1dp"
-                    app:chipCornerRadius="18dp" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Web Design"
-                    app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                    app:chipStrokeColor="?attr/colorOutlineVariant"
-                    app:chipStrokeWidth="1dp"
-                    app:chipCornerRadius="18dp" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Designer"
-                    app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                    app:chipStrokeColor="?attr/colorOutlineVariant"
-                    app:chipStrokeWidth="1dp"
-                    app:chipCornerRadius="18dp" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="UIUX"
-                    app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                    app:chipStrokeColor="?attr/colorOutlineVariant"
-                    app:chipStrokeWidth="1dp"
-                    app:chipCornerRadius="18dp" />
-            </com.google.android.material.chip.ChipGroup>
 
             <!-- Save Button -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSaveTask"
+                android:id="@+id/btnEditTask"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Add Task"
+                android:text="Edit Task"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="18dp"

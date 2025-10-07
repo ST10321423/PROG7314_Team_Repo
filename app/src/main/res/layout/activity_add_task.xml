@@ -48,7 +48,7 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextTaskTitle"
+                    android:id="@+id/etTaskTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Complete Job Applications"
@@ -74,11 +74,15 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextExamDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Saturday, November 28, 2025"
+                    android:hint="Select a Date"
                     android:textSize="16sp"
-                    android:padding="16dp" />
+                    android:padding="16dp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Start & End Time -->
