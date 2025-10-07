@@ -25,7 +25,29 @@ async function auth(req, res, next) {
 }
 
 const itemsCol = (uid) => db.collection("tasks").doc(uid).collection("items");
-const toTask = (doc) => ({id: doc.id, ...doc.data()});
+const toIsoString = (value) => {
+  if (!value) return null;
+  if (typeof value.toDate === "function") {
+    return value.toDate().toISOString();
+  }
+  if (value instanceof Date) {
+    return value.toISOString();
+  }
+  return null;
+};
+
+const toTask = (doc) => {
+  const data = doc.data() || {};
+  return {
+    id: doc.id,
+    title: data.title || "",
+    description: data.description || "",
+    completed: !!data.completed,
+    dueDate: toIsoString(data.dueDate),
+    createdAt: toIsoString(data.createdAt),
+    updatedAt: toIsoString(data.updatedAt)
+  };
+};
 
 // GET /tasks  -> list tasks
 app.get("/tasks", auth, async (req, res) => {
@@ -36,13 +58,17 @@ app.get("/tasks", auth, async (req, res) => {
 // POST /tasks -> create task
 app.post("/tasks", auth, async (req, res) => {
   const b = req.body || {};
-  const title = b.title;
-  const description = b.description || "";
+  const title = typeof b.title === "string" ? b.title.trim() : "";
+  const description = typeof b.description === "string" ? b.description : "";
   const dueDate = b.dueDate ? new Date(b.dueDate) : null;
   const completed = !!b.completed;
 
   if (!title || typeof title !== "string") {
     return res.status(400).json({error:"title is required"});
+  }
+
+  if (dueDate && isNaN(dueDate.getTime())) {
+    return res.status(400).json({error:"dueDate must be ISO-8601"});
   }
 
   const now = admin.firestore.FieldValue.serverTimestamp();
@@ -66,10 +92,21 @@ app.put("/tasks/:id", auth, async (req, res) => {
   const b = req.body || {};
 
   const patch = {updatedAt: admin.firestore.FieldValue.serverTimestamp()};
-  if (b.title !== undefined) patch.title = b.title;
-  if (b.description !== undefined) patch.description = b.description;
+  if (b.title !== undefined) {
+    const trimmed = String(b.title).trim();
+    if (!trimmed) {
+      return res.status(400).json({error:"title is required"});
+    }
+    patch.title = trimmed;
+  }
+  if (b.description !== undefined) {
+    patch.description = b.description === null ? "" : String(b.description);
+  }
   if (b.dueDate !== undefined) {
     patch.dueDate = b.dueDate ? new Date(b.dueDate) : null;
+    if (patch.dueDate && isNaN(patch.dueDate.getTime())) {
+      return res.status(400).json({error:"dueDate must be ISO-8601"});
+    }
   }
   if (b.completed !== undefined) patch.completed = !!b.completed;
 
