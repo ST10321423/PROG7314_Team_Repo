@@ -122,4 +122,25 @@ Any change in Firestore (add/edit/delete) updates the app instantly via real-tim
 Installation & Running the Project
 Clone Repository
 
-git clone https://github.com/ST10321423/PROG7314-UniVerse.git
+git clone https://github.com/ST10321423/PROG7314_Team_Repo.git
+
+Setup and Run in Android Studio:
+
+-Open project in Android Studio
+-Connect Firebase:
+-Tools → Firebase → Authentication → Connect to Firebase
+-Enable Email/Password & Google Sign-In
+-Enable Cloud Firestore
+-Sync Gradle
+-Run app on emulator or connected device
+
+App → Android Emulator / Device
+Backend → Firebase (Firestore + Auth)
+
+References
+Firebase (2025). Authentication and Firestore Documentation.
+https://firebase.google.com/docs
+Google Developers (2025). Best Practices for Secure Android Development.
+https://developer.android.com/topic/security/best-practices
+Firebase (2025). Cloud Firestore Security Rules.
+https://firebase.google.com/docs/firestore/security/rules-conditions
