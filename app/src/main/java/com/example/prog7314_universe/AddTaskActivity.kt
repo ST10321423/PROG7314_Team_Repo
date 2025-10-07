@@ -21,7 +21,8 @@ class AddTaskActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private val calendar = Calendar.getInstance()
-    private var selectedDate: String = ""
+    private var selectedDateDisplay: String = ""
+    private var selectedDateIso: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +58,16 @@ class AddTaskActivity : AppCompatActivity() {
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
                 calendar.set(selectedYear, selectedMonth, selectedDay)
-                // Format the date like "Saturday, November 28, 2025"
-                val dateFormat = SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.getDefault())
-                selectedDate = dateFormat.format(calendar.time)
-                dateInput.setText(selectedDate)
+                // Normalized to start-of-day so API receives a consistent instant
+                calendar.set(Calendar.HOUR_OF_DAY, 0)
+                calendar.set(Calendar.MINUTE, 0)
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
+
+                val displayFormat = SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.getDefault())
+                selectedDateDisplay = displayFormat.format(calendar.time)
+                selectedDateIso = calendar.toInstant().toString()
+                dateInput.setText(selectedDateDisplay)
             },
             year,
             month,
@@ -79,7 +86,7 @@ class AddTaskActivity : AppCompatActivity() {
             return
         }
 
-        if (selectedDate.isEmpty()) {
+        if (selectedDateIso.isEmpty()) {
             Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show()
             return
         }
@@ -87,7 +94,7 @@ class AddTaskActivity : AppCompatActivity() {
         val result = Intent().apply {
             putExtra(EXTRA_TITLE, title)
             putExtra(EXTRA_DESCRIPTION, desc)
-            putExtra(EXTRA_DUE_ISO, selectedDate) // send the selected date
+            putExtra(EXTRA_DUE_ISO, selectedDateIso) // send the selected date
         }
 
         setResult(Activity.RESULT_OK, result)

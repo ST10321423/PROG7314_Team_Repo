@@ -3,12 +3,16 @@ package com.example.prog7314_universe.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.prog7314_universe.data.createTaskApi
 import com.example.prog7314_universe.Models.Task
+import com.example.prog7314_universe.data.TaskApiDataSource
 import com.example.prog7314_universe.repo.TaskRepository
 import kotlinx.coroutines.launch
 
 class TaskViewModel : ViewModel() {
-    private val repo = TaskRepository()
+    private val repo = TaskRepository(
+        TaskApiDataSource(createTaskApi())
+    )
 
     val tasks = MutableLiveData<List<Task>>(emptyList())
     val loading = MutableLiveData(false)

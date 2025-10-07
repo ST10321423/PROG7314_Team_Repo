@@ -80,10 +80,15 @@ class TaskActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQ_ADD_TASK && resultCode == RESULT_OK) {
-            val title = data?.getStringExtra("title")?.trim().orEmpty()
-            val description = data?.getStringExtra("description")?.trim().orEmpty()
+            val title = data?.getStringExtra(AddTaskActivity.EXTRA_TITLE)?.trim().orEmpty()
+            val description = data?.getStringExtra(AddTaskActivity.EXTRA_DESCRIPTION)?.trim().orEmpty()
+            val dueIso = data?.getStringExtra(AddTaskActivity.EXTRA_DUE_ISO)
             if (title.isNotEmpty()) {
-                vm.addTask(title, description.ifEmpty { null }, /* dueIso = */ null)
+                vm.addTask(
+                    title = title,
+                    desc = description.ifEmpty { null },
+                    dueIso = dueIso?.takeIf { it.isNotBlank() }
+                )
             } else {
                 Toast.makeText(this, "Title is required", Toast.LENGTH_SHORT).show()
             }
