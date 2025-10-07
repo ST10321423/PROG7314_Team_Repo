@@ -49,7 +49,7 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etExamSubject"
+                    android:id="@+id/editTextExamSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="e.g., Mathematics, Physics"
@@ -76,7 +76,7 @@
                 app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etExamModule"
+                    android:id="@+id/editTextExamModule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Module name or code"
@@ -141,7 +141,7 @@
                     app:boxStrokeWidth="1dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etStartTime"
+                        android:id="@+id/editTextStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Start: 02:00 PM"
@@ -163,7 +163,7 @@
                     app:boxStrokeWidth="1dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etEndTime"
+                        android:id="@+id/editTextEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="End: 04:00 PM"
@@ -194,7 +194,7 @@
                 app:boxStrokeWidth="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etExamDescription"
+                    android:id="@+id/editTextExamDescription"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:hint="Additional notes or details"

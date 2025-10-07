@@ -14,6 +14,12 @@
     <string name="dont_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
 
+    <string name="save_habit">Save Habit</string>
+    <string name="update_habit">Update Habit</string>
+    <string name="delete_habit">Delete Habit</string>
+    <string name="error_not_signed_in">Unable to determine the current user. Please sign in again.</string>
+    <string name="error_save_failed">Failed to save habit%1$s</string>
+    <string name="error_delete_failed">Failed to delete habit%1$s</string>
     <!-- Exam strings -->
     <string name="exams">Exams</string>
     <string name="add_exam">Add Exam</string>

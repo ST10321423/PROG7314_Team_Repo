@@ -45,7 +45,7 @@
                 android:layout_marginBottom="24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etTargetName"
+                    android:id="@+id/edtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Cape Town Trip"
@@ -71,7 +71,7 @@
                 android:layout_marginBottom="24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etTargetDeadline"
+                    android:id="@+id/edtDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="08/01/2026"
@@ -97,7 +97,7 @@
                 android:layout_marginBottom="24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etTargetAmt"
+                    android:id="@+id/edtAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="R15000.00"
@@ -108,7 +108,7 @@
 
             <!-- Next Button -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/AddSavingsTarget"
+                android:id="@+id/btnCreateGoal"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Next"

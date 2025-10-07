@@ -8,14 +8,14 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.prog7314_universe.Models.SavingsGoal
-import com.example.prog7314_universe.databinding.ActivityCreateSavingsGoalBinding
+import com.example.prog7314_universe.databinding.ActivityAddSavingsGoalBinding
 import com.example.prog7314_universe.viewmodel.SavingsGoalViewModel
 import com.google.firebase.Timestamp
 import java.util.Calendar
 
 class CreateSavingsGoalActivity : ComponentActivity() {
 
-    private lateinit var b: ActivityCreateSavingsGoalBinding
+    private lateinit var b: ActivityAddSavingsGoalBinding
     private lateinit var vm: SavingsGoalViewModel
     private var userId: String = ""
     private var selectedDeadline: Timestamp = Timestamp.now()
@@ -29,7 +29,7 @@ class CreateSavingsGoalActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        b = ActivityCreateSavingsGoalBinding.inflate(layoutInflater)
+        b = ActivityAddSavingsGoalBinding.inflate(layoutInflater)
         setContentView(b.root)
 
         vm = ViewModelProvider(this)[SavingsGoalViewModel::class.java]

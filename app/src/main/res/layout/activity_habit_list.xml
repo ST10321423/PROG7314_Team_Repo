@@ -11,7 +11,6 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="16dp"
-        android:clipToPadding="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Exams"
+            android:text="Habits"
             android:textColor="#000000"
             android:textSize="35sp"
             android:textStyle="bold"
@@ -30,18 +29,25 @@
             android:id="@+id/tvSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search exams..."
+            android:text="Search habits..."
             android:textColor="#666666"
             android:textSize="14sp"
             android:padding="12dp"
             android:background="@drawable/search_background"
             android:layout_marginBottom="16dp" />
 
+        <Spinner
+            android:id="@+id/spinnerTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:spinnerMode="dropdown" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:id="@+id/tvFilterAll"
@@ -54,6 +60,17 @@
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:background="@drawable/tab_active_background" />
+
+            <TextView
+                android:id="@+id/tvFilterDueToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Due Today (0)"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:layout_marginStart="12dp" />
 
             <TextView
                 android:id="@+id/tvFilterCompleted"
@@ -74,7 +91,7 @@
             android:layout_marginBottom="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewExams"
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -98,7 +115,7 @@
         android:id="@+id/tvEmptyState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No exams yet"
+        android:text="No habits yet"
         android:textColor="#666666"
         android:textSize="16sp"
         android:visibility="gone"
@@ -108,11 +125,11 @@
         app:layout_constraintEnd_toEndOf="@id/contentContainer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddExam"
+        android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="Add Exam"
+        android:contentDescription="Add Habit"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"

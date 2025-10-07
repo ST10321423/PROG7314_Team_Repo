@@ -68,7 +68,6 @@
         <activity android:name=".AddExamActivity" />
         <activity android:name=".SavingsGoalActivity" />
         <activity android:name=".CreateSavingsGoalActivity" />
-        <activity android:name=".CreateSavingsContributionActivity" />
     </application>
 
 </manifest>
