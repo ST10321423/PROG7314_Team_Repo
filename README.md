@@ -106,7 +106,7 @@ description: Task details
 dueDate: Firestore Timestamp
 isCompleted: Boolean (task status)
 
-### Core Functions
+### Core Functions:
 	
 addTask():	Adds a new task for the logged-in user
 updateTask():	Updates existing task data
@@ -114,14 +114,13 @@ deleteTask():	Removes a task from Firestore
 fetchTasksByUser():	Retrieves all tasks for a specific userId
 syncTasks():	Keeps tasks synced in real time using Firestore listeners
 
-### Data Flow
+### Data Flow:
 - The app retrieves the currentUser.uid from Firebase Auth.
 - Firestore queries tasks where userId == currentUser.uid.
 - Any change in Firestore (add/edit/delete) updates the app instantly via real-time listeners.
 
-### Installation & Running the Project
-Clone Repository
-
+### Installation & Running the Project:
+Clone Repository:
 git clone https://github.com/ST10321423/PROG7314_Team_Repo.git
 
 Setup and Run in Android Studio:
@@ -137,7 +136,7 @@ Setup and Run in Android Studio:
 App → Android Emulator / Device
 Backend → Firebase (Firestore + Auth)
 
-## References
+## References:
 Firebase (2025). Authentication and Firestore Documentation.
 https://firebase.google.com/docs
 Google Developers (2025). Best Practices for Secure Android Development.
