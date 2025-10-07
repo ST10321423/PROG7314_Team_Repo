@@ -3,14 +3,14 @@
 # Students: ST10321423
 # Module: Programming 3D (PROG7314)
 
-### Overview
+## Overview
 
 This project implements a secure and efficient Task Management System for the UniVerse Android application. The system allows users to manage their daily tasks — add, edit, delete, and track progress — all integrated with Firebase for real-time updates and secure authentication.
 
 ## The solution consists of two main components:
 
 ### Frontend (Mobile App)
-Built using Android Studio (Kotlin)
+- Built using Android Studio (Kotlin)
 User-friendly interface for task management
 Seamless navigation through activities and fragments
 Real-time updates with Firebase Firestore
