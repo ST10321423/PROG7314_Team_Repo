@@ -20,6 +20,13 @@
     <string name="error_not_signed_in">Unable to determine the current user. Please sign in again.</string>
     <string name="error_save_failed">Failed to save habit%1$s</string>
     <string name="error_delete_failed">Failed to delete habit%1$s</string>
+
+    <!-- Task strings -->
+    <string name="tasks">Tasks</string>
+    <string name="add_task">Add Task</string>
+    <string name="search_tasks">Search tasks...</string>
+    <string name="no_tasks_yet">No tasks yet\nTap + to add your first task</string>
+
     <!-- Exam strings -->
     <string name="exams">Exams</string>
     <string name="add_exam">Add Exam</string>

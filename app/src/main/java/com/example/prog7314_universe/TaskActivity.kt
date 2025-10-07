@@ -25,7 +25,7 @@ class TaskActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task)
+        setContentView(R.layout.activity_tasks)
 
         // Recycler + Adapter
         recyclerView = findViewById(R.id.recyclerViewTasks)
