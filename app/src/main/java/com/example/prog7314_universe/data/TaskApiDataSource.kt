@@ -96,9 +96,9 @@ class TaskApiDataSource(
 
 }
 
-fun createTaskApi(baseUrl: String): TaskApi =
+fun createTaskApi(baseUrl: String = TaskApiEnvironment.baseUrl()): TaskApi =
     Retrofit.Builder()
-        .baseUrl(baseUrl)
+        .baseUrl(if (baseUrl.endsWith('/')) baseUrl else "$baseUrl/")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
         .create(TaskApi::class.java)
