@@ -24,7 +24,7 @@ class TaskViewModel : ViewModel() {
 
     fun addTask(title: String, desc: String?, dueIso: String?) = viewModelScope.launch {
         try {
-            repo.add(title, desc, dueIso)
+            repo.add(title.trim(), desc?.trim(), dueIso?.trim())
             refresh()
         } catch (e: Exception) {
             error.value = e.message
@@ -36,6 +36,20 @@ class TaskViewModel : ViewModel() {
             repo.update(task.copy(isCompleted = !task.isCompleted))
             refresh()
         } catch (e: Exception) { error.value = e.message }
+    }
+
+    fun updateTask(task: Task, title: String, description: String?) = viewModelScope.launch {
+        try {
+            repo.update(
+                task.copy(
+                    title = title.trim(),
+                    description = description?.trim().orEmpty()
+                )
+            )
+            refresh()
+        } catch (e: Exception) {
+            error.value = e.message
+        }
     }
 
     fun remove(id: String) = viewModelScope.launch {

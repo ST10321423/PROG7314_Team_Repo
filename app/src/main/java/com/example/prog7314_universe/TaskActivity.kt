@@ -2,8 +2,11 @@ package com.example.prog7314_universe
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,14 +15,11 @@ import com.example.prog7314_universe.Adapters.TaskAdapter
 import com.example.prog7314_universe.Models.Task
 import com.example.prog7314_universe.viewmodel.TaskViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class TaskActivity : AppCompatActivity() {
 
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var recyclerView: RecyclerView
-    private val taskList = mutableListOf<Task>()
 
     private val vm: TaskViewModel by viewModels()
 
@@ -29,11 +29,14 @@ class TaskActivity : AppCompatActivity() {
 
         // Recycler + Adapter
         recyclerView = findViewById(R.id.recyclerViewTasks)
-        taskAdapter = TaskAdapter(this, taskList)
+        taskAdapter = TaskAdapter(
+            onEdit = { task -> showEditDialog(task) },
+            onDelete = { task -> confirmDelete(task) }
+        )
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = taskAdapter
 
-        // FAB -> AddTaskActivity (we'll read the result and call vm.addTask)
+        // FAB -> AddTaskActivity (it posts to the Render API and returns the new task id)
         val fab: FloatingActionButton = findViewById(R.id.fabAddTask)
         fab.setOnClickListener {
             val intent = Intent(this, AddTaskActivity::class.java)
@@ -44,12 +47,7 @@ class TaskActivity : AppCompatActivity() {
         attachSwipeToDelete()
 
         // Observe ViewModel
-        vm.tasks.observe(this) { list ->
-            // Replace adapter data with latest from Firestore
-            taskList.clear()
-            taskList.addAll(list)
-            taskAdapter.notifyDataSetChanged()
-        }
+        vm.tasks.observe(this) { list -> taskAdapter.submitList(list) }
 
         vm.error.observe(this) { msg ->
             if (!msg.isNullOrBlank()) {
@@ -57,45 +55,44 @@ class TaskActivity : AppCompatActivity() {
             }
         }
 
-        // Ensure we are signed in (Anonymous for dev) before loading
-        ensureSignedIn {
-            vm.refresh()
-        }
+        vm.refresh()
     }
 
     override fun onResume() {
         super.onResume()
         // Optional: refresh when coming back to the screen
-        if (Firebase.auth.currentUser != null) {
-            vm.refresh()
-        }
+        vm.refresh()
     }
 
-    // Handle result from AddTaskActivity and create via ViewModel/Firestore
+    // Handle result from AddTaskActivity and create via ViewModel/API
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQ_ADD_TASK && resultCode == RESULT_OK) {
-            val title = data?.getStringExtra("title")?.trim().orEmpty()
-            val description = data?.getStringExtra("description")?.trim().orEmpty()
+            val createdId = data?.getStringExtra(AddTaskActivity.EXTRA_TASK_ID)
+            if (!createdId.isNullOrBlank()) {
+                vm.refresh()
+
+                val createdTitle = data?.getStringExtra(AddTaskActivity.EXTRA_TITLE)
+                if (!createdTitle.isNullOrBlank()) {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.task_created_via_render, createdTitle),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(this, R.string.task_created_generic, Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+
+            val title = data?.getStringExtra(AddTaskActivity.EXTRA_TITLE)?.trim().orEmpty()
+            val description = data?.getStringExtra(AddTaskActivity.EXTRA_DESCRIPTION)?.trim().orEmpty()
             if (title.isNotEmpty()) {
                 vm.addTask(title, description.ifEmpty { null }, /* dueIso = */ null)
             } else {
-                Toast.makeText(this, "Title is required", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.task_title_required, Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun ensureSignedIn(onReady: () -> Unit) {
-        val user = Firebase.auth.currentUser
-        if (user != null) {
-            onReady()
-            return
-        }
-        Firebase.auth.signInAnonymously()
-            .addOnSuccessListener { onReady() }
-            .addOnFailureListener {
-                Toast.makeText(this, "Sign-in failed: ${it.message}", Toast.LENGTH_LONG).show()
-            }
     }
 
     private fun attachSwipeToDelete() {
@@ -110,16 +107,52 @@ class TaskActivity : AppCompatActivity() {
 
             override fun onSwiped(vh: RecyclerView.ViewHolder, direction: Int) {
                 val pos = vh.bindingAdapterPosition
-                val item = taskList.getOrNull(pos)
+                val item = taskAdapter.getTaskAt(pos)
                 if (item != null && item.id.isNotBlank()) {
-                    vm.remove(item.id)
-                } else {
-                    // nothing to remove; just restore UI
-                    taskAdapter.notifyItemChanged(pos)
+                    confirmDelete(item)
                 }
+                taskAdapter.notifyItemChanged(pos)
             }
         })
         touchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun confirmDelete(task: Task) {
+        if (task.id.isBlank()) return
+
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.delete_task_title, task.title))
+            .setMessage(R.string.delete_task_message)
+            .setPositiveButton(R.string.delete) { _, _ ->
+                vm.remove(task.id)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun showEditDialog(task: Task) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_task, null)
+        val titleInput = dialogView.findViewById<EditText>(R.id.editTaskTitle)
+        val descriptionInput = dialogView.findViewById<EditText>(R.id.editTaskDescription)
+
+        titleInput.setText(task.title)
+        descriptionInput.setText(task.description)
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.edit_task_title)
+            .setView(dialogView)
+            .setPositiveButton(R.string.save) { _, _ ->
+                val newTitle = titleInput.text.toString().trim()
+                val newDescription = descriptionInput.text.toString().trim()
+
+                if (newTitle.isEmpty()) {
+                    Toast.makeText(this, R.string.task_title_required, Toast.LENGTH_SHORT).show()
+                } else {
+                    vm.updateTask(task, newTitle, newDescription)
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     companion object {

@@ -15,19 +15,27 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add New Task"
+            android:text="@string/add_task_screen_title"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="12dp"
             android:layout_marginStart="3dp"
             android:layout_marginTop="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_task_render_hint"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
 
         <!-- Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/task_title_hint"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp" />
@@ -44,7 +52,7 @@
                 android:id="@+id/editTextTaskTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Complete Job Applications"
+                android:hint="@string/task_title_hint"
                 android:textSize="16sp"
                 android:padding="16dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -53,7 +61,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date"
+            android:text="@string/date"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp" />
@@ -78,7 +86,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start time"
+            android:text="@string/start_time"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp" />
@@ -104,7 +112,6 @@
                     android:layout_height="wrap_content"
                     android:hint="02:00 PM"
                     android:textSize="16sp"
-                    android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -130,7 +137,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Description"
+            android:text="@string/description"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp" />
@@ -148,7 +155,7 @@
                 android:id="@+id/editTextTaskDescription"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:hint="Complete outstanding applications"
+                android:hint="@string/task_description_hint"
                 android:textSize="16sp"
                 android:padding="16dp"
                 android:gravity="top"
@@ -159,7 +166,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add category"
+            android:text="@string/add_task_add_category"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp" />
@@ -184,69 +191,56 @@
         <com.google.android.material.chip.ChipGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:singleLine="false"
-            app:chipSpacing="8dp">
-
-            <!-- (chips unchanged) -->
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UI Design"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Web Design"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Designer"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UIUX"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-        </com.google.android.material.chip.ChipGroup>
-
-        <!-- Save Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSaveTask"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Add Task"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="18dp"
-            app:backgroundTint="@color/primary1"
-            android:textColor="@color/on_primary"
-            android:layout_marginBottom="24dp"
-            style="@style/Widget.Material3.Button"
-            app:icon="@drawable/ic_add_24dp"
-            app:iconGravity="textStart" />
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant"
             android:layout_marginBottom="24dp" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Designer"
+            app:chipBackgroundColor="?attr/colorSecondaryContainer"
+            app:chipStrokeColor="?attr/colorOutlineVariant"
+            app:chipStrokeWidth="1dp"
+            app:chipCornerRadius="18dp" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UIUX"
+            app:chipBackgroundColor="?attr/colorSecondaryContainer"
+            app:chipStrokeColor="?attr/colorOutlineVariant"
+            app:chipStrokeWidth="1dp"
+            app:chipCornerRadius="18dp" />
     </LinearLayout>
+
+    <!-- Save Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveTask"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/add_task_cta"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="18dp"
+        app:backgroundTint="@color/primary1"
+        android:textColor="@color/on_primary"
+        android:layout_marginBottom="24dp"
+        style="@style/Widget.Material3.Button"
+        app:icon="@drawable/ic_add_24dp"
+        app:iconGravity="textStart" />
+
+    <ProgressBar
+        android:id="@+id/progressSaveTask"
+        style="@style/Widget.Material3.CircularProgressIndicator.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutlineVariant"
+        android:layout_marginBottom="24dp" />
 </ScrollView>
+    </ScrollView>

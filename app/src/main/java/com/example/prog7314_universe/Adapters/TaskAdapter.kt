@@ -1,22 +1,20 @@
 package com.example.prog7314_universe.Adapters
 
-import android.app.AlertDialog
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.prog7314_universe.R
 import com.example.prog7314_universe.Models.Task
 
-// shivvek
 class TaskAdapter(
-    private val context: Context,
-    private val taskList: MutableList<Task>
+    private val onEdit: (Task) -> Unit,
+    private val onDelete: (Task) -> Unit
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+
+    private val tasks: MutableList<Task> = mutableListOf()
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.taskTitle)
@@ -32,50 +30,21 @@ class TaskAdapter(
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val task = taskList[position]
+        val task = tasks[position]
         holder.title.text = task.title
         holder.description.text = task.description
 
-        // Edit button
-        holder.btnEdit.setOnClickListener {
-            showEditDialog(task, position)
-        }
-
-        // Delete button
-        holder.btnDelete.setOnClickListener {
-            taskList.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, taskList.size)
-        }
+        holder.btnEdit.setOnClickListener { onEdit(task) }
+        holder.btnDelete.setOnClickListener { onDelete(task) }
     }
 
-    override fun getItemCount() = taskList.size
+    override fun getItemCount(): Int = tasks.size
 
-    fun addTask(task: Task) {
-        taskList.add(task)
-        notifyItemInserted(taskList.size - 1)
+    fun submitList(newTasks: List<Task>) {
+        tasks.clear()
+        tasks.addAll(newTasks)
+        notifyDataSetChanged()
     }
 
-    private fun showEditDialog(task: Task, position: Int) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_task, null)
-        val editTitle = dialogView.findViewById<EditText>(R.id.editTaskTitle)
-        val editDescription = dialogView.findViewById<EditText>(R.id.editTaskDescription)
-
-        editTitle.setText(task.title)
-        editDescription.setText(task.description)
-
-        AlertDialog.Builder(context)
-            .setTitle("Edit Task")
-            .setView(dialogView)
-            .setPositiveButton("Save") { _, _ ->
-                val updatedTask = task.copy(
-                    title = editTitle.text.toString(),
-                    description = editDescription.text.toString()
-                )
-                taskList[position] = updatedTask
-                notifyItemChanged(position)
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
+    fun getTaskAt(position: Int): Task? = tasks.getOrNull(position)
 }

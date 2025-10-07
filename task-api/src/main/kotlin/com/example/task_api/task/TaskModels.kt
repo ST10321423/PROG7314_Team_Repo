@@ -1,28 +1,34 @@
-package com.example.taskapi.task
+package com.example.task_api.task
 
-import jakarta.validation.constraints.NotBlank
-import java.time.Instant
-import java.util.UUID
+// ✅ USE THESE (Jakarta)
+import jakarta.persistence.*
+import java.time.LocalDateTime
 
+
+@Entity
+@Table(name = "tasks")
 data class Task(
-    val id: String = UUID.randomUUID().toString(),
-    val title: String,
-    val description: String? = null,
-    val isCompleted: Boolean = false,
-    val dueAt: Instant? = null
-)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
 
-data class CreateTaskRequest(
-    @field:NotBlank(message = "Title is required")
-    val title: String,
-    val description: String? = null,
-    val dueAt: Instant? = null
-)
+    @Column(nullable = false)
+    var userId: String = "",
 
-data class UpdateTaskRequest(
-    @field:NotBlank(message = "Title is required")
-    val title: String,
-    val description: String? = null,
-    val isCompleted: Boolean = false,
-    val dueAt: Instant? = null
+    @Column(nullable = false)
+    var title: String = "",
+
+    @Column(length = 1000)
+    var description: String? = null,
+
+    var dueDate: String? = null,
+
+    var priority: String = "Medium",
+
+    var isCompleted: Boolean = false,
+
+    @Column(updatable = false)
+    var createdAt: LocalDateTime = LocalDateTime.now(),
+
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 )

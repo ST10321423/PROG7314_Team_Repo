@@ -1,19 +1,4 @@
 <resources>
-    <string name="app_name">PROG7314_Universe</string>
-
-
-    <string name="sign_in_to_your_account">Sign in to your Account</string>
-    <string name="enter_your_email_and_password">Enter your email and password to log in.</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="forgot_password">Forgot Password ?</string>
-    <string name="log_in">Log In</string>
-    <string name="or">Or</string>
-    <string name="continue_with_google">Continue with Google</string>
-    <string name="continue_with_facebook">Continue with Facebook</string>
-    <string name="dont_have_an_account">Don\'t have an account?</string>
-    <string name="sign_up">Sign Up</string>
-
     <!-- Exam strings -->
     <string name="exams">Exams</string>
     <string name="add_exam">Add Exam</string>
@@ -39,6 +24,20 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="delete_task_title">Delete &quot;%1$s&quot;?</string>
+    <string name="delete_task_message">This will remove the task from the Render API.</string>
+    <string name="edit_task_title">Edit task</string>
+    <string name="task_title_required">Task title is required</string>
+    <string name="task_save_failed">Couldn't save task: %1$s</string>
+    <string name="task_unknown_error">unexpected error</string>
+    <string name="task_created_via_render">"%1$s" synced with the Render API.</string>
+    <string name="task_created_generic">Task synced with the Render API.</string>
+    <string name="add_task_screen_title">Add new task</string>
+    <string name="add_task_render_hint">Tasks you create here are stored in the Render-hosted task API.</string>
+    <string name="add_task_cta">Add task</string>
+    <string name="edit_task_render_hint">Updates are sent straight to the Render API.</string>
+    <string name="task_title_hint">Task title</string>
+    <string name="task_description_hint">Task description</string>
 
     <!-- Habit strings -->
     <string name="habits">Habits</string>
@@ -64,8 +63,5 @@
     <string name="color">Color</string>
     <string name="great_job">Great job!</string>
     <string name="no_habits_due_today">No habits due today</string>
-    <string name="no_completed_habits">No completed habits today</string>
-
-
-
+    <string name="add_task_add_category">add_task_add_category</string>
 </resources>
