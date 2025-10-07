@@ -11,9 +11,9 @@ This project implements a secure and efficient Task Management System for the Un
 
 ### Frontend (Mobile App)
 - Built using Android Studio (Kotlin)
-User-friendly interface for task management
-Seamless navigation through activities and fragments
-Real-time updates with Firebase Firestore
+- User-friendly interface for task management
+- Seamless navigation through activities and fragments
+- Real-time updates with Firebase Firestore
 
 ### Backend (Firebase Cloud)
 Firebase Authentication for secure login
