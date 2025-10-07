@@ -88,7 +88,7 @@ This project implements a secure and efficient Task Management System for the Un
 - The chosen theme preference is saved locally and automatically applied at app startup.
 - Also includes a Logout option that securely signs the user out of Firebase and returns them to the Login Screen.
 
-### Logout / Session Handling
+### Logout / Session Handling:
 - On logout, Firebase clears the user’s session and cached data.
 - The app returns to the Login Page for the next sign-in.
 
@@ -119,7 +119,7 @@ syncTasks():	Keeps tasks synced in real time using Firestore listeners
 - Firestore queries tasks where userId == currentUser.uid.
 - Any change in Firestore (add/edit/delete) updates the app instantly via real-time listeners.
 
-### Installation & Running the Project:
+### Installation and Running the Project:
 Clone Repository:
 git clone https://github.com/ST10321423/PROG7314_Team_Repo.git
 
