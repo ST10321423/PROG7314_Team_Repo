@@ -12,6 +12,7 @@ import com.example.prog7314_universe.Adapters.TaskAdapter
 import com.example.prog7314_universe.Models.Task
 import com.example.prog7314_universe.viewmodel.TaskViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -20,6 +21,8 @@ class TaskActivity : AppCompatActivity() {
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var recyclerView: RecyclerView
     private val taskList = mutableListOf<Task>()
+    private lateinit var bottomNavigationView: BottomNavigationView
+
 
     private val vm: TaskViewModel by viewModels()
 
@@ -33,13 +36,14 @@ class TaskActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = taskAdapter
 
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
         // FAB -> AddTaskActivity (we'll read the result and call vm.addTask)
         val fab: FloatingActionButton = findViewById(R.id.fabAddTask)
         fab.setOnClickListener {
             val intent = Intent(this, AddTaskActivity::class.java)
             startActivityForResult(intent, REQ_ADD_TASK)
         }
-
+        setupBottomNavigation()
         // Swipe-to-delete
         attachSwipeToDelete()
 
@@ -61,6 +65,7 @@ class TaskActivity : AppCompatActivity() {
         ensureSignedIn {
             vm.refresh()
         }
+        bottomNavigationView.selectedItemId = R.id.tasks
     }
 
     override fun onResume() {
@@ -120,6 +125,46 @@ class TaskActivity : AppCompatActivity() {
             }
         })
         touchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun setupBottomNavigation() {
+        bottomNavigationView.selectedItemId = R.id.tasks
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.dashboard -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                R.id.tasks -> true
+
+                R.id.exams -> {
+                    startActivity(Intent(this, ExamsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                R.id.habits -> {
+                    startActivity(Intent(this, HabitListActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                R.id.settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     companion object {

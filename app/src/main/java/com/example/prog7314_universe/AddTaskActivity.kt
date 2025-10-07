@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,6 +18,7 @@ class AddTaskActivity : AppCompatActivity() {
     private lateinit var descInput: EditText
     private lateinit var dateInput: EditText
     private lateinit var btnSave: Button
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     private val calendar = Calendar.getInstance()
     private var selectedDate: String = ""
@@ -29,8 +31,10 @@ class AddTaskActivity : AppCompatActivity() {
         descInput = findViewById(R.id.editTextTaskDescription)
         dateInput = findViewById(R.id.editTextExamDate)
         btnSave = findViewById(R.id.btnSaveTask)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
         setupClickListeners()
+        setupBottomNavigation()
     }
 
     private fun setupClickListeners() {
@@ -94,5 +98,50 @@ class AddTaskActivity : AppCompatActivity() {
         const val EXTRA_TITLE = "title"
         const val EXTRA_DESCRIPTION = "description"
         const val EXTRA_DUE_ISO = "dueIso" // selected date in string format
+    }
+
+    private fun setupBottomNavigation() {
+        bottomNavigationView.selectedItemId = R.id.tasks
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.dashboard -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                R.id.tasks -> {
+                    startActivity(Intent(this, TaskActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                R.id.exams -> {
+                    startActivity(Intent(this, ExamsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                R.id.habits -> {
+                    startActivity(Intent(this, HabitListActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                R.id.settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 }
