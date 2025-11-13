@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- Mood Tracker Navigation -->
+    <fragment
+        android:id="@+id/moodTrackerFragment"
+        android:name="com.example.prog7314_universe.MoodTrackerFragment"
+        android:label="Mood Tracker">
+        <action
+            android:id="@+id/action_moodTrackerFragment_to_createMoodFragment"
+            app:destination="@id/createMoodFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createMoodFragment"
+        android:name="com.example.prog7314_universe.CreateMoodFragment"
+        android:label="Create Mood">
+        <argument
+            android:name="selected_date"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
+
+    <!-- Journal Navigation -->
+    <fragment
+        android:id="@+id/journalListFragment"
+        android:name="com.example.prog7314_universe.JournalListFragment"
+        android:label="Journal">
+        <action
+            android:id="@+id/action_journalListFragment_to_createJournalFragment"
+            app:destination="@id/createJournalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createJournalFragment"
+        android:name="com.example.prog7314_universe.CreateJournalFragment"
+        android:label="Create Journal Entry">
+        <argument
+            android:name="entry_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <!-- Add your other fragments here -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.prog7314_universe.HomeFragment"
+        android:label="Home" />
+</navigation>

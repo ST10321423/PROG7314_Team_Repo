@@ -52,4 +52,31 @@
 
     <color name="divider_color">#FFE0E0E0</color>
     <color name="section_background">#FFFFFFFF</color>
+
+    <!-- Primary Colors -->
+    <color name="primary_variant">#3700B3</color>
+    <color name="secondary">#03DAC6</color>
+    <color name="secondary_variant">#018786</color>
+
+    <!-- Background Colors -->
+    <color name="background_light">#F5F5F5</color>
+    <color name="background_white">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_tertiary">#9E9E9E</color>
+
+
+    <!-- Mood Colors -->
+    <color name="mood_happy">#FFD93D</color>
+    <color name="mood_sad">#6BCB77</color>
+    <color name="mood_angry">#FF6B6B</color>
+    <color name="mood_fear">#4D96FF</color>
+    <color name="mood_disgust">#9D84B7</color>
+
+    <!-- Calendar Colors -->
+    <color name="calendar_background">#F5F5F5</color>
+    <color name="calendar_today_border">#6200EE</color>
+
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
 </resources>
