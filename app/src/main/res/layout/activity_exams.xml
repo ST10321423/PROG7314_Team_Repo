@@ -1,142 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:id="@+id/contentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exams"
+            android:textColor="#000000"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search exams..."
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:padding="12dp"
+            android:background="@drawable/search_background"
+            android:layout_marginBottom="16dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/tvFilterAll"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Exams"
-                android:textSize="35sp"
-                android:textStyle="bold"
+                android:text="All (0)"
                 android:textColor="#000000"
-                android:layout_marginBottom="8dp" />
-
-            <!-- Search -->
-            <TextView
-                android:id="@+id/tvSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Search exams..."
                 android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="16dp"
-                android:padding="12dp"
-                android:background="@drawable/search_background"
-                android:clickable="true"
-                android:focusable="true" />
+                android:textStyle="bold"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:background="@drawable/tab_active_background" />
 
-            <!-- Filter tabs -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvFilterCompleted"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:id="@+id/tvFilterAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="All (0)"
-                    android:textSize="14sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:paddingVertical="8dp"
-                    android:paddingHorizontal="16dp"
-                    android:background="@drawable/tab_active_background"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:id="@+id/tvFilterCompleted"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Completed (0)"
-                    android:textSize="14sp"
-                    android:textColor="#666666"
-                    android:paddingVertical="8dp"
-                    android:paddingHorizontal="16dp"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0" />
-
+                android:text="Completed (0)"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:layout_marginStart="12dp" />
         </LinearLayout>
 
-        <!-- Loading Indicator -->
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-
-        <!-- Empty State -->
-        <TextView
-            android:id="@+id/tvEmptyState"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="48dp"
-            android:text="No exams yet\nTap + to add your first exam"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:textColor="#666666"
-            android:visibility="gone" />
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginBottom="16dp" />
 
-        <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewExams"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:paddingTop="8dp"
-            android:clipToPadding="false" />
-
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"
+            android:scrollbarStyle="outsideOverlay" />
     </LinearLayout>
 
-    <!-- FAB -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/contentContainer"
+        app:layout_constraintBottom_toBottomOf="@id/contentContainer"
+        app:layout_constraintStart_toStartOf="@id/contentContainer"
+        app:layout_constraintEnd_toEndOf="@id/contentContainer" />
+
+    <TextView
+        android:id="@+id/tvEmptyState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No exams yet"
+        android:textColor="#666666"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/contentContainer"
+        app:layout_constraintBottom_toBottomOf="@id/contentContainer"
+        app:layout_constraintStart_toStartOf="@id/contentContainer"
+        app:layout_constraintEnd_toEndOf="@id/contentContainer" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddExam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:contentDescription="Add Exam"
         android:src="@drawable/ic_add"
-        android:contentDescription="Add new exam"
-        app:tint="@android:color/white"
-        app:backgroundTint="#12bfa2" />
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:background="@drawable/rounded_bottom_nav"
         app:itemIconTint="@drawable/bottom_nav_icon_colour"
         app:itemTextColor="@drawable/bottom_nav_text_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,292 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:orientation="vertical"
     android:background="@color/on_primary">
 
-    <LinearLayout
+    <!-- Scrollable form content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- Header -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit Task"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="30dp" />
-
-        <!-- Title Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-            app:boxBackgroundMode="outline"
-            app:boxBackgroundColor="#94d5ca">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Complete Job Applications"
-                android:textSize="16sp"
-                android:padding="16dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Date Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-            app:boxBackgroundMode="outline"
-            app:boxBackgroundColor="#94d5ca">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Saturday, November 28, 2025"
-                android:textSize="16sp"
-                android:padding="16dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Start Time Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start time"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:orientation="vertical">
+
+            <!-- Header -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit Task"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="30dp" />
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="#94d5ca">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditTaskTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Complete Job Applications"
+                    android:textSize="16sp"
+                    android:padding="16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Date -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="#94d5ca">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditExamDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select a Date"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Start & End Time -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start time"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:boxBackgroundColor="#94d5ca"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                    app:boxStrokeColor="?attr/colorOutlineVariant"
+                    app:boxStrokeWidth="1dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEditTaskStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="02:00 PM"
+                        android:textSize="16sp"
+                        android:padding="16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:boxBackgroundColor="#94d5ca"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                    app:boxStrokeColor="?attr/colorOutlineVariant"
+                    app:boxStrokeWidth="1dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEditTaskEndTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="04:00 PM"
+                        android:textSize="16sp"
+                        android:padding="16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 app:boxBackgroundColor="#94d5ca"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
                 app:boxStrokeColor="?attr/colorOutlineVariant"
                 app:boxStrokeWidth="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditTaskDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="02:00 PM"
+                    android:layout_height="120dp"
+                    android:hint="Complete outstanding applications"
                     android:textSize="16sp"
-                    android:padding="16dp" />
+                    android:padding="16dp"
+                    android:gravity="top"
+                    android:inputType="textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Add Category -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add category"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                app:boxBackgroundColor="#94d5ca"
+                android:layout_marginBottom="16dp"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-                app:boxStrokeColor="?attr/colorOutlineVariant"
-                app:boxStrokeWidth="1dp">
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="#94d5ca">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditTaskCat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="04:00 PM"
+                    android:hint="Work"
                     android:textSize="16sp"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Category Chips -->
+
+
+            <!-- Save Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditTask"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Edit Task"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="18dp"
+                app:backgroundTint="@color/primary1"
+                android:textColor="@color/on_primary"
+                android:layout_marginBottom="24dp"
+                style="@style/Widget.Material3.Button"
+                app:icon="@drawable/ic_add_24dp"
+                app:iconGravity="textStart" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorOutlineVariant"
+                android:layout_marginBottom="24dp" />
+
         </LinearLayout>
+    </ScrollView>
 
-        <!-- Description Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
+    <!-- Fixed Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_bottom_nav"
+        app:itemIconTint="@drawable/bottom_nav_icon_colour"
+        app:itemTextColor="@drawable/bottom_nav_text_color"
+        app:menu="@menu/bottom_navigation_menu" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:boxBackgroundColor="#94d5ca"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-            app:boxStrokeColor="?attr/colorOutlineVariant"
-            app:boxStrokeWidth="1dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:hint="Complete outstanding applications"
-                android:textSize="16sp"
-                android:padding="16dp"
-                android:gravity="top"
-                android:inputType="textMultiLine" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Add Category Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add category"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-            app:boxBackgroundMode="outline"
-            app:boxBackgroundColor="#94d5ca">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Work"
-                android:textSize="16sp"
-                android:padding="16dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Category Chips -->
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:singleLine="false"
-            app:chipSpacing="8dp">
-
-            <!-- (chips unchanged) -->
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UI Design"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Web Design"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Designer"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Design Covid 18"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UIUX"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UX Design"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Website"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="COVID"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UIUX Designer"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="?attr/colorOutlineVariant"
-                app:chipStrokeWidth="1dp"
-                app:chipCornerRadius="18dp" />
-        </com.google.android.material.chip.ChipGroup>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/AddHabitButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Edit Task"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="18dp"
-            app:backgroundTint="@color/primary1"
-            android:textColor="@color/on_primary"
-            android:layout_marginBottom="24dp"
-            style="@style/Widget.Material3.Button" />
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant"
-            android:layout_marginBottom="24dp" />
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

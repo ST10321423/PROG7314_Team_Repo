@@ -1,10 +1,13 @@
 package com.example.prog7314_universe.repo
 
-import com.example.prog7314_universe.Models.Task
-import com.example.prog7314_universe.data.FirestoreTaskDataSource
 
-class TaskRepository {
-    private val ds = FirestoreTaskDataSource()
+import com.example.prog7314_universe.Models.Task
+import com.example.prog7314_universe.data.TaskApiDataSource
+import com.example.prog7314_universe.data.createTaskApi
+
+class TaskRepository (
+    private val ds: TaskApiDataSource
+    ) {
 
     suspend fun list(): List<Task> = ds.list()
 

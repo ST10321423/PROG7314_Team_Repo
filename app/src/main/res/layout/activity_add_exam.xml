@@ -1,237 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:orientation="vertical"
     android:background="@color/on_primary">
 
-    <LinearLayout
+    <!-- Scrollable Content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- Header -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Exam"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="30dp" />
-
-        <!-- Subject -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Subject"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-            app:boxBackgroundMode="outline"
-            app:boxBackgroundColor="#94d5ca">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextExamSubject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="e.g., Mathematics, Physics"
-                android:textSize="16sp"
-                android:padding="16dp"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Module -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Module"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-            app:boxBackgroundMode="outline"
-            app:boxBackgroundColor="#94d5ca">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextExamModule"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Module name or code"
-                android:textSize="16sp"
-                android:padding="16dp"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Date -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-            app:boxBackgroundMode="outline"
-            app:boxBackgroundColor="#94d5ca">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextExamDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Saturday, November 28, 2025"
-                android:textSize="16sp"
-                android:padding="16dp"
-                android:focusable="false"
-                android:clickable="true"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Time -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Time"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                app:boxBackgroundColor="#94d5ca"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-                app:boxStrokeColor="?attr/colorOutlineVariant"
-                app:boxStrokeWidth="1dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextStartTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Start: 02:00 PM"
-                    android:textSize="16sp"
-                    android:padding="16dp"
-                    android:focusable="false"
-                    android:clickable="true"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                app:boxBackgroundColor="#94d5ca"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-                app:boxStrokeColor="?attr/colorOutlineVariant"
-                app:boxStrokeWidth="1dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextEndTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="End: 04:00 PM"
-                    android:textSize="16sp"
-                    android:padding="16dp"
-                    android:focusable="false"
-                    android:clickable="true"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- Description -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:boxBackgroundColor="#94d5ca"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
-            app:boxStrokeColor="?attr/colorOutlineVariant"
-            app:boxStrokeWidth="1dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextExamDescription"
+            <!-- Header -->
+            <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:hint="Additional notes or details"
+                android:layout_height="wrap_content"
+                android:text="Add Exam"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="30dp" />
+
+            <!-- Subject -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subject"
                 android:textSize="16sp"
-                android:padding="16dp"
-                android:gravity="top"
-                android:inputType="textMultiLine" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
 
-        <!-- Save Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSaveExam"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Save Exam"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="18dp"
-            app:backgroundTint="@color/primary1"
-            android:textColor="@color/on_primary"
-            android:layout_marginBottom="16dp"
-            style="@style/Widget.Material3.Button"
-            app:icon="@drawable/ic_add_24dp"
-            app:iconGravity="textStart"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="#94d5ca">
 
-        <!-- Cancel -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCancel"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Cancel"
-            android:textSize="16sp"
-            app:cornerRadius="18dp"
-            app:strokeColor="@color/outline_variant"
-            app:strokeWidth="1dp"
-            app:backgroundTint="@color/surface"
-            android:textColor="@color/on_surface"
-            android:layout_marginBottom="24dp"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextExamSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="e.g., Mathematics, Physics"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant"
-            android:layout_marginBottom="24dp" />
-    </LinearLayout>
-</ScrollView>
+            <!-- Module -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Module"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="#94d5ca">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextExamModule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Module name or code"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Date -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="#94d5ca">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextExamDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select a Date"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!-- Time -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:boxBackgroundColor="#94d5ca"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                    app:boxStrokeColor="?attr/colorOutlineVariant"
+                    app:boxStrokeWidth="1dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Start: 02:00 PM"
+                        android:textSize="16sp"
+                        android:padding="16dp"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:boxBackgroundColor="#94d5ca"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                    app:boxStrokeColor="?attr/colorOutlineVariant"
+                    app:boxStrokeWidth="1dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextEndTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="End: 04:00 PM"
+                        android:textSize="16sp"
+                        android:padding="16dp"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:boxBackgroundColor="#94d5ca"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded"
+                app:boxStrokeColor="?attr/colorOutlineVariant"
+                app:boxStrokeWidth="1dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextExamDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:hint="Additional notes or details"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:gravity="top"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Save Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveExam"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Save Exam"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="18dp"
+                app:backgroundTint="@color/primary1"
+                android:textColor="@color/on_primary"
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.Material3.Button"
+                app:icon="@drawable/ic_add_24dp"
+                app:iconGravity="textStart"/>
+
+            <!-- Cancel -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Cancel"
+                android:textSize="16sp"
+                app:cornerRadius="18dp"
+                app:strokeColor="@color/outline_variant"
+                app:strokeWidth="1dp"
+                app:backgroundTint="@color/surface"
+                android:textColor="@color/on_surface"
+                android:layout_marginBottom="24dp"
+                style="@style/Widget.Material3.Button.OutlinedButton" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorOutlineVariant"
+                android:layout_marginBottom="24dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Fixed Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_bottom_nav"
+        app:itemIconTint="@drawable/bottom_nav_icon_colour"
+        app:itemTextColor="@drawable/bottom_nav_text_color"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</LinearLayout>

@@ -1,168 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:fillViewport="true">
 
-        <!-- Goal selector -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Goal"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" />
-
-        <Spinner
-            android:id="@+id/goalTypeSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Header Section (dynamic) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="24dp">
-
-            <TextView
-                android:id="@+id/tvGoalName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Goal Name"
-                android:textSize="24sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="6dp" />
-
-            <TextView
-                android:id="@+id/txtProgress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0% • 0 days left"
-                android:textSize="16sp"
-                android:textColor="#666666" />
-        </LinearLayout>
-
-        <!-- Active Savings Card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/rounded_card_background"
-            android:padding="20dp"
-            android:layout_marginBottom="24dp"
-            android:elevation="2dp">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
 
-                <TextView
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStatistic"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Active Savings"
-                    android:textSize="18sp"
-                    android:textColor="#666666"
-                    android:layout_marginBottom="8dp" />
+                    android:text="Back"
+                    android:textAllCaps="false" />
 
-                <TextView
-                    android:id="@+id/txtAmount"
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/goalTypeSpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="R0.00"
-                    android:textSize="32sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold" />
+                    android:spinnerMode="dropdown" />
             </LinearLayout>
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/progressCircle"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                style="@style/Widget.Material3.CircularProgressIndicator"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="0"
-                app:indicatorSize="56dp"
-                app:trackThickness="6dp"
-                app:indicatorDirectionCircular="clockwise"
-                app:indicatorInset="0dp"
-                app:showAnimationBehavior="inward"
-                app:hideAnimationBehavior="outward"
-                app:indicatorColor="#12BFA2"
-                app:trackColor="#DDDDDD" />
-        </LinearLayout>
-
-        <!-- Buttons Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
-
-            <!-- Back -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnStatistic"
-                android:layout_width="0dp"
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="#12BFA2"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tvGoalName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Savings Goal"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/progressCircle"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            app:indicatorSize="8dp"
+                            app:trackThickness="8dp"
+                            android:layout_marginEnd="16dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtAmount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="R0.00"
+                                android:textColor="#000000"
+                                android:textSize="28sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="4dp" />
+
+                            <TextView
+                                android:id="@+id/txtProgress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="0% • 0 days left"
+                                android:textColor="#666666"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAdd"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Add Contribution"
+                        android:textAllCaps="false"
+                        android:backgroundTint="#12BFA2"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/contributionsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp" />
+
+            <TextView
+                android:id="@+id/tvEmptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No contributions yet"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:paddingVertical="24dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSavingsGoalBack"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Back"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:padding="12dp"
-                style="@style/Widget.Material3.Button" />
-
-            <!-- Add Contribution -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAdd"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="#12BFA2"
-                android:text="Add Contribution"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:padding="12dp"
-                style="@style/Widget.Material3.Button" />
+                android:layout_marginTop="16dp" />
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <!-- Activity Section Header -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Activity"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_bottom_nav"
+        app:itemIconTint="@drawable/bottom_nav_icon_colour"
+        app:itemTextColor="@drawable/bottom_nav_text_color"
+        app:menu="@menu/bottom_navigation_menu" />
 
-        <!-- Activity List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contributionsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
-
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

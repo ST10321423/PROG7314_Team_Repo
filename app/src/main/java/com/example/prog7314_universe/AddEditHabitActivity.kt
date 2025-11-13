@@ -3,9 +3,11 @@ package com.example.prog7314_universe
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.prog7314_universe.R
 import com.example.prog7314_universe.databinding.ActivityAddEditHabitBinding
 import com.example.prog7314_universe.Models.Habit
 import com.google.firebase.Timestamp
@@ -40,14 +42,26 @@ class AddEditHabitActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        binding.spinnerTime.adapter = ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item,
-            arrayOf("None", "Morning", "Afternoon", "Evening")
-        )
+        val times = arrayOf("None", "Morning", "Afternoon", "Evening")
+        val timeAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            times
+        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        binding.spinnerTime.adapter = timeAdapter
 
         binding.btnSave.setOnClickListener { saveHabit() }
         binding.btnDelete.setOnClickListener { deleteHabit() }
-        binding.btnDelete.isEnabled = habitId != null
+        val isEditing = habitId != null
+        binding.tvTitle.text = if (isEditing) getString(R.string.edit_habit) else getString(R.string.add_habit)
+        binding.btnSave.text = if (isEditing) getString(R.string.update_habit) else getString(R.string.save_habit)
+        binding.btnDelete.visibility = if (isEditing) View.VISIBLE else View.GONE
+        binding.btnDelete.isEnabled = isEditing
+
+        // default spinner selection when editing "None"
+        if (!isEditing) {
+            binding.spinnerTime.setSelection(0)
+        }
     }
 
     private fun loadHabit() {
@@ -63,9 +77,14 @@ class AddEditHabitActivity : AppCompatActivity() {
     private fun fillForm(h: Habit) {
         binding.etName.setText(h.name)
         binding.etColor.setText(h.colorHex ?: "#4CAF50")
-        binding.spinnerTime.setSelection(when (h.timeOfDay?.lowercase()) {
-            "morning" -> 1; "afternoon" -> 2; "evening" -> 3; else -> 0
-        })
+        binding.spinnerTime.setSelection(
+            when (h.timeOfDay?.lowercase()) {
+                "morning" -> 1
+                "afternoon" -> 2
+                "evening" -> 3
+                else -> 0
+            }
+        )
         when (h.difficulty) {
             "easy" -> binding.rbEasy.isChecked = true
             "medium" -> binding.rbMedium.isChecked = true
@@ -98,7 +117,10 @@ class AddEditHabitActivity : AppCompatActivity() {
     }
 
     private fun saveHabit() {
-        val uid = auth.currentUser?.uid ?: return
+        val uid = auth.currentUser?.uid ?: run {
+            Toast.makeText(this, R.string.error_not_signed_in, Toast.LENGTH_SHORT).show()
+            return
+        }
         val name = binding.etName.text.toString().trim()
         if (name.isEmpty()) { Toast.makeText(this, "Name required", Toast.LENGTH_SHORT).show(); return }
 
@@ -125,19 +147,40 @@ class AddEditHabitActivity : AppCompatActivity() {
         )
 
         val habits = db.collection("users").document(uid).collection("habits")
+        binding.btnSave.isEnabled = false
         if (habitId == null) {
             data["createdAt"] = now
-            habits.add(data).addOnSuccessListener { finish() }
+            habits.add(data)
+                .addOnSuccessListener { finish() }
+                .addOnFailureListener { e ->
+                    binding.btnSave.isEnabled = true
+                    val reason = e.localizedMessage?.let { ": $it" } ?: ""
+                    Toast.makeText(this, getString(R.string.error_save_failed, reason), Toast.LENGTH_SHORT).show()
+                }
         } else {
-            habits.document(habitId!!).update(data as Map<String, Any>).addOnSuccessListener { finish() }
+            habits.document(habitId!!).update(data as Map<String, Any>)
+                .addOnSuccessListener { finish() }
+                .addOnFailureListener { e ->
+                    binding.btnSave.isEnabled = true
+                    val reason = e.localizedMessage?.let { ": $it" } ?: ""
+                    Toast.makeText(this, getString(R.string.error_save_failed, reason), Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
     private fun deleteHabit() {
-        val uid = auth.currentUser?.uid ?: return
+        val uid = auth.currentUser?.uid ?: run {
+            Toast.makeText(this, R.string.error_not_signed_in, Toast.LENGTH_SHORT).show()
+            return
+        }
         habitId?.let {
             db.collection("users").document(uid).collection("habits")
-                .document(it).delete().addOnSuccessListener { finish() }
+                .document(it).delete()
+                .addOnSuccessListener { finish() }
+                .addOnFailureListener { e ->
+                    val reason = e.localizedMessage?.let { ": $it" } ?: ""
+                    Toast.makeText(this, getString(R.string.error_delete_failed, reason), Toast.LENGTH_SHORT).show()
+                }
         }
     }
 

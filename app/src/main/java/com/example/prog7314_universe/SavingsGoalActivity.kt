@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prog7314_universe.Adapters.ContributionsAdapter
@@ -106,6 +107,8 @@ class SavingsGoalActivity : ComponentActivity() {
 
         contribVm.getContributions(userId, goalId).observe(this) { contributions ->
             adapter.updateList(contributions)
+            b.contributionsRecyclerView.isVisible = contributions.isNotEmpty()
+            b.tvEmptyState.isVisible = contributions.isEmpty()
         }
     }
 }
