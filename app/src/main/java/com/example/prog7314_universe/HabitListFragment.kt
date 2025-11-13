@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.time.DayOfWeek
 import java.time.LocalDate
 
-class HabitListActivity : AppCompatActivity() {
+class HabitListFragment : AppCompatActivity() {
 
     private lateinit var recycler: RecyclerView
     private lateinit var fabAdd: FloatingActionButton
@@ -154,7 +154,7 @@ class HabitListActivity : AppCompatActivity() {
                     true
                 }
                 R.id.tasks -> {
-                    startActivity(Intent(this, TaskActivity::class.java))
+                    startActivity(Intent(this, TasksFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true
@@ -170,7 +170,7 @@ class HabitListActivity : AppCompatActivity() {
                     true
                 }
                 R.id.settings -> {
-                    startActivity(Intent(this, SettingsActivity::class.java))
+                    startActivity(Intent(this, SettingsFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true
