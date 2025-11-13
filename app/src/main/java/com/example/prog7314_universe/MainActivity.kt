@@ -16,6 +16,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import com.example.prog7314_universe.utils.PrefManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +48,8 @@ class MainActivity : AppCompatActivity() {
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val db by lazy { FirebaseFirestore.getInstance() }
+    private lateinit var prefManager: PrefManager
+    private var hasInitializedUi = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +60,47 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
+        prefManager = PrefManager(applicationContext)
+
+        lifecycleScope.launch {
+            val biometricEnabled = withContext(Dispatchers.IO) {
+                prefManager.biometricEnabled.first()
+            }
+
+            if (biometricEnabled) {
+                if (!canAuthenticateWithBiometrics()) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.biometric_not_available),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    withContext(Dispatchers.IO) {
+                        prefManager.setBiometricEnabled(false)
+                    }
+                } else {
+                    showBiometricPrompt(
+                        onSuccess = { initializeDashboard() },
+                        onError = { _, errString ->
+                            Toast.makeText(this@MainActivity, errString, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.biometric_required),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            finish()
+                        }
+                    )
+                    return@launch
+                }
+            }
+
+            initializeDashboard()
+        }
+    }
+
+    private fun initializeDashboard() {
+        if (hasInitializedUi) return
+        hasInitializedUi = true
 
         setContentView(R.layout.activity_dashboard)
 
@@ -166,6 +216,53 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun canAuthenticateWithBiometrics(): Boolean {
+        val biometricManager = BiometricManager.from(this)
+        val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG or
+                BiometricManager.Authenticators.BIOMETRIC_WEAK
+        return biometricManager.canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS
+    }
+
+    private fun showBiometricPrompt(
+        onSuccess: () -> Unit,
+        onError: (Int, CharSequence) -> Unit
+    ) {
+        val executor = ContextCompat.getMainExecutor(this)
+        val prompt = BiometricPrompt(
+            this,
+            executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    onSuccess()
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    onError(errorCode, errString)
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.biometric_required),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        )
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.biometric_prompt_title))
+            .setSubtitle(getString(R.string.biometric_prompt_subtitle))
+            .setNegativeButtonText(getString(R.string.biometric_prompt_negative))
+            .build()
+
+        prompt.authenticate(promptInfo)
+    }
+
 
     private fun loadUserData() {
         val user = auth.currentUser

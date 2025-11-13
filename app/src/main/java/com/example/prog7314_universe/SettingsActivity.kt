@@ -13,6 +13,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -32,13 +35,14 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var switchTaskReminders: SwitchMaterial
     private lateinit var switchExamAlerts: SwitchMaterial
     private lateinit var switchHabitReminders: SwitchMaterial
+    private lateinit var switchBiometric: SwitchMaterial
     private lateinit var btnLogout: Button
     private lateinit var btnDeleteAccount: Button
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private lateinit var prefManager: com.example.prog7314_universe.utils.PrefManager
-
+    private var updatingBiometricSwitch = false
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +73,7 @@ class SettingsActivity : AppCompatActivity() {
         switchTaskReminders = findViewById(R.id.switchTaskReminders)
         switchExamAlerts = findViewById(R.id.switchExamAlerts)
         switchHabitReminders = findViewById(R.id.switchHabitReminders)
+        switchBiometric = findViewById(R.id.switchBiometric)
 
         // Account Actions
         btnLogout = findViewById(R.id.btnLogout)
@@ -130,6 +135,11 @@ class SettingsActivity : AppCompatActivity() {
                 switchHabitReminders.isChecked = enabled
             }
         }
+        lifecycleScope.launch {
+            prefManager.biometricEnabled.collect { enabled ->
+                updateBiometricSwitchState(enabled)
+            }
+        }
     }
 
     private fun setupListeners() {
@@ -189,6 +199,48 @@ class SettingsActivity : AppCompatActivity() {
                 prefManager.setHabitRemindersEnabled(isChecked)
             }
         }
+        switchBiometric.setOnCheckedChangeListener { _, isChecked ->
+            if (updatingBiometricSwitch) {
+                return@setOnCheckedChangeListener
+            }
+
+            if (isChecked) {
+                if (!canAuthenticateWithBiometrics()) {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.biometric_not_available),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    updateBiometricSwitchState(false)
+                    return@setOnCheckedChangeListener
+                }
+
+                showEnableBiometricPrompt(
+                    onSuccess = {
+                        lifecycleScope.launch {
+                            prefManager.setBiometricEnabled(true)
+                            Toast.makeText(
+                                this@SettingsActivity,
+                                getString(R.string.biometric_enable_success),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    },
+                    onFailure = {
+                        updateBiometricSwitchState(false)
+                    }
+                )
+            } else {
+                lifecycleScope.launch {
+                    prefManager.setBiometricEnabled(false)
+                    Toast.makeText(
+                        this@SettingsActivity,
+                        getString(R.string.biometric_disable_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
 
         // Logout Button
         btnLogout.setOnClickListener {
@@ -232,6 +284,60 @@ class SettingsActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+    private fun updateBiometricSwitchState(enabled: Boolean) {
+        if (!this::switchBiometric.isInitialized) return
+        if (switchBiometric.isChecked == enabled) return
+        updatingBiometricSwitch = true
+        switchBiometric.isChecked = enabled
+        updatingBiometricSwitch = false
+    }
+
+    private fun canAuthenticateWithBiometrics(): Boolean {
+        val biometricManager = BiometricManager.from(this)
+        val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG or
+                BiometricManager.Authenticators.BIOMETRIC_WEAK
+        return biometricManager.canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS
+    }
+
+    private fun showEnableBiometricPrompt(
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
+        val executor = ContextCompat.getMainExecutor(this)
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.biometric_enable_prompt_title))
+            .setSubtitle(getString(R.string.biometric_enable_prompt_subtitle))
+            .setNegativeButtonText(getString(R.string.biometric_prompt_negative))
+            .build()
+
+        val prompt = BiometricPrompt(
+            this,
+            executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    onSuccess()
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    Toast.makeText(this@SettingsActivity, errString, Toast.LENGTH_SHORT).show()
+                    onFailure()
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(
+                        this@SettingsActivity,
+                        getString(R.string.biometric_required),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        )
+
+        prompt.authenticate(promptInfo)
     }
 
     private fun updateNotificationSwitches(enabled: Boolean) {

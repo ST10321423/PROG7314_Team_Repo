@@ -93,7 +93,7 @@ class CreateMoodFragment : Fragment() {
     private fun loadExistingMood() {
         val existingMood = viewModel.getMoodForDate(selectedDate)
         existingMood?.let { mood ->
-            selectedMood = mood.scale
+            selectedMood = mood.getMoodScale()
             binding.etNote.setText(mood.note)
             updateMoodDisplay()
         }
@@ -138,11 +138,11 @@ class CreateMoodFragment : Fragment() {
 
     private fun resetMoodButtonStyles() {
         binding.apply {
-            btnHappy.alpha = 0.5f
-            btnSad.alpha = 0.5f
-            btnAngry.alpha = 0.5f
-            btnFear.alpha = 0.5f
-            btnDisgust.alpha = 0.5f
+            listOf(btnHappy, btnSad, btnAngry, btnFear, btnDisgust).forEach { button ->
+                button.alpha = 0.5f
+                button.scaleX = 1.0f
+                button.scaleY = 1.0f
+            }
         }
     }
 
@@ -155,7 +155,11 @@ class CreateMoodFragment : Fragment() {
     private fun saveMood() {
         selectedMood?.let { mood ->
             val note = binding.etNote.text.toString().trim()
-            viewModel.saveMoodEntry(mood, note.ifEmpty { null })
+            viewModel.saveMoodEntry(
+                date = selectedDate,
+                scale = mood,
+                note = note.ifEmpty { null }
+            )
 
             // Show success message
             android.widget.Toast.makeText(

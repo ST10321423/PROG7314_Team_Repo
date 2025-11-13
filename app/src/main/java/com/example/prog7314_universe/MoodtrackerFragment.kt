@@ -53,7 +53,7 @@ class MoodTrackerFragment : Fragment() {
                 putLong("selected_date", date.time)
             }
             findNavController().navigate(
-                R.id.action_moodrackerFragment_to_createMoodFragment,
+                R.id.action_moodTrackerFragment_to_createMoodFragment,
                 bundle
             )
         }

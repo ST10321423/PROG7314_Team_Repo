@@ -120,28 +120,23 @@ class JournalListFragment : Fragment() {
     }
 
     private fun updateDateDisplay(date: Date) {
-        val dateFormat = when (viewModel.viewMode.value) {
-            ViewMode.DAILY -> SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
-            ViewMode.WEEKLY -> {
-                val calendar = Calendar.getInstance()
-                calendar.time = date
-
-                // Get start of week
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-                val startDate = SimpleDateFormat("MMM d", Locale.getDefault()).format(calendar.time)
-
-                // Get end of week
-                calendar.add(Calendar.DAY_OF_WEEK, 6)
-                val endDate = SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(calendar.time)
-
-                return@updateDateDisplay binding.tvDateRange.apply {
-                    text = "$startDate - $endDate"
-                }
+        val mode = viewModel.viewMode.value
+        if (mode == ViewMode.WEEKLY) {
+            val calendar = Calendar.getInstance().apply {
+                time = date
+                set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
             }
-            else -> SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
-        }
 
-        binding.tvDateRange.text = dateFormat.format(date)
+            val startDate = SimpleDateFormat("MMM d", Locale.getDefault()).format(calendar.time)
+
+            calendar.add(Calendar.DAY_OF_WEEK, 6)
+            val endDate = SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(calendar.time)
+
+            binding.tvDateRange.text = "$startDate - $endDate"
+        } else {
+            val dateFormat = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
+            binding.tvDateRange.text = dateFormat.format(date)
+        }
     }
 
     private fun updateViewModeUI(mode: ViewMode) {

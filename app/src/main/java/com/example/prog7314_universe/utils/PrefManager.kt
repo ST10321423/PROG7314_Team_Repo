@@ -23,6 +23,7 @@ class PrefManager(private val context: Context) {
         val TASK_REMINDERS = booleanPreferencesKey("task_reminders_enabled")
         val EXAM_ALERTS = booleanPreferencesKey("exam_alerts_enabled")
         val HABIT_REMINDERS = booleanPreferencesKey("habit_reminders_enabled")
+        val BIOMETRIC_UNLOCK = booleanPreferencesKey("biometric_enabled")
     }
 
     // Reads (Flows)
@@ -32,6 +33,7 @@ class PrefManager(private val context: Context) {
     val taskRemindersEnabled: Flow<Boolean> = context.dataStore.data.map { it[Keys.TASK_REMINDERS] ?: true }
     val examAlertsEnabled: Flow<Boolean> = context.dataStore.data.map { it[Keys.EXAM_ALERTS] ?: true }
     val habitRemindersEnabled: Flow<Boolean> = context.dataStore.data.map { it[Keys.HABIT_REMINDERS] ?: true }
+    val biometricEnabled: Flow<Boolean> = context.dataStore.data.map { it[Keys.BIOMETRIC_UNLOCK] ?: false }
 
     // Writes (suspend)
     suspend fun setDarkMode(value: Boolean) {
@@ -56,5 +58,9 @@ class PrefManager(private val context: Context) {
 
     suspend fun setHabitRemindersEnabled(value: Boolean) {
         context.dataStore.edit { it[Keys.HABIT_REMINDERS] = value }
+    }
+
+    suspend fun setBiometricEnabled(value: Boolean) {
+        context.dataStore.edit { it[Keys.BIOMETRIC_UNLOCK] = value }
     }
 }

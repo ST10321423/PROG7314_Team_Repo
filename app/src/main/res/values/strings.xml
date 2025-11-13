@@ -14,6 +14,20 @@
     <string name="dont_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
 
+    <!-- Biometrics -->
+    <string name="privacy_security">Privacy &amp; Security</string>
+    <string name="biometric_unlock">Biometric unlock</string>
+    <string name="biometric_unlock_description">Use your fingerprint or face to open the app faster.</string>
+    <string name="biometric_enable_prompt_title">Enable biometric unlock</string>
+    <string name="biometric_enable_prompt_subtitle">Confirm your identity to start using biometrics</string>
+    <string name="biometric_prompt_title">Unlock Universe</string>
+    <string name="biometric_prompt_subtitle">Authenticate to access your dashboard</string>
+    <string name="biometric_prompt_negative">Cancel</string>
+    <string name="biometric_not_available">Biometric authentication is not available on this device.</string>
+    <string name="biometric_enable_success">Biometric unlock enabled</string>
+    <string name="biometric_disable_success">Biometric unlock disabled</string>
+    <string name="biometric_required">Authentication required to continue</string>
+
     <!-- Exam strings -->
     <string name="exams">Exams</string>
     <string name="add_exam">Add Exam</string>
