@@ -75,7 +75,7 @@ class ExamsActivity : AppCompatActivity() {
         // FAB - Add Exam
         fabAddExam.setOnClickListener {
             startActivityForResult(
-                Intent(this, AddExamActivity::class.java),
+                Intent(this, `AddExamFragment.kt`::class.java),
                 REQ_ADD_EXAM
             )
         }
@@ -111,7 +111,7 @@ class ExamsActivity : AppCompatActivity() {
                     true
                 }
                 R.id.tasks -> {
-                    startActivity(Intent(this, TaskActivity::class.java))
+                    startActivity(Intent(this, TasksFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true
@@ -121,13 +121,13 @@ class ExamsActivity : AppCompatActivity() {
                     true
                 }
                 R.id.habits -> {
-                    startActivity(Intent(this, HabitListActivity::class.java))
+                    startActivity(Intent(this, HabitListFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true
                 }
                 R.id.settings -> {
-                    startActivity(Intent(this, SettingsActivity::class.java))
+                    startActivity(Intent(this, SettingsFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true
@@ -217,7 +217,7 @@ class ExamsActivity : AppCompatActivity() {
     }
 
     private fun editExam(exam: Exam) {
-        val intent = Intent(this, AddExamActivity::class.java).apply {
+        val intent = Intent(this, `AddExamFragment.kt`::class.java).apply {
             putExtra(EXTRA_EXAM_ID, exam.id)
             putExtra(EXTRA_EXAM_SUBJECT, exam.subject)
             putExtra(EXTRA_EXAM_MODULE, exam.module)

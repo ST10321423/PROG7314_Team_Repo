@@ -1,18 +1,19 @@
 package com.example.prog7314_universe
 
 import android.app.DatePickerDialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.prog7314_universe.Models.SavingsContribution
 import com.example.prog7314_universe.Models.SavingsGoal
-import com.example.prog7314_universe.R
 import com.example.prog7314_universe.databinding.ActivityAddContributionBinding
+import com.example.prog7314_universe.utils.navigator
 import com.example.prog7314_universe.viewmodel.SavingsContributionViewModel
 import com.example.prog7314_universe.viewmodel.SavingsGoalViewModel
 import com.google.firebase.Timestamp
@@ -22,9 +23,11 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class AddContributionActivity : AppCompatActivity() {
+class AddContributionFragment : Fragment() {
 
-    private lateinit var b: ActivityAddContributionBinding
+    private var _binding: ActivityAddContributionBinding? = null
+    private val binding get() = _binding!!
+
     private val calendar: Calendar = Calendar.getInstance()
     private lateinit var goalViewModel: SavingsGoalViewModel
     private lateinit var contributionViewModel: SavingsContributionViewModel
@@ -34,50 +37,36 @@ class AddContributionActivity : AppCompatActivity() {
     private var selectedDate: Timestamp = Timestamp(calendar.time)
     private var goals: List<SavingsGoal> = emptyList()
 
-    companion object {
-        private const val EXTRA_USER_ID = "USER_ID"
-        private const val EXTRA_GOAL_ID = "GOAL_ID"
-
-        fun start(context: Context, userId: String, goalId: String? = null) {
-            context.startActivity(
-                Intent(context, AddContributionActivity::class.java)
-                    .putExtra(EXTRA_USER_ID, userId)
-                    .apply { goalId?.let { putExtra(EXTRA_GOAL_ID, it) } }
-            )
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = ActivityAddContributionBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        b = ActivityAddContributionBinding.inflate(layoutInflater)
-        setContentView(b.root)
-
-        // Status bar color (optional; keep your color)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.status_bar_color)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         goalViewModel = ViewModelProvider(this)[SavingsGoalViewModel::class.java]
         contributionViewModel = ViewModelProvider(this)[SavingsContributionViewModel::class.java]
 
-        userId = intent.getStringExtra(EXTRA_USER_ID)
+        userId = arguments?.getString(ARG_USER_ID)
             ?: FirebaseAuth.getInstance().currentUser?.uid.orEmpty()
         if (userId.isBlank()) {
             toast("Unable to determine user. Please sign in again.")
-            finish()
             return
         }
-        selectedGoalId = intent.getStringExtra(EXTRA_GOAL_ID) ?: ""
+        selectedGoalId = arguments?.getString(ARG_GOAL_ID) ?: ""
 
         observeGoals()
 
-        // ------- Date picker -------
-        b.etContributionDate.setOnClickListener { showDatePicker() }
-        // default date (today)
+        binding.etContributionDate.setOnClickListener { showDatePicker() }
         selectedDate = Timestamp(calendar.time)
-        b.etContributionDate.setText(formatDate(calendar.time))
+        binding.etContributionDate.setText(formatDate(calendar.time))
 
-        // ------- Save button -------
-        b.btnAddContribution.setOnClickListener {
-            val amountText = b.etContributionAmt.text?.toString()?.trim().orEmpty()
+        binding.btnAddContribution.setOnClickListener {
+            val amountText = binding.etContributionAmt.text?.toString()?.trim().orEmpty()
             val amount = amountText.replace("R", "").trim().toDoubleOrNull()
             if (amount == null || amount <= 0) {
                 toast("Enter a valid amount")
@@ -100,34 +89,39 @@ class AddContributionActivity : AppCompatActivity() {
                 setLoading(false)
                 if (success) {
                     toast("Contribution saved")
-                    finish()
+                    navigator().popBackStack()
                 } else {
                     toast("Failed to save contribution")
                 }
             }
         }
+    }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun observeGoals() {
-        goalViewModel.getSavingsGoals(userId).observe(this) { list ->
+        goalViewModel.getSavingsGoals(userId).observe(viewLifecycleOwner) { list ->
             goals = list
             if (list.isNullOrEmpty()) {
                 toast("No savings goals found. Create one first.")
-                finish()
+                navigator().popBackStack()
                 return@observe
             }
 
             val names = list.map { it.goalName }
-            b.spinnerContributionGoal.setAdapter(ArrayAdapter(this, android.R.layout.simple_list_item_1, names))
+            binding.spinnerContributionGoal.setAdapter(
+                ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, names)
+            )
 
             val initialIndex = list.indexOfFirst { it.id == selectedGoalId }
             val resolvedIndex = if (initialIndex >= 0) initialIndex else 0
             selectedGoalId = list.getOrNull(resolvedIndex)?.id.orEmpty()
-            b.spinnerContributionGoal.setText(list.getOrNull(resolvedIndex)?.goalName.orEmpty(), false)
+            binding.spinnerContributionGoal.setText(list.getOrNull(resolvedIndex)?.goalName.orEmpty(), false)
 
-            b.spinnerContributionGoal.setOnItemClickListener { _, _, position, _ ->
+            binding.spinnerContributionGoal.setOnItemClickListener { _, _, position, _ ->
                 selectedGoalId = goals.getOrNull(position)?.id.orEmpty()
             }
         }
@@ -135,13 +129,13 @@ class AddContributionActivity : AppCompatActivity() {
 
     private fun showDatePicker() {
         DatePickerDialog(
-            this,
+            requireContext(),
             { _, year, month, day ->
                 calendar.set(year, month, day, 0, 0, 0)
                 calendar.set(Calendar.MILLISECOND, 0)
                 val pickedDate = calendar.time
                 selectedDate = Timestamp(pickedDate)
-                b.etContributionDate.setText(formatDate(pickedDate))
+                binding.etContributionDate.setText(formatDate(pickedDate))
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -153,10 +147,22 @@ class AddContributionActivity : AppCompatActivity() {
         SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault()).format(date)
 
     private fun toast(msg: String) =
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
 
     private fun setLoading(loading: Boolean) {
-        b.btnAddContribution.isEnabled = !loading
-        b.btnAddContribution.alpha = if (loading) 0.7f else 1f
+        binding.btnAddContribution.isEnabled = !loading
+        binding.btnAddContribution.alpha = if (loading) 0.7f else 1f
+    }
+
+    companion object {
+        private const val ARG_USER_ID = "user_id"
+        private const val ARG_GOAL_ID = "goal_id"
+
+        fun newInstance(userId: String, goalId: String?): AddContributionFragment = AddContributionFragment().apply {
+            arguments = bundleOf(
+                ARG_USER_ID to userId,
+                ARG_GOAL_ID to goalId
+            )
+        }
     }
 }

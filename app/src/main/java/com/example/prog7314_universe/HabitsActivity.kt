@@ -8,7 +8,7 @@ class HabitsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Redirects to HabitListActivity
-        startActivity(Intent(this, HabitListActivity::class.java))
+        startActivity(Intent(this, HabitListFragment::class.java))
         finish()
     }
 }

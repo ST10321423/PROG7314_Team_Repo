@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class TaskActivity : AppCompatActivity() {
+class TasksFragment : AppCompatActivity() {
 
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var recyclerView: RecyclerView
@@ -40,7 +40,7 @@ class TaskActivity : AppCompatActivity() {
         // FAB -> AddTaskActivity (we'll read the result and call vm.addTask)
         val fab: FloatingActionButton = findViewById(R.id.fabAddTask)
         fab.setOnClickListener {
-            val intent = Intent(this, AddTaskActivity::class.java)
+            val intent = Intent(this, AddTaskFragment::class.java)
             startActivityForResult(intent, REQ_ADD_TASK)
         }
         setupBottomNavigation()
@@ -80,9 +80,9 @@ class TaskActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQ_ADD_TASK && resultCode == RESULT_OK) {
-            val title = data?.getStringExtra(AddTaskActivity.EXTRA_TITLE)?.trim().orEmpty()
-            val description = data?.getStringExtra(AddTaskActivity.EXTRA_DESCRIPTION)?.trim().orEmpty()
-            val dueIso = data?.getStringExtra(AddTaskActivity.EXTRA_DUE_ISO)
+            val title = data?.getStringExtra(AddTaskFragment.EXTRA_TITLE)?.trim().orEmpty()
+            val description = data?.getStringExtra(AddTaskFragment.EXTRA_DESCRIPTION)?.trim().orEmpty()
+            val dueIso = data?.getStringExtra(AddTaskFragment.EXTRA_DUE_ISO)
             if (title.isNotEmpty()) {
                 vm.addTask(
                     title = title,
@@ -154,14 +154,14 @@ class TaskActivity : AppCompatActivity() {
                 }
 
                 R.id.habits -> {
-                    startActivity(Intent(this, HabitListActivity::class.java))
+                    startActivity(Intent(this, HabitListFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true
                 }
 
                 R.id.settings -> {
-                    startActivity(Intent(this, SettingsActivity::class.java))
+                    startActivity(Intent(this, SettingsFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true

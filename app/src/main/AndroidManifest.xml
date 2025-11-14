@@ -35,7 +35,7 @@
 
         <!-- LOGIN ACTIVITY -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginFragment"
             android:exported="false"
             android:theme="@style/Base.Theme.PROG7314_Universe" />
 
@@ -51,7 +51,7 @@
             android:name=".HabitsActivity"
             android:exported="false" />
         <activity
-            android:name=".HabitListActivity"
+            android:name=".HabitListFragment"
             android:exported="false" />
         <activity
             android:name=".AddEditHabitActivity"
@@ -65,14 +65,14 @@
             android:name=".AddContributionActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".SettingsFragment"
             android:exported="false" />
-        <activity android:name=".TaskActivity" />
-        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".TasksFragment" />
+        <activity android:name=".AddTaskFragment" />
         <activity android:name=".ExamsActivity" />
-        <activity android:name=".AddExamActivity" />
-        <activity android:name=".SavingsGoalActivity" />
-        <activity android:name=".CreateSavingsGoalActivity" />
+        <activity android:name=".`AddExamFragment.kt`" />
+        <activity android:name=".SavingsGoalFragment" />
+        <activity android:name=".CreateSavingsGoalFragment" />
     </application>
 
 </manifest>

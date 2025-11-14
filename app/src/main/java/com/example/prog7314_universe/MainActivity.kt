@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         // Check if user is logged in
         if (auth.currentUser == null) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, LoginFragment::class.java))
             finish()
             return
         }
@@ -140,17 +140,17 @@ class MainActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         // Add Task button
         addTaskButton.setOnClickListener {
-            startActivity(Intent(this, AddTaskActivity::class.java))
+            startActivity(Intent(this, AddTaskFragment::class.java))
         }
 
         // Profile image - go to settings or profile
         profileImage.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            startActivity(Intent(this, SettingsFragment::class.java))
         }
 
         // Stats cards - navigate to relevant sections
         cardTasksCompleted.setOnClickListener {
-            startActivity(Intent(this, TaskActivity::class.java))
+            startActivity(Intent(this, TasksFragment::class.java))
         }
 
         cardStudyHours.setOnClickListener {
@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
 
         // "See all" links
         tvSeeAllAssignments.setOnClickListener {
-            startActivity(Intent(this, TaskActivity::class.java))
+            startActivity(Intent(this, TasksFragment::class.java))
         }
 
         tvSeeAllCourses.setOnClickListener {
@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.tasks -> {
-                    startActivity(Intent(this, TaskActivity::class.java))
+                    startActivity(Intent(this, TasksFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true
@@ -201,13 +201,13 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.habits -> {
-                    startActivity(Intent(this, HabitListActivity::class.java))
+                    startActivity(Intent(this, HabitListFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true
                 }
                 R.id.settings -> {
-                    startActivity(Intent(this, SettingsActivity::class.java))
+                    startActivity(Intent(this, SettingsFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true

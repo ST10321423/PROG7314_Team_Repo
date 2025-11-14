@@ -1,50 +1,55 @@
 package com.example.prog7314_universe
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.prog7314_universe.R
-import com.example.prog7314_universe.databinding.ActivityAddEditHabitBinding
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import com.example.prog7314_universe.Models.Habit
+import com.example.prog7314_universe.databinding.ActivityAddEditHabitBinding
+import com.example.prog7314_universe.utils.navigator
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class AddEditHabitActivity : AppCompatActivity() {
+class AddEditHabitFragment : Fragment() {
 
-    private lateinit var binding: ActivityAddEditHabitBinding
+    private var _binding: ActivityAddEditHabitBinding? = null
+    private val binding get() = _binding!!
+
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val db by lazy { FirebaseFirestore.getInstance() }
     private var habitId: String? = null
     private var current: Habit? = null
 
-    companion object {
-        fun start(ctx: Context, habitId: String?) {
-            ctx.startActivity(Intent(ctx, AddEditHabitActivity::class.java).apply {
-                putExtra("habitId", habitId)
-            })
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = ActivityAddEditHabitBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityAddEditHabitBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        habitId = intent.getStringExtra("habitId")
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        habitId = arguments?.getString(ARG_HABIT_ID)
         setupUi()
         if (habitId != null) loadHabit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupUi() {
         val times = arrayOf("None", "Morning", "Afternoon", "Evening")
         val timeAdapter = ArrayAdapter(
-            this,
+            requireContext(),
             android.R.layout.simple_spinner_item,
             times
         ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
@@ -58,7 +63,6 @@ class AddEditHabitActivity : AppCompatActivity() {
         binding.btnDelete.visibility = if (isEditing) View.VISIBLE else View.GONE
         binding.btnDelete.isEnabled = isEditing
 
-        // default spinner selection when editing "None"
         if (!isEditing) {
             binding.spinnerTime.setSelection(0)
         }
@@ -118,14 +122,22 @@ class AddEditHabitActivity : AppCompatActivity() {
 
     private fun saveHabit() {
         val uid = auth.currentUser?.uid ?: run {
-            Toast.makeText(this, R.string.error_not_signed_in, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), R.string.error_not_signed_in, Toast.LENGTH_SHORT).show()
             return
         }
         val name = binding.etName.text.toString().trim()
-        if (name.isEmpty()) { Toast.makeText(this, "Name required", Toast.LENGTH_SHORT).show(); return }
+        if (name.isEmpty()) {
+            Toast.makeText(requireContext(), "Name required", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val color = binding.etColor.text.toString().ifBlank { "#4CAF50" }
-        val timeOfDay = when (binding.spinnerTime.selectedItemPosition) { 1 -> "morning"; 2 -> "afternoon"; 3 -> "evening"; else -> null }
+        val timeOfDay = when (binding.spinnerTime.selectedItemPosition) {
+            1 -> "morning"
+            2 -> "afternoon"
+            3 -> "evening"
+            else -> null
+        }
         val difficulty = when {
             binding.rbEasy.isChecked -> "easy"
             binding.rbMedium.isChecked -> "medium"
@@ -151,38 +163,47 @@ class AddEditHabitActivity : AppCompatActivity() {
         if (habitId == null) {
             data["createdAt"] = now
             habits.add(data)
-                .addOnSuccessListener { finish() }
+                .addOnSuccessListener {
+                    navigator().popBackStack()
+                }
                 .addOnFailureListener { e ->
                     binding.btnSave.isEnabled = true
                     val reason = e.localizedMessage?.let { ": $it" } ?: ""
-                    Toast.makeText(this, getString(R.string.error_save_failed, reason), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_save_failed, reason), Toast.LENGTH_SHORT).show()
                 }
         } else {
             habits.document(habitId!!).update(data as Map<String, Any>)
-                .addOnSuccessListener { finish() }
+                .addOnSuccessListener {
+                    navigator().popBackStack()
+                }
                 .addOnFailureListener { e ->
                     binding.btnSave.isEnabled = true
                     val reason = e.localizedMessage?.let { ": $it" } ?: ""
-                    Toast.makeText(this, getString(R.string.error_save_failed, reason), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_save_failed, reason), Toast.LENGTH_SHORT).show()
                 }
         }
     }
 
     private fun deleteHabit() {
         val uid = auth.currentUser?.uid ?: run {
-            Toast.makeText(this, R.string.error_not_signed_in, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), R.string.error_not_signed_in, Toast.LENGTH_SHORT).show()
             return
         }
         habitId?.let {
             db.collection("users").document(uid).collection("habits")
                 .document(it).delete()
-                .addOnSuccessListener { finish() }
+                .addOnSuccessListener { navigator().popBackStack() }
                 .addOnFailureListener { e ->
                     val reason = e.localizedMessage?.let { ": $it" } ?: ""
-                    Toast.makeText(this, getString(R.string.error_delete_failed, reason), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_delete_failed, reason), Toast.LENGTH_SHORT).show()
                 }
         }
     }
 
-
+    companion object {
+        private const val ARG_HABIT_ID = "habitId"
+        fun newInstance(habitId: String?): AddEditHabitFragment = AddEditHabitFragment().apply {
+            arguments = bundleOf(ARG_HABIT_ID to habitId)
+        }
+    }
 }
