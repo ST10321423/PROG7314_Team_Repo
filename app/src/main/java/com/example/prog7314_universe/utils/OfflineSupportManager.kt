@@ -8,6 +8,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +21,8 @@ object OfflineSupportManager {
     private val _isOffline = MutableStateFlow(false)
     val isOffline: StateFlow<Boolean> = _isOffline.asStateFlow()
 
+    private var authListener: FirebaseAuth.AuthStateListener? = null
+
     fun init(application: Application) {
         if (FirebaseApp.getApps(application).isEmpty()) {
             FirebaseApp.initializeApp(application)
@@ -27,6 +30,7 @@ object OfflineSupportManager {
 
         configureFirestorePersistence()
         observeNetwork(application)
+        observeAuthChanges()
     }
 
     private fun configureFirestorePersistence() {
@@ -66,6 +70,21 @@ object OfflineSupportManager {
             }
         } catch (_: Exception) {
             // Ignore failures, app will rely on cached data if we cannot observe network
+        }
+    }
+
+    private fun observeAuthChanges() {
+        if (authListener != null) return
+        val auth = FirebaseAuth.getInstance()
+        authListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val uid = firebaseAuth.currentUser?.uid
+            if (uid == null) {
+                OfflineCachePrimer.stop()
+            } else {
+                OfflineCachePrimer.start(uid)
+            }
+        }.also { listener ->
+            auth.addAuthStateListener(listener)
         }
     }
 
