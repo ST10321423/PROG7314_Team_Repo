@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.prog7314_universe.utils.getWithOfflineFallbackTask
 import java.time.DayOfWeek
 import java.time.LocalDate
 
@@ -223,7 +224,7 @@ class HabitListFragment : AppCompatActivity() {
             var pending = base.size
             base.forEachIndexed { idx, ui ->
                 val logRef = col.document(ui.habit.habitId).collection("logs").document(todayKey)
-                logRef.get().addOnSuccessListener { logSnap ->
+                logRef.getWithOfflineFallbackTask().addOnSuccessListener { logSnap ->
                     val completed = logSnap.getBoolean("completed") == true
                     computeStreak(col.document(ui.habit.habitId)) { streak ->
                         base[idx] = ui.copy(completedToday = completed, currentStreak = streak)
@@ -335,7 +336,7 @@ class HabitListFragment : AppCompatActivity() {
         habitDoc.collection("logs")
             .orderBy("completedAt", com.google.firebase.firestore.Query.Direction.DESCENDING)
             .limit(30)
-            .get()
+            .getWithOfflineFallbackTask()
             .addOnSuccessListener { q ->
                 val today = LocalDate.now()
                 val completedDays = q.documents

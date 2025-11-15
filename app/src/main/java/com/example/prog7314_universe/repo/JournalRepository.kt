@@ -2,6 +2,7 @@ package com.example.prog7314_universe.repo
 
 import android.net.Uri
 import com.example.prog7314_universe.Models.JournalEntry
+import com.example.prog7314_universe.utils.getWithOfflineFallback
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -57,7 +58,7 @@ class JournalRepository {
      */
     suspend fun getEntryById(entryId: String): JournalEntry? {
         return try {
-            val snapshot = journalCollection.document(entryId).get().await()
+            val snapshot = journalCollection.document(entryId).getWithOfflineFallback()
             snapshot.toObject(JournalEntry::class.java)?.copy(entryId = snapshot.id)
         } catch (e: Exception) {
             null
@@ -180,8 +181,7 @@ class JournalRepository {
                 .whereGreaterThanOrEqualTo("createdAt", startOfDay)
                 .whereLessThanOrEqualTo("createdAt", endOfDay)
                 .orderBy("createdAt", Query.Direction.DESCENDING)
-                .get()
-                .await()
+                .getWithOfflineFallback()
 
             snapshot.documents.mapNotNull { doc ->
                 doc.toObject(JournalEntry::class.java)?.copy(entryId = doc.id)
@@ -216,8 +216,7 @@ class JournalRepository {
                 .whereGreaterThanOrEqualTo("createdAt", startOfWeek)
                 .whereLessThanOrEqualTo("createdAt", endOfWeek)
                 .orderBy("createdAt", Query.Direction.DESCENDING)
-                .get()
-                .await()
+                .getWithOfflineFallback()
 
             snapshot.documents.mapNotNull { doc ->
                 doc.toObject(JournalEntry::class.java)?.copy(entryId = doc.id)
@@ -237,8 +236,7 @@ class JournalRepository {
             val snapshot = journalCollection
                 .whereEqualTo("userId", userId)
                 .orderBy("createdAt", Query.Direction.DESCENDING)
-                .get()
-                .await()
+                .getWithOfflineFallback()
 
             snapshot.documents.mapNotNull { doc ->
                 doc.toObject(JournalEntry::class.java)?.copy(entryId = doc.id)
