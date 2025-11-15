@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PROG7314_Universe</string>
+
+    <string name="sign_in_to_your_account">Meld aan by jou rekening</string>
+    <string name="enter_your_email_and_password">Voer jou e-pos en wagwoord in om aan te meld.</string>
+    <string name="email">E-pos</string>
+    <string name="password">Wagwoord</string>
+    <string name="forgot_password">Wagwoord vergeet?</string>
+    <string name="log_in">Meld aan</string>
+    <string name="or">Of</string>
+    <string name="continue_with_google">Gaan voort met Google</string>
+    <string name="continue_with_facebook">Gaan voort met Facebook</string>
+    <string name="dont_have_an_account">Het jy nie &#39;n rekening nie?</string>
+    <string name="sign_up">Registreer</string>
+
+    <!-- Biometrics -->
+    <string name="privacy_security">Privaatheid en sekuriteit</string>
+    <string name="biometric_unlock">Biometriese ontsluiting</string>
+    <string name="biometric_unlock_description">Gebruik jou vingerafdruk of gesig om die app vinniger oop te maak.</string>
+    <string name="biometric_enable_prompt_title">Aktiveer biometriese ontsluiting</string>
+    <string name="biometric_enable_prompt_subtitle">Bevestig jou identiteit om biometrie te gebruik</string>
+    <string name="biometric_prompt_title">Ontsluit Universe</string>
+    <string name="biometric_prompt_subtitle">Meld aan om jou paneelbord te bereik</string>
+    <string name="biometric_prompt_negative">Kanselleer</string>
+    <string name="biometric_not_available">Biometriese verifikasie is nie op hierdie toestel beskikbaar nie.</string>
+    <string name="biometric_enable_success">Biometriese ontsluiting geaktiveer</string>
+    <string name="biometric_disable_success">Biometriese ontsluiting gedeaktiveer</string>
+    <string name="biometric_required">Verifikasie word vereis om voort te gaan</string>
+    <string name="save_habit">Stoor gewoonte</string>
+    <string name="update_habit">Werk gewoonte by</string>
+    <string name="delete_habit">Verwyder gewoonte</string>
+    <string name="error_not_signed_in">Kon nie die huidige gebruiker bepaal nie. Meld asseblief weer aan.</string>
+    <string name="error_save_failed">Kon nie gewoonte stoor%1$s nie</string>
+    <string name="error_delete_failed">Kon nie gewoonte verwyder%1$s nie</string>
+
+    <!-- Task strings -->
+    <string name="tasks">Take</string>
+    <string name="add_task">Voeg taak by</string>
+    <string name="search_tasks">Soek take...</string>
+    <string name="no_tasks_yet">Geen take nog nie\nTik + om jou eerste taak by te voeg</string>
+
+    <!-- Exam strings -->
+    <string name="exams">Eksamens</string>
+    <string name="add_exam">Voeg eksamen by</string>
+    <string name="edit_exam">Wysig eksamen</string>
+    <string name="save_exam">Stoor eksamen</string>
+    <string name="update_exam">Werk eksamen by</string>
+    <string name="delete_exam">Verwyder eksamen</string>
+    <string name="subject">Vak</string>
+    <string name="module">Module</string>
+    <string name="date">Datum</string>
+    <string name="time">Tyd</string>
+    <string name="start_time">Begintyd</string>
+    <string name="end_time">Eindtyd</string>
+    <string name="description">Beskrywing</string>
+    <string name="no_exams_yet">Geen eksamens nog nie\nTik + om jou eerste eksamen by te voeg</string>
+    <string name="search_exams">Soek eksamens...</string>
+    <string name="all">Alles</string>
+    <string name="completed">Voltooi</string>
+
+    <!-- Common strings -->
+    <string name="add">Voeg by</string>
+    <string name="edit">Wysig</string>
+    <string name="delete">Verwyder</string>
+    <string name="cancel">Kanselleer</string>
+    <string name="save">Stoor</string>
+
+    <!-- Language -->
+    <string name="language_english">Engels</string>
+    <string name="language_afrikaans">Afrikaans</string>
+
+    <!-- Habit strings -->
+    <string name="habits">Gewoontes</string>
+    <string name="add_habit">Voeg gewoonte by</string>
+    <string name="edit_habit">Wysig gewoonte</string>
+    <string name="habit_name">Gewoonte naam</string>
+    <string name="streak">Reeks</string>
+    <string name="due_today">Verskuldig vandag</string>
+    <string name="not_due">Nie verskuldig nie</string>
+    <string name="no_habits_yet">Geen gewoontes nog nie\nTik + om jou eerste gewoonte by te voeg</string>
+    <string name="search_habits">Soek gewoontes...</string>
+    <string name="filter_by_time">Filtreer volgens tyd</string>
+    <string name="all_times">Alle tye</string>
+    <string name="morning">Oggend</string>
+    <string name="afternoon">Middag</string>
+    <string name="evening">Aand</string>
+    <string name="difficulty">Moeilikheidsgraad</string>
+    <string name="easy">Maklik</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Moeilik</string>
+    <string name="time_of_day">Tyd van die dag</string>
+    <string name="days">Dae</string>
+    <string name="color">Kleur</string>
+    <string name="great_job">Goeie werk!</string>
+    <string name="no_habits_due_today">Geen gewoontes verskuldig vandag nie</string>
+    <string name="no_completed_habits">Geen gewoontes vandag voltooi nie</string>
+    <string name="hello_blank_fragment">Hallo leë fragment</string>
+
+    <!-- Settings -->
+    <string name="settings_account_title">Rekening</string>
+    <string name="settings_user_name_placeholder">Gebruikersnaam</string>
+    <string name="settings_user_email_placeholder">gebruiker@voorbeeld.com</string>
+    <string name="settings_theme_display">Tema en vertoon</string>
+    <string name="settings_dark_mode">Donker modus</string>
+    <string name="settings_language">Taal</string>
+    <string name="settings_text_size">Teksgrootte</string>
+    <string name="settings_text_size_default">100%%</string>
+    <string name="settings_notifications_title">Kennisgewings</string>
+    <string name="settings_enable_notifications">Aktiveer kennisgewings</string>
+    <string name="settings_task_reminders">Taakherinnerings</string>
+    <string name="settings_exam_alerts">Eksamenkennisgewings</string>
+    <string name="settings_habit_reminders">Gewoonteherinnerings</string>
+    <string name="settings_account_actions">Rekeningaksies</string>
+    <string name="settings_logout">Meld af</string>
+    <string name="settings_delete_account">Skrap rekening</string>
+    <string name="settings_guest_user_name">Gas</string>
+    <string name="settings_no_email">Geen e-pos</string>
+    <string name="settings_not_logged_in">Nie aangemeld nie</string>
+    <string name="settings_user_fallback_name">Gebruiker</string>
+    <string name="settings_text_size_updated">Teksgrootte is bygewerk. Herbegin die app om toe te pas.</string>
+    <string name="settings_logout_title">Meld af</string>
+    <string name="settings_logout_message">Is jy seker jy wil afmeld?</string>
+    <string name="settings_delete_account_title">Skrap rekening</string>
+    <string name="settings_delete_account_message">Is jy seker jy wil jou rekening permanent skrap? Hierdie aksie kan nie ongedaan gemaak word nie.</string>
+    <string name="settings_delete_account_confirm">Skrap</string>
+    <string name="settings_account_deleted">Rekening geskrap</string>
+    <string name="settings_delete_account_error">Kon nie rekening skrap nie: %1$s</string>
+    <string name="settings_unknown_error">Onbekende fout</string>
+
+</resources>

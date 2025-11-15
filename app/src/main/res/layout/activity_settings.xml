@@ -19,123 +19,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Header -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Account"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/on_surface"
-                    android:layout_marginBottom="16dp" />
-
-                <TextView
-                    android:id="@+id/tvUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="User Name"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/on_surface"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:id="@+id/tvUserEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="user@example.com"
-                    android:textSize="14sp"
-                    android:textColor="@color/on_surface"
-                    android:alpha="0.7" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Privacy & Security Section -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/privacy_security"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/on_surface"
-                    android:layout_marginBottom="16dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/biometric_unlock"
-                            android:textSize="16sp"
-                            android:textColor="@color/on_surface" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/biometric_unlock_description"
-                            android:textSize="13sp"
-                            android:textColor="@color/on_surface"
-                            android:alpha="0.7"
-                            android:layout_marginTop="4dp" />
-                    </LinearLayout>
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchBiometric"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Theme & Display Section -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp">
-
-            <LinearLayout
-                android:text="Settings"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:textColor="@color/on_surface"
-                android:layout_marginBottom="24dp" />
-
             <!-- Account Section -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -153,7 +36,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Account"
+                        android:text="@string/settings_account_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_surface"
@@ -163,7 +46,7 @@
                         android:id="@+id/tvUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="User Name"
+                        android:text="@string/settings_user_name_placeholder"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_surface"
@@ -173,10 +56,73 @@
                         android:id="@+id/tvUserEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="user@example.com"
+                        android:text="@string/settings_user_email_placeholder"
                         android:textSize="14sp"
                         android:textColor="@color/on_surface"
                         android:alpha="0.7" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Privacy & Security Section -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/privacy_security"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/on_surface"
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/biometric_unlock"
+                                android:textSize="16sp"
+                                android:textColor="@color/on_surface" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/biometric_unlock_description"
+                                android:textSize="13sp"
+                                android:textColor="@color/on_surface"
+                                android:alpha="0.7"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchBiometric"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -199,7 +145,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Theme &amp; Display"
+                        android:text="@string/settings_theme_display"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_surface"
@@ -217,7 +163,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Dark Mode"
+                            android:text="@string/settings_dark_mode"
                             android:textSize="16sp"
                             android:textColor="@color/on_surface" />
 
@@ -232,7 +178,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Language"
+                        android:text="@string/settings_language"
                         android:textSize="16sp"
                         android:textColor="@color/on_surface"
                         android:layout_marginBottom="8dp" />
@@ -249,7 +195,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Text Size"
+                        android:text="@string/settings_text_size"
                         android:textSize="16sp"
                         android:textColor="@color/on_surface"
                         android:layout_marginBottom="8dp" />
@@ -272,7 +218,7 @@
                             android:id="@+id/tvTextSizeValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="100%"
+                            android:text="@string/settings_text_size_default"
                             android:textSize="14sp"
                             android:textColor="@color/on_surface"
                             android:layout_marginStart="16dp"
@@ -302,7 +248,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Notifications"
+                        android:text="@string/settings_notifications_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_surface"
@@ -320,7 +266,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Enable Notifications"
+                            android:text="@string/settings_enable_notifications"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/on_surface" />
@@ -344,7 +290,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Task Reminders"
+                            android:text="@string/settings_task_reminders"
                             android:textSize="14sp"
                             android:textColor="@color/on_surface" />
 
@@ -367,7 +313,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Exam Alerts"
+                            android:text="@string/settings_exam_alerts"
                             android:textSize="14sp"
                             android:textColor="@color/on_surface" />
 
@@ -389,7 +335,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Habit Reminders"
+                            android:text="@string/settings_habit_reminders"
                             android:textSize="14sp"
                             android:textColor="@color/on_surface" />
 
@@ -421,7 +367,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Account Actions"
+                        android:text="@string/settings_account_actions"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_surface"
@@ -430,29 +376,29 @@
                     <!-- Logout Button -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnLogout"
+                        style="@style/Widget.Material3.Button"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:text="Logout"
+                        android:text="@string/settings_logout"
                         android:textSize="16sp"
+                        android:textColor="@color/on_primary"
                         app:cornerRadius="12dp"
                         app:backgroundTint="@color/primary1"
-                        android:textColor="@color/on_primary"
-                        android:layout_marginBottom="12dp"
-                        style="@style/Widget.Material3.Button" />
+                        android:layout_marginBottom="12dp" />
 
                     <!-- Delete Account Button -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnDeleteAccount"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:text="Delete Account"
+                        android:text="@string/settings_delete_account"
                         android:textSize="16sp"
+                        android:textColor="#D32F2F"
                         app:cornerRadius="12dp"
                         app:strokeColor="#D32F2F"
                         app:strokeWidth="2dp"
-                        app:backgroundTint="@android:color/transparent"
-                        android:textColor="#D32F2F"
-                        style="@style/Widget.Material3.Button.OutlinedButton" />
+                        app:backgroundTint="@android:color/transparent" />
 
                 </LinearLayout>
 
