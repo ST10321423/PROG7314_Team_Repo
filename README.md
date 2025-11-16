@@ -1,145 +1,143 @@
-# PROG7314 Part 2 - UniVerse Student Survival App
+# PROG7314 Part 3 - UniVerse Student Survival App
 
 # Students: ST10321423
 # Module: Programming 3D (PROG7314)
 
 ## Overview
+The UniVerse Task Management System is an Android app that lets students add, edit, delete, and track daily tasks and habits. It uses Firebase Authentication and Cloud Firestore to deliver secure sign-in, real-time synchronization, and resilient offline behavior.
 
-This project implements a secure and efficient Task Management System for the UniVerse Android application. The system allows users to manage their daily tasks — add, edit, delete, and track progress — all integrated with Firebase for real-time updates and secure authentication.
-
-## The solution consists of two main components:
-
-### Frontend (Mobile App)
-- Built using Android Studio (Kotlin)
-- User-friendly interface for task management
-- Seamless navigation through activities and fragments
-- Real-time updates with Firebase Firestore
+## Solution Components
+### Frontend (Android)
+- Built with Android Studio (Kotlin)
+- Activities/fragments with a user-friendly task and habit workflow
+- Multi-language ready through Android string resources
+- Accessibility-friendly UI with standard components for TalkBack/VoiceOver and sensible contrast defaults
+- Real-time data display backed by Firestore listeners
 
 ### Backend (Firebase Cloud)
-- Firebase Authentication for secure login
-- Cloud Firestore for structured and scalable data storage
-- Real-time synchronization of user tasks across devices
+- Firebase Authentication for secure login (Google Sign-In and Email/Password)
+- Cloud Firestore for scalable, structured task and habit data
+- Real-time synchronization of user data across devices
 
-### Pipeline:
-- Version control managed via GitHub
-- Local builds and testing performed through Android Studio
-- Ready for integration with GitHub Actions for CI/CD automation
-- Structured branching: main, dev, and feature/* for team collaboration
+### Pipeline
+- Version control with GitHub
+- Local builds and testing through Android Studio
+- Ready for GitHub Actions CI/CD automation
+- Branching strategy: `main`, `dev`, and `feature/*`
 
-## Security Features:
-
+## Security Features
 ### User Authentication
-- Secure login using Firebase Authentication (Google Sign-In / Email & Password)
-- Firebase handles token-based session management automatically
+- Firebase Authentication for Google Sign-In and Email/Password
+- Automatic token-based session management
 
 ### Password and Account Protection
-- Firebase Auth ensures all credentials are encrypted
-- No plaintext password storage
-- Google Sign-In uses OAuth2 for secure third-party authentication
+- Credentials encrypted by Firebase Auth; no plaintext storage
+- OAuth2 flow for Google Sign-In
 
 ### Data Protection
-- Firestore data secured with Firebase Security Rules
-- Users can only access documents where userId == request.auth.uid
-- All reads and writes go through authenticated sessions
+- Firestore Security Rules restrict access to documents where `userId == request.auth.uid`
+- All reads and writes require authenticated sessions
 
 ### Input Validation
-- Task names and descriptions validated before Firestore write
-- Empty or malformed inputs blocked in both frontend and backend
+- Task and habit fields validated before Firestore writes
+- Empty or malformed inputs blocked on both frontend and backend
 
 ### Protection Against Common Attacks
-- HTTPS (TLS) ensures encrypted data transmission
--Firebase’s backend infrastructure mitigates XSS, SQLi, and CSRF
-- Firestore Security Rules prevent privilege escalation
-- Authentication tokens protect against session hijacking
+- HTTPS (TLS) for encrypted transmission
+- Firebase infrastructure mitigates XSS, SQL injection, and CSRF
+- Firestore rules prevent privilege escalation; auth tokens reduce session hijacking risk
 
 ### DevSecOps Pipeline
-- Versioning and collaboration through GitHub
-- Firebase hosting and monitoring for backend components
-- Code undergoes local unit testing before commits
-- CI pipeline ready for future automation (build/test/deploy)
+- GitHub for collaboration and versioning
+- Firebase hosting/monitoring for backend components
+- Local unit testing before commits; CI pipeline ready for build/test/deploy automation
 
 ## Functional Portal
-### User Flow
+### Splash Screen
+- Displays the UniVerse logo while checking authentication state
+- Routes to Login if signed out, or Home Dashboard if already authenticated
 
-### Splash Screen:
-- Displays the UniVerse logo briefly while checking the user’s authentication state.
-- Automatically navigates to the Login Screen if not signed in, or directly to the Home Dashboard if the user is already authenticated.
+### Login Page
+- Secure sign-in with Google or Email/Password
+- Successful login updates Firebase Auth and routes to the Home Dashboard
 
-### Login Page:
-- Users can log in securely using Google Sign-In or Email/Password authentication.
-- Successful sign-in creates or updates the user record in Firebase Authentication and redirects to the Home Dashboard.
+### Home / Dashboard
+- Personalized welcome with metrics (tasks completed, active habits)
+- Shortcuts to Tasks, Habits, and Settings
 
-### Home / Dashboard:
-- Shows a personalized welcome message and key metrics like tasks completed and active habits.
-- Provides navigation shortcuts to Tasks, Habits, and Settings screens.
+### Tasks Feature
+- Add, edit, or delete tasks with title, description, and optional due date
+- Tasks stored in Firestore and shown in a RecyclerView with live updates
 
-### Tasks Feature:
-- Users can add, edit, or delete tasks.
-- Each task includes a title, description, and optional due date.
-- Tasks are stored in Firestore and displayed in a RecyclerView, updating in real time.
+### Habits Feature
+- Add, edit, or delete daily habits (e.g., study goals, routines)
+- Track completions per day with Firestore-backed analytics
+- Dashboard reflects progress dynamically
 
-### Habits Feature:
-- Users can add, edit, or delete daily habits such as study goals or routines.
-- Completed habits are tracked per day and synced with Firestore for progress analytics.
-- Data updates dynamically on the dashboard.
+### Settings Feature
+- Toggle Light, Dark, or System Default theme
+- Preference saved locally and applied at startup
+- Logout option securely signs out of Firebase and returns to Login
 
-### Settings Feature:
-- Allows users to switch between Light Mode, Dark Mode, or System Default Theme.
-- The chosen theme preference is saved locally and automatically applied at app startup.
-- Also includes a Logout option that securely signs the user out of Firebase and returns them to the Login Screen.
+### Logout / Session Handling
+- Firebase clears session and cached data on logout
+- App returns to the Login Page for next sign-in
 
-### Logout / Session Handling:
-- On logout, Firebase clears the user’s session and cached data.
-- The app returns to the Login Page for the next sign-in.
+## Task API Overview
+Bridges the UI with Firestore to keep data secure and synchronized.
 
-### Task API Overview:
-- The Task API acts as a bridge between the app’s frontend (UI) and Firestore (backend).
-- It ensures smooth and secure data flow using Firebase services.
+### Data Model
+- **Collection:** `tasks`
+- **Fields:**
+  - `taskId`: Unique identifier (auto-generated)
+  - `userId`: UID of the authenticated user
+  - `title`: Task title
+  - `description`: Task details
+  - `dueDate`: Firestore Timestamp
+  - `isCompleted`: Boolean task status
 
-## Structure:
-### Collection: tasks
-### Document Fields:
-taskId: Unique identifier (auto-generated)
-userId: UID of the authenticated user
-title: Task title
-description: Task details
-dueDate: Firestore Timestamp
-isCompleted: Boolean (task status)
+### Core Functions
+- `addTask()`: Add a new task for the logged-in user
+- `updateTask()`: Update existing task data
+- `deleteTask()`: Remove a task from Firestore
+- `fetchTasksByUser()`: Retrieve all tasks for a given `userId`
+- `syncTasks()`: Keep tasks synchronized in real time with Firestore listeners
 
-### Core Functions:
-	
-addTask():	Adds a new task for the logged-in user
-updateTask():	Updates existing task data
-deleteTask():	Removes a task from Firestore
-fetchTasksByUser():	Retrieves all tasks for a specific userId
-syncTasks():	Keeps tasks synced in real time using Firestore listeners
+### Data Flow
+1. Retrieve `currentUser.uid` from Firebase Auth.
+2. Query Firestore tasks where `userId == currentUser.uid`.
+3. Real-time listeners push add/edit/delete changes to the app instantly.
 
-### Data Flow:
-- The app retrieves the currentUser.uid from Firebase Auth.
-- Firestore queries tasks where userId == currentUser.uid.
-- Any change in Firestore (add/edit/delete) updates the app instantly via real-time listeners.
+### Offline Behavior
+- Firestore local persistence keeps recent task and habit data available offline and resyncs automatically on reconnect.
+- Pending writes queue locally to prevent data loss during connectivity drops.
 
-### Installation and Running the Project:
-Clone Repository:
+## Installation and Running the Project
+### Clone Repository
+```bash
 git clone https://github.com/ST10321423/PROG7314_Team_Repo.git
 
-Setup and Run in Android Studio:
+```
 
-- Open project in Android Studio
-- Connect Firebase:
-- Tools → Firebase → Authentication → Connect to Firebase
-- Enable Email/Password & Google Sign-In
-- Enable Cloud Firestore
-- Sync Gradle
-- Run app on emulator or connected device
+### Setup in Android Studio
+1. Open the project in Android Studio.
+2. Connect Firebase: **Tools → Firebase → Authentication → Connect to Firebase**.
+3. Enable Email/Password and Google Sign-In.
+4. Enable Cloud Firestore and sync Gradle.
+5. Run the app on an emulator or connected device.
 
-App → Android Emulator / Device
-Backend → Firebase (Firestore + Auth)
+**App:** Android Emulator / Device  
+**Backend:** Firebase (Firestore + Auth)
 
-## References:
-Firebase (2025). Authentication and Firestore Documentation.
-https://firebase.google.com/docs
-Google Developers (2025). Best Practices for Secure Android Development.
-https://developer.android.com/topic/security/best-practices
-Firebase (2025). Cloud Firestore Security Rules.
-https://firebase.google.com/docs/firestore/security/rules-conditions
+## References
+- Firebase (2025). Authentication and Firestore Documentation. https://firebase.google.com/docs
+- Google Developers (2025). Best Practices for Secure Android Development. https://developer.android.com/topic/security/best-practices
+- Firebase (2025). Cloud Firestore Security Rules. https://firebase.google.com/docs/firestore/security/rules-conditions
+
+<img width="844" height="564" alt="image" src="https://github.com/user-attachments/assets/ed720869-38b2-4a43-9931-17d342ac318e" />
+
+<img width="1600" height="520" alt="image" src="https://github.com/user-attachments/assets/2402721a-0526-41b8-9208-ebf715ea7c38" />
+
+<img width="1224" height="661" alt="image" src="https://github.com/user-attachments/assets/c0e632ff-dcf7-4712-9c32-32ffb1dc185a" />
+
+
