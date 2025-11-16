@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PROG7314_Universe</string>
 
-
+    <!-- Auth / Login -->
     <string name="sign_in_to_your_account">Sign in to your Account</string>
     <string name="enter_your_email_and_password">Enter your email and password to log in.</string>
     <string name="email">Email</string>
@@ -11,7 +11,7 @@
     <string name="or">Or</string>
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
-    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="dont_have_an_account">Don&apos;t have an account?</string>
     <string name="sign_up">Sign Up</string>
 
     <!-- Biometrics -->
@@ -27,6 +27,8 @@
     <string name="biometric_enable_success">Biometric unlock enabled</string>
     <string name="biometric_disable_success">Biometric unlock disabled</string>
     <string name="biometric_required">Authentication required to continue</string>
+
+    <!-- Habit CRUD errors -->
     <string name="save_habit">Save Habit</string>
     <string name="update_habit">Update Habit</string>
     <string name="delete_habit">Delete Habit</string>
@@ -66,6 +68,10 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
 
+    <!-- Language (for spinner) -->
+    <string name="language_english">English</string>
+    <string name="language_afrikaans">Afrikaans</string>
+
     <!-- Habit strings -->
     <string name="habits">Habits</string>
     <string name="add_habit">Add Habit</string>
@@ -91,8 +97,41 @@
     <string name="great_job">Great job!</string>
     <string name="no_habits_due_today">No habits due today</string>
     <string name="no_completed_habits">No completed habits today</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- Placeholder -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Settings (new from Codex) -->
+    <string name="settings_account_title">Account</string>
+    <string name="settings_user_name_placeholder">User Name</string>
+    <string name="settings_user_email_placeholder">user@example.com</string>
+    <string name="settings_theme_display">Theme &amp; Display</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_text_size">Text Size</string>
+    <string name="settings_text_size_default">100%</string>
+    <string name="settings_notifications_title">Notifications</string>
+    <string name="settings_enable_notifications">Enable Notifications</string>
+    <string name="settings_task_reminders">Task Reminders</string>
+    <string name="settings_exam_alerts">Exam Alerts</string>
+    <string name="settings_habit_reminders">Habit Reminders</string>
+    <string name="settings_account_actions">Account Actions</string>
+    <string name="settings_logout">Logout</string>
+    <string name="settings_delete_account">Delete Account</string>
+    <string name="settings_guest_user_name">Guest</string>
+    <string name="settings_no_email">No email</string>
+    <string name="settings_not_logged_in">Not logged in</string>
+    <string name="settings_user_fallback_name">User</string>
+    <string name="settings_text_size_updated">Text size updated. Restart app to apply.</string>
+    <string name="settings_logout_title">Logout</string>
+    <string name="settings_logout_message">Are you sure you want to logout?</string>
+    <string name="settings_delete_account_title">Delete Account</string>
+    <string name="settings_delete_account_message">
+        Are you sure you want to permanently delete your account? This action cannot be undone.
+    </string>
+    <string name="settings_delete_account_confirm">Delete</string>
+    <string name="settings_account_deleted">Account deleted</string>
+    <string name="settings_delete_account_error">Failed to delete account: %1$s</string>
+    <string name="settings_unknown_error">Unknown error</string>
 
 </resources>

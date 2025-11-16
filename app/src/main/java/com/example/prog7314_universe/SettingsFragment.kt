@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.prog7314_universe.databinding.ActivitySettingsBinding
@@ -25,6 +27,11 @@ class SettingsFragment : Fragment() {
     private val auth by lazy { FirebaseAuth.getInstance() }
     private lateinit var prefManager: PrefManager
 
+    // Language support
+    private val supportedLanguageCodes = listOf("en", "af")
+    private var isLanguageSpinnerInitialized = false
+    private var currentLanguageCode: String = supportedLanguageCodes.first()
+
     @SuppressLint("RestrictedApi")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +47,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loadUserInfo()
         loadSettings()
+        setupLanguageSpinner()
         setupListeners()
         setupBottomNavigation()
     }
@@ -49,24 +57,32 @@ class SettingsFragment : Fragment() {
         _binding = null
     }
 
+    // ---------------- User info ----------------
+
     private fun loadUserInfo() {
         val user = auth.currentUser
         if (user != null) {
-            binding.tvUserName.text = user.displayName ?: "User"
-            binding.tvUserEmail.text = user.email ?: "No email"
+            binding.tvUserName.text =
+                user.displayName ?: getString(R.string.settings_user_fallback_name)
+            binding.tvUserEmail.text =
+                user.email ?: getString(R.string.settings_no_email)
         } else {
-            binding.tvUserName.text = "Guest"
-            binding.tvUserEmail.text = "Not logged in"
+            binding.tvUserName.text = getString(R.string.settings_guest_user_name)
+            binding.tvUserEmail.text = getString(R.string.settings_not_logged_in)
         }
     }
 
+    // ---------------- Settings loading ----------------
+
     private fun loadSettings() {
+        // Dark mode
         viewLifecycleOwner.lifecycleScope.launch {
             prefManager.isDarkMode.collect { isDark ->
                 binding.switchDarkMode.isChecked = isDark
             }
         }
 
+        // Text scale
         viewLifecycleOwner.lifecycleScope.launch {
             prefManager.textScale.collect { scale ->
                 binding.seekBarTextSize.progress = ((scale - 0.8f) * 100).toInt()
@@ -74,6 +90,23 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        // Language
+        viewLifecycleOwner.lifecycleScope.launch {
+            prefManager.language.collect { language ->
+                val code = if (supportedLanguageCodes.contains(language)) {
+                    language
+                } else {
+                    supportedLanguageCodes.first()
+                }
+                currentLanguageCode = code
+                val index = supportedLanguageCodes.indexOf(code)
+                if (index != -1 && binding.spinnerLanguage.selectedItemPosition != index) {
+                    binding.spinnerLanguage.setSelection(index, false)
+                }
+            }
+        }
+
+        // Notifications
         viewLifecycleOwner.lifecycleScope.launch {
             prefManager.notificationsEnabled.collect { enabled ->
                 binding.switchNotifications.isChecked = enabled
@@ -81,18 +114,21 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        // Task reminders
         viewLifecycleOwner.lifecycleScope.launch {
             prefManager.taskRemindersEnabled.collect { enabled ->
                 binding.switchTaskReminders.isChecked = enabled
             }
         }
 
+        // Exam alerts
         viewLifecycleOwner.lifecycleScope.launch {
             prefManager.examAlertsEnabled.collect { enabled ->
                 binding.switchExamAlerts.isChecked = enabled
             }
         }
 
+        // Habit reminders
         viewLifecycleOwner.lifecycleScope.launch {
             prefManager.habitRemindersEnabled.collect { enabled ->
                 binding.switchHabitReminders.isChecked = enabled
@@ -100,7 +136,10 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    // ---------------- Listeners ----------------
+
     private fun setupListeners() {
+        // Dark mode
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
             viewLifecycleOwner.lifecycleScope.launch {
                 prefManager.setDarkMode(isChecked)
@@ -108,8 +147,14 @@ class SettingsFragment : Fragment() {
             }
         }
 
-        binding.seekBarTextSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        // Text size
+        binding.seekBarTextSize.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(
+                seekBar: SeekBar?,
+                progress: Int,
+                fromUser: Boolean
+            ) {
                 val scale = 0.8f + (progress / 100f * 0.4f)
                 binding.tvTextSizeValue.text = "${(scale * 100).toInt()}%"
             }
@@ -120,11 +165,16 @@ class SettingsFragment : Fragment() {
                 val scale = 0.8f + (seekBar!!.progress / 100f * 0.4f)
                 viewLifecycleOwner.lifecycleScope.launch {
                     prefManager.setTextScale(scale)
-                    Toast.makeText(requireContext(), "Text size updated. Restart app to apply.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.settings_text_size_updated),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })
 
+        // Global notifications
         binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             viewLifecycleOwner.lifecycleScope.launch {
                 prefManager.setNotificationsEnabled(isChecked)
@@ -132,47 +182,112 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        // Individual notification types
         binding.switchTaskReminders.setOnCheckedChangeListener { _, isChecked ->
-            viewLifecycleOwner.lifecycleScope.launch { prefManager.setTaskRemindersEnabled(isChecked) }
+            viewLifecycleOwner.lifecycleScope.launch {
+                prefManager.setTaskRemindersEnabled(isChecked)
+            }
         }
 
         binding.switchExamAlerts.setOnCheckedChangeListener { _, isChecked ->
-            viewLifecycleOwner.lifecycleScope.launch { prefManager.setExamAlertsEnabled(isChecked) }
+            viewLifecycleOwner.lifecycleScope.launch {
+                prefManager.setExamAlertsEnabled(isChecked)
+            }
         }
 
         binding.switchHabitReminders.setOnCheckedChangeListener { _, isChecked ->
-            viewLifecycleOwner.lifecycleScope.launch { prefManager.setHabitRemindersEnabled(isChecked) }
+            viewLifecycleOwner.lifecycleScope.launch {
+                prefManager.setHabitRemindersEnabled(isChecked)
+            }
         }
 
+        // Auth actions
         binding.btnLogout.setOnClickListener { showLogoutDialog() }
         binding.btnDeleteAccount.setOnClickListener { showDeleteAccountDialog() }
     }
+
+    // ---------------- Language spinner ----------------
+
+    private fun setupLanguageSpinner() {
+        binding.spinnerLanguage.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    // First automatic call from Android – ignore
+                    if (!isLanguageSpinnerInitialized) {
+                        isLanguageSpinnerInitialized = true
+                        return
+                    }
+
+                    val selectedCode =
+                        supportedLanguageCodes.getOrElse(position) { supportedLanguageCodes.first() }
+
+                    if (selectedCode != currentLanguageCode) {
+                        currentLanguageCode = selectedCode
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            prefManager.setLanguage(selectedCode)
+                        }
+                        applyLanguage(selectedCode)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+    }
+
+    // ---------------- Bottom navigation ----------------
 
     private fun setupBottomNavigation() = with(binding.bottomNavigationView) {
         selectedItemId = R.id.settings
         setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.dashboard -> {
-                    navigator().openFragment(DashboardFragment(), addToBackStack = false, clearBackStack = true)
+                    navigator().openFragment(
+                        DashboardFragment(),
+                        addToBackStack = false,
+                        clearBackStack = true
+                    )
                     true
                 }
+
                 R.id.tasks -> {
-                    navigator().openFragment(TasksFragment(), addToBackStack = false, clearBackStack = true)
+                    navigator().openFragment(
+                        TasksFragment(),
+                        addToBackStack = false,
+                        clearBackStack = true
+                    )
                     true
                 }
+
                 R.id.exams -> {
-                    navigator().openFragment(ExamsFragment(), addToBackStack = false, clearBackStack = true)
+                    navigator().openFragment(
+                        ExamsFragment(),
+                        addToBackStack = false,
+                        clearBackStack = true
+                    )
                     true
                 }
+
                 R.id.habits -> {
-                    navigator().openFragment(HabitListFragment(), addToBackStack = false, clearBackStack = true)
+                    navigator().openFragment(
+                        HabitListFragment(),
+                        addToBackStack = false,
+                        clearBackStack = true
+                    )
                     true
                 }
+
                 R.id.settings -> true
                 else -> false
             }
         }
     }
+
+    // ---------------- Helpers ----------------
 
     private fun updateNotificationSwitches(enabled: Boolean) {
         binding.switchTaskReminders.isEnabled = enabled
@@ -187,44 +302,73 @@ class SettingsFragment : Fragment() {
 
     private fun applyTheme(isDark: Boolean) {
         AppCompatDelegate.setDefaultNightMode(
-            if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            if (isDark) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
         )
         requireActivity().recreate()
     }
 
+    private fun applyLanguage(languageCode: String) {
+        val localeList = LocaleListCompat.forLanguageTags(languageCode)
+        AppCompatDelegate.setApplicationLocales(localeList)
+        requireActivity().recreate()
+    }
+
+    // ---------------- Dialogs ----------------
+
     private fun showLogoutDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Logout")
-            .setMessage("Are you sure you want to logout?")
-            .setPositiveButton("Logout") { _, _ ->
+            .setTitle(getString(R.string.settings_logout_title))
+            .setMessage(getString(R.string.settings_logout_message))
+            .setPositiveButton(getString(R.string.settings_logout)) { _, _ ->
                 auth.signOut()
-                navigator().openFragment(LoginFragment(), addToBackStack = false, clearBackStack = true)
+                navigator().openFragment(
+                    LoginFragment(),
+                    addToBackStack = false,
+                    clearBackStack = true
+                )
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
     private fun showDeleteAccountDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Account")
-            .setMessage("Are you sure you want to permanently delete your account? This action cannot be undone.")
-            .setPositiveButton("Delete") { _, _ -> deleteAccount() }
-            .setNegativeButton("Cancel", null)
+            .setTitle(getString(R.string.settings_delete_account_title))
+            .setMessage(getString(R.string.settings_delete_account_message))
+            .setPositiveButton(getString(R.string.settings_delete_account_confirm)) { _, _ ->
+                deleteAccount()
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
+
+    // ---------------- Account deletion ----------------
 
     private fun deleteAccount() {
         val user = auth.currentUser
         if (user != null) {
             user.delete()
                 .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Account deleted", Toast.LENGTH_SHORT).show()
-                    navigator().openFragment(LoginFragment(), addToBackStack = false, clearBackStack = true)
-                }
-                .addOnFailureListener { e ->
                     Toast.makeText(
                         requireContext(),
-                        "Failed to delete account: ${e.message}",
+                        getString(R.string.settings_account_deleted),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    navigator().openFragment(
+                        LoginFragment(),
+                        addToBackStack = false,
+                        clearBackStack = true
+                    )
+                }
+                .addOnFailureListener { e ->
+                    val message = getString(
+                        R.string.settings_delete_account_error,
+                        e.message ?: getString(R.string.settings_unknown_error)
+                    )
+                    Toast.makeText(
+                        requireContext(),
+                        message,
                         Toast.LENGTH_LONG
                     ).show()
                 }
