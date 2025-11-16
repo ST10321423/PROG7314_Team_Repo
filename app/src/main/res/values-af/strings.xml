@@ -11,7 +11,7 @@
     <string name="or">Of</string>
     <string name="continue_with_google">Gaan voort met Google</string>
     <string name="continue_with_facebook">Gaan voort met Facebook</string>
-    <string name="dont_have_an_account">Het jy nie &#39;n rekening nie?</string>
+    <string name="dont_have_an_account">Het jy nie n rekening nie?</string>
     <string name="sign_up">Registreer</string>
 
     <string name="settings_user_fallback_email">Geen E-pos</string>
@@ -55,7 +55,7 @@
     <!-- Task strings -->
     <string name="tasks">Take</string>
     <string name="add_task">Voeg taak by</string>
-    <string name="search_tasks">Soek take...</string>
+    <string name="search_tasks">Soek take…</string>
     <string name="no_tasks_yet">Geen take nog nie\nTik + om jou eerste taak by te voeg</string>
 
     <!-- Exam strings -->
@@ -73,7 +73,7 @@
     <string name="end_time">Eindtyd</string>
     <string name="description">Beskrywing</string>
     <string name="no_exams_yet">Geen eksamens nog nie\nTik + om jou eerste eksamen by te voeg</string>
-    <string name="search_exams">Soek eksamens...</string>
+    <string name="search_exams">Soek eksamens…</string>
     <string name="all">Alles</string>
     <string name="completed">Voltooi</string>
 
@@ -97,7 +97,7 @@
     <string name="due_today">Verskuldig vandag</string>
     <string name="not_due">Nie verskuldig nie</string>
     <string name="no_habits_yet">Geen gewoontes nog nie\nTik + om jou eerste gewoonte by te voeg</string>
-    <string name="search_habits">Soek gewoontes...</string>
+    <string name="search_habits">Soek gewoontes…</string>
     <string name="filter_by_time">Filtreer volgens tyd</string>
     <string name="all_times">Alle tye</string>
     <string name="morning">Oggend</string>

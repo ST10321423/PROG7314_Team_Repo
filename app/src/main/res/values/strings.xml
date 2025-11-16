@@ -11,11 +11,12 @@
     <string name="or">Or</string>
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
-    <string name="dont_have_an_account">Don&apos;t have an account?</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
 
     <string name="default_web_client_id" translatable="false">1021947947057-s5bgomu5s4e52m7ock59ecbe4st6go41.apps.googleusercontent.com</string>
     <string name="settings_user_fallback_email">No email</string>
+
 
     <!-- Biometrics -->
     <string name="privacy_security">Privacy &amp; Security</string>

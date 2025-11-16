@@ -93,6 +93,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
     testImplementation("app.cash.turbine:turbine:1.1.0") // Flow testing
     testImplementation("org.robolectric:robolectric:4.13")
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
+
 
     // REST client (task-api)
     implementation("com.squareup.retrofit2:retrofit:2.11.0")

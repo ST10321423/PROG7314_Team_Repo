@@ -65,7 +65,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
             // Cancel notifications if task is marked as completed
             if (updatedTask.isCompleted) {
                 reminderScheduler.cancelTaskReminders(task.id)
-            } else if (!task.due.isNullOrBlank()) {
+            } else if (!task.dueDate.isNullOrBlank()) {
                 // Reschedule if uncompleted
                 scheduleTaskNotifications(updatedTask)
             }
@@ -92,11 +92,11 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
      * Notifies at: 24 hours, 6 hours, and 1 hour before due
      */
     private fun scheduleTaskNotifications(task: Task) {
-        if (!task.due.isNullOrBlank()) {
+        if (!task.dueDate.isNullOrBlank()) {
             reminderScheduler.scheduleTaskReminder(
                 taskId = task.id,
                 taskTitle = task.title,
-                dueDate = task.due,
+                dueDate = task.dueDate,
                 reminderHoursBefore = listOf(24, 6, 1) // Customize as needed
             )
         }
