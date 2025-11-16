@@ -111,6 +111,12 @@ Bridges the UI with Firestore to keep data secure and synchronized.
 ### Offline Behavior
 - Firestore local persistence keeps recent task and habit data available offline and resyncs automatically on reconnect.
 - Pending writes queue locally to prevent data loss during connectivity drops.
+- UI surfaces cached data first, then refreshes when network connectivity returns.
+
+### Localization and Offline Tips
+- **Localization:** Add translated strings to locale-specific `res/values-<lang>/strings.xml` files; Android will auto-select the right language based on the device locale.
+- **Right-to-left (RTL) readiness:** Use `Start`/`End` layout attributes and avoid hardcoded alignment to keep RTL layouts usable.
+- **Offline UX:** Show cached tasks/habits instantly, then merge server updates when back online. Consider lightweight toasts/snackbars for queued writes and sync status.
 
 ## Installation and Running the Project
 ### Clone Repository
