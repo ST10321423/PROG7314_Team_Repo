@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
+import androidx.biometric.BiometricManager
 import androidx.lifecycle.lifecycleScope
 import com.example.prog7314_universe.databinding.ActivitySettingsBinding
 import com.example.prog7314_universe.utils.PrefManager
@@ -25,6 +26,8 @@ class SettingsFragment : Fragment() {
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private lateinit var prefManager: PrefManager
+    private var biometricSupported = false
+    private var updatingBiometricSwitch = false
 
     // Language support
     private val supportedLanguageCodes = listOf("en", "af")
@@ -45,6 +48,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadUserInfo()
+        setupBiometricCapability()
         loadSettings()
         setupLanguageSpinner()
         setupListeners()
@@ -87,6 +91,14 @@ class SettingsFragment : Fragment() {
                 val progress = (scale * 100).toInt()
                 binding.seekBarFontSize.progress = progress
                 binding.tvFontSizeValue.text = "${progress}%"
+            }
+        }
+
+        lifecycleScope.launch {
+            prefManager.biometricEnabled.collect { enabled ->
+                updatingBiometricSwitch = true
+                binding.switchBiometricLock.isChecked = enabled && biometricSupported
+                updatingBiometricSwitch = false
             }
         }
     }
@@ -163,15 +175,16 @@ class SettingsFragment : Fragment() {
         binding.seekBarFontSize.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.tvFontSizeValue.text = "$progress"
+                binding.tvFontSizeValue.text = "$progress%"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                val size = seekBar?.progress ?: 14
+                val progress = seekBar?.progress ?: 100
+                val scale = progress / 100f
                 lifecycleScope.launch {
-                    prefManager.setTextScale(size)
+                    prefManager.setTextScale(scale)
                 }
             }
         })
@@ -185,6 +198,54 @@ class SettingsFragment : Fragment() {
         binding.btnDeleteAccount.setOnClickListener {
             showDeleteAccountDialog()
         }
+
+        binding.switchBiometricLock.setOnCheckedChangeListener { _, isChecked ->
+            if (updatingBiometricSwitch) return@setOnCheckedChangeListener
+
+            if (!biometricSupported && isChecked) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.biometric_not_available),
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.switchBiometricLock.isChecked = false
+                return@setOnCheckedChangeListener
+            }
+
+            val user = auth.currentUser
+            if (user == null && isChecked) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.settings_not_logged_in),
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.switchBiometricLock.isChecked = false
+                return@setOnCheckedChangeListener
+            }
+
+            lifecycleScope.launch {
+                prefManager.setBiometricEnabled(isChecked)
+            }
+
+            Toast.makeText(
+                requireContext(),
+                if (isChecked)
+                    getString(R.string.biometric_enable_success)
+                else
+                    getString(R.string.biometric_disable_success),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun setupBiometricCapability() {
+        val manager = BiometricManager.from(requireContext())
+        biometricSupported =
+            manager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG) ==
+                    BiometricManager.BIOMETRIC_SUCCESS
+
+        binding.switchBiometricLock.isEnabled = biometricSupported
+        binding.switchBiometricLock.alpha = if (biometricSupported) 1f else 0.5f
     }
 
     // ---------------- Dialogs ----------------

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -19,17 +20,23 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.biometric.BiometricManager
+import com.example.prog7314_universe.utils.PrefManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(R.layout.activity_login) {
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val db by lazy { FirebaseFirestore.getInstance() }
+    private lateinit var prefManager: PrefManager
     private var biometricPrompt: BiometricPrompt? = null
     private var biometricPromptInfo: BiometricPrompt.PromptInfo? = null
     private var canUseBiometrics: Boolean = false
+    private var biometricsEnabledByUser: Boolean = false
+    private var hasAutoPrompted = false
+    private var biometricButton: Button? = null
 
     private val signInLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -129,22 +136,21 @@ class LoginFragment : Fragment(R.layout.activity_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prefManager = PrefManager(requireContext().applicationContext)
         val biometricButton = view.findViewById<Button>(R.id.biometricButton)
+        this.biometricButton = biometricButton
         setupBiometric(biometricButton)
 
-        if (auth.currentUser != null) {
-            if (canUseBiometrics && biometricPromptInfo != null) {
-                biometricButton.isVisible = true
-                biometricButton.isEnabled = true
-                biometricButton.alpha = 1f
-                biometricPrompt?.authenticate(biometricPromptInfo!!)
-            } else {
-                goToMain()
+        viewLifecycleOwner.lifecycleScope.launch {
+            prefManager.biometricEnabled.collect { enabled ->
+                biometricsEnabledByUser = enabled
+                updateBiometricButtonState()
+                handleSignedInState()
             }
-            return
-        } else {
-            biometricButton.isEnabled = false
-            biometricButton.alpha = 0.5f
+        }
+
+        if (auth.currentUser == null) {
+            updateBiometricButtonState()
         }
 
         val apiStatus = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(requireContext())
@@ -181,10 +187,9 @@ class LoginFragment : Fragment(R.layout.activity_login) {
 
     private fun setupBiometric(button: Button) {
         val manager = BiometricManager.from(requireContext())
-        val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG or
-                BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG
         canUseBiometrics = manager.canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS
-        button.isVisible = canUseBiometrics
+        button.isVisible = false
         if (!canUseBiometrics) {
             return
         }
@@ -206,9 +211,10 @@ class LoginFragment : Fragment(R.layout.activity_login) {
         })
 
         biometricPromptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Unlock UNIverse")
-            .setSubtitle("Use biometrics to continue")
-            .setNegativeButtonText("Use Google Sign-In")
+            .setTitle(getString(R.string.biometric_prompt_title))
+            .setSubtitle(getString(R.string.biometric_prompt_subtitle))
+            .setNegativeButtonText(getString(R.string.biometric_prompt_negative))
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
             .build()
 
         button.setOnClickListener {
@@ -217,6 +223,47 @@ class LoginFragment : Fragment(R.layout.activity_login) {
             } else {
                 biometricPrompt?.authenticate(biometricPromptInfo!!)
             }
+        }
+
+        updateBiometricButtonState()
+    }
+
+    private fun updateBiometricButtonState() {
+        val button = biometricButton ?: return
+        val signedIn = auth.currentUser != null
+        val shouldShow = canUseBiometrics && biometricsEnabledByUser && signedIn
+        button.isVisible = shouldShow
+        button.isEnabled = shouldShow
+        button.alpha = if (shouldShow) 1f else 0.5f
+    }
+
+    private fun maybeAutoPrompt() {
+        if (hasAutoPrompted) return
+        if (auth.currentUser == null) return
+        if (!canUseBiometrics || !biometricsEnabledByUser) {
+            if (!biometricsEnabledByUser) {
+                hasAutoPrompted = false
+            }
+            if (!canUseBiometrics) {
+                biometricButton?.isVisible = false
+            }
+            return
+        }
+
+        val prompt = biometricPrompt ?: return
+        val promptInfo = biometricPromptInfo ?: return
+        hasAutoPrompted = true
+        prompt.authenticate(promptInfo)
+    }
+
+    private fun handleSignedInState() {
+        if (auth.currentUser == null) return
+        val shouldGateWithBiometrics =
+            canUseBiometrics && biometricsEnabledByUser && biometricPromptInfo != null
+        if (shouldGateWithBiometrics) {
+            maybeAutoPrompt()
+        } else {
+            goToMain()
         }
     }
 
