@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.prog7314_universe.databinding.ActivityAddTaskBinding
 import com.example.prog7314_universe.utils.navigator
 import com.example.prog7314_universe.viewmodel.TaskViewModel
@@ -23,7 +24,9 @@ class AddTaskFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private var selectedDateIso: String = ""
 
-    private val vm: TaskViewModel by activityViewModels()
+    private val vm: TaskViewModel by activityViewModels {
+        ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

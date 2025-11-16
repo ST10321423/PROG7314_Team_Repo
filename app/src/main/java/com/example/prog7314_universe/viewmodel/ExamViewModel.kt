@@ -1,14 +1,17 @@
 package com.example.prog7314_universe.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.prog7314_universe.Models.Exam
 import com.example.prog7314_universe.repo.ExamRepository
+import com.example.prog7314_universe.utils.ReminderScheduler
 
-class ExamViewModel : ViewModel() {
+class ExamViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repo = ExamRepository()
+    private val reminderScheduler = ReminderScheduler(application.applicationContext)
 
     private val _exams = MutableLiveData<List<Exam>>(emptyList())
     val exams: LiveData<List<Exam>> = _exams
@@ -37,6 +40,8 @@ class ExamViewModel : ViewModel() {
         repo.addExam(exam) { success, errorMessage ->
             _loading.value = false
             if (success) {
+                // Schedule notifications for the new exam
+                scheduleExamNotifications(exam)
                 _operationSuccess.value = true
             } else {
                 _error.value = errorMessage ?: "Failed to add exam"
@@ -49,6 +54,9 @@ class ExamViewModel : ViewModel() {
         repo.updateExam(exam) { success, errorMessage ->
             _loading.value = false
             if (success) {
+                // Cancel old notifications and reschedule
+                reminderScheduler.cancelExamReminders(exam.id)
+                scheduleExamNotifications(exam)
                 _operationSuccess.value = true
             } else {
                 _error.value = errorMessage ?: "Failed to update exam"
@@ -61,6 +69,8 @@ class ExamViewModel : ViewModel() {
         repo.deleteExam(examId) { success, errorMessage ->
             _loading.value = false
             if (success) {
+                // Cancel all notifications for this exam
+                reminderScheduler.cancelExamReminders(examId)
                 _operationSuccess.value = true
             } else {
                 _error.value = errorMessage ?: "Failed to delete exam"
@@ -72,7 +82,26 @@ class ExamViewModel : ViewModel() {
         repo.toggleCompleted(examId, isCompleted) { success, errorMessage ->
             if (!success) {
                 _error.value = errorMessage ?: "Failed to update exam"
+            } else {
+                // If exam is marked as completed, cancel its reminders
+                if (isCompleted) {
+                    reminderScheduler.cancelExamReminders(examId)
+                }
             }
         }
+    }
+
+    /**
+     * Schedule notifications for an exam
+     * Notifies at: 7 days, 3 days, 1 day before, and on the exam day
+     */
+    private fun scheduleExamNotifications(exam: Exam) {
+        reminderScheduler.scheduleExamReminder(
+            examId = exam.id,
+            examSubject = exam.subject,
+            examDate = exam.date,
+            examStartTime = exam.startTime,
+            reminderDaysBefore = listOf(7, 3, 1) // Customize as needed
+        )
     }
 }

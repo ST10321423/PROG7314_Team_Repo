@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.prog7314_universe.Models.Exam
 import com.example.prog7314_universe.databinding.ActivityAddExamBinding
 import com.example.prog7314_universe.utils.navigator
@@ -23,7 +24,9 @@ class AddExamFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val calendar = Calendar.getInstance()
-    private val vm: ExamViewModel by activityViewModels()
+    private val vm: ExamViewModel by activityViewModels {
+        ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+    }
 
     private var examId: String? = null
     private var selectedDate: String = ""
