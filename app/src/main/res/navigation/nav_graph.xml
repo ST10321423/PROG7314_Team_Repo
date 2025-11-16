@@ -50,7 +50,7 @@
         <argument
             android:name="selected_date"
             app:argType="long"
-            android:defaultValue="0" />
+            android:defaultValue="0L" />
     </fragment>
 
     <!-- Journal Navigation -->
