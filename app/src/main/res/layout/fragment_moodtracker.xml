@@ -2,10 +2,12 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/moodtracker_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_light">
 
+    <!-- App Bar -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,11 +18,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Your Moods"
+            app:title="@string/moodtracker_title"
             app:titleTextColor="@color/text_primary" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- Scrollable content -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,12 +52,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Weekly Mood"
+                        android:text="@string/moodtracker_weekly_title"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <!-- Mood Stats Container -->
+                    <!-- Mood Stats Row -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,14 +76,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="😊"
+                                android:text="@string/emoji_happy"
                                 android:textSize="24sp" />
 
                             <TextView
                                 android:id="@+id/tv_happy_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="@string/value_zero"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -107,14 +110,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="😢"
+                                android:text="@string/emoji_sad"
                                 android:textSize="24sp" />
 
                             <TextView
                                 android:id="@+id/tv_sad_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="@string/value_zero"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -141,14 +144,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="😠"
+                                android:text="@string/emoji_angry"
                                 android:textSize="24sp" />
 
                             <TextView
                                 android:id="@+id/tv_angry_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="@string/value_zero"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -175,14 +178,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="😰"
+                                android:text="@string/emoji_fear"
                                 android:textSize="24sp" />
 
                             <TextView
                                 android:id="@+id/tv_fear_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="@string/value_zero"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -209,14 +212,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="😖"
+                                android:text="@string/emoji_disgust"
                                 android:textSize="24sp" />
 
                             <TextView
                                 android:id="@+id/tv_disgust_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="@string/value_zero"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -261,7 +264,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Previous month"
+                            android:contentDescription="@string/action_previous_month"
                             android:src="@drawable/ic_chevron_left" />
 
                         <TextView
@@ -270,7 +273,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="December 2025"
+                            android:text="@string/moodtracker_month_placeholder"
                             android:textColor="@color/text_primary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -280,7 +283,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Next month"
+                            android:contentDescription="@string/action_next_month"
                             android:src="@drawable/ic_chevron_right" />
                     </LinearLayout>
 
@@ -294,31 +297,31 @@
 
                         <TextView
                             style="@style/CalendarDayHeader"
-                            android:text="S" />
+                            android:text="@string/day_s_initial" />
 
                         <TextView
                             style="@style/CalendarDayHeader"
-                            android:text="M" />
+                            android:text="@string/day_m_initial" />
 
                         <TextView
                             style="@style/CalendarDayHeader"
-                            android:text="T" />
+                            android:text="@string/day_t_initial" />
 
                         <TextView
                             style="@style/CalendarDayHeader"
-                            android:text="W" />
+                            android:text="@string/day_w_initial" />
 
                         <TextView
                             style="@style/CalendarDayHeader"
-                            android:text="T" />
+                            android:text="@string/day_t_initial" />
 
                         <TextView
                             style="@style/CalendarDayHeader"
-                            android:text="F" />
+                            android:text="@string/day_f_initial" />
 
                         <TextView
                             style="@style/CalendarDayHeader"
-                            android:text="S" />
+                            android:text="@string/day_s_initial" />
                     </LinearLayout>
 
                     <!-- Calendar Grid -->
@@ -345,7 +348,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="Today's Mood"
+                    android:text="@string/moodtracker_today_title"
                     app:cornerRadius="12dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -355,7 +358,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="Edit Mood"
+                    android:text="@string/moodtracker_edit_button"
                     app:cornerRadius="12dp" />
             </LinearLayout>
         </LinearLayout>

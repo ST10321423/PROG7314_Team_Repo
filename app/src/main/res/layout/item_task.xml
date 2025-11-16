@@ -8,7 +8,7 @@
         android:id="@+id/taskTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task Title"
+        android:text="@string/task_title_placeholder"
         android:textStyle="bold"
         android:textSize="16sp" />
 
@@ -16,7 +16,7 @@
         android:id="@+id/taskDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task description"
+        android:text="@string/task_title_placeholder"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_edit"
-            android:contentDescription="Edit Task"
+            android:contentDescription="@string/edit_task"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
         <ImageButton
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_delete"
-            android:contentDescription="Delete Task"
+            android:contentDescription="@string/delete_task"
             android:background="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
 </LinearLayout>

@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Student Name"
+                    android:text="@string/settings_user_name_placeholder"
                     android:textColor="@color/text_primary"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="email@example.com"
+                    android:text="@string/settings_user_email_placeholder"
                     android:textColor="@color/text_secondary"
                     android:textSize="16sp" />
 
@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Your Statistics"
+            android:text="@string/profile_statistics_title"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -117,7 +117,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Tasks Completed"
+                            android:text="@string/profile_total_tasks"
                             android:textColor="@color/text_primary"
                             android:textSize="14sp" />
 
@@ -125,7 +125,7 @@
                             android:id="@+id/tvTotalTasks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@string/value_zero"
                             android:textColor="@color/success"
                             android:textSize="24sp"
                             android:textStyle="bold" />
@@ -163,7 +163,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mood Entries"
+                            android:text="@string/profile_mood_entries"
                             android:textColor="@color/text_primary"
                             android:textSize="14sp" />
 
@@ -171,7 +171,7 @@
                             android:id="@+id/tvTotalMoods"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@string/value_zero"
                             android:textColor="@color/primary1"
                             android:textSize="24sp"
                             android:textStyle="bold" />
@@ -208,7 +208,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Journal Entries"
+                            android:text="@string/profile_journal_entries"
                             android:textColor="@color/text_primary"
                             android:textSize="14sp" />
 
@@ -216,7 +216,7 @@
                             android:id="@+id/tvTotalJournals"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@string/value_zero"
                             android:textColor="@color/warning"
                             android:textSize="24sp"
                             android:textStyle="bold" />

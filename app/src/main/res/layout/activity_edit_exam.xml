@@ -23,7 +23,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit Exam"
+                android:text="@string/edit_exam"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnSurface"
@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Subject"
+                android:text="@string/subject"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -52,7 +52,7 @@
                     android:id="@+id/etEditExamSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="e.g., Mathematics, Physics"
+                    android:hint="@string/hint_subject_examples"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:inputType="text" />
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Module"
+                android:text="@string/module"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -79,7 +79,7 @@
                     android:id="@+id/etEditExamModule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Module name or code"
+                    android:hint="@string/hint_module_examples"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:inputType="text" />
@@ -89,7 +89,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="@string/date"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -106,7 +106,7 @@
                     android:id="@+id/etEditExamDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Saturday, November 28, 2025"
+                    android:hint="@string/hint_sample_full_date"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:focusable="false"
@@ -118,7 +118,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time"
+                android:text="@string/time"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -143,7 +143,7 @@
                         android:id="@+id/etEditStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Start: 02:00 PM"
+                        android:hint="@string/hint_start_time_label"
                         android:textSize="16sp"
                         android:padding="16dp"
                         android:focusable="false"
@@ -165,7 +165,7 @@
                         android:id="@+id/etEditEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="End: 04:00 PM"
+                        android:hint="@string/hint_end_time_label"
                         android:textSize="16sp"
                         android:padding="16dp"
                         android:focusable="false"
@@ -178,7 +178,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/description"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -196,7 +196,7 @@
                     android:id="@+id/etEditExamDescription"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:hint="Additional notes or details"
+                    android:hint="@string/hint_additional_notes"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:gravity="top"
@@ -208,7 +208,7 @@
                 android:id="@+id/btnEditExam"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Edit Exam"
+                android:text="@string/edit_exam"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="18dp"
@@ -217,14 +217,14 @@
                 android:layout_marginBottom="16dp"
                 style="@style/Widget.Material3.Button"
                 app:icon="@drawable/ic_add_24dp"
-                app:iconGravity="textStart"/>
+                app:iconGravity="textStart" />
 
             <!-- Cancel -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCancel"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textSize="16sp"
                 app:cornerRadius="18dp"
                 app:strokeColor="@color/outline_variant"

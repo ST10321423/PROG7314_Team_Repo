@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add New Task"
+                android:text="@string/add_new_task"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnSurface"
@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title"
+                android:text="@string/title_label"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -51,7 +51,7 @@
                     android:id="@+id/etTaskTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Complete Job Applications"
+                    android:hint="@string/task_title_hint"
                     android:textSize="16sp"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -60,7 +60,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="@string/date"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -77,7 +77,7 @@
                     android:id="@+id/editTextExamDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Select a Date"
+                    android:hint="@string/hint_select_date"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:focusable="false"
@@ -89,7 +89,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Start time"
+                android:text="@string/start_time"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -113,7 +113,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="02:00 PM"
+                        android:hint="@string/hint_start_time_sample"
                         android:textSize="16sp"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -131,7 +131,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="04:00 PM"
+                        android:hint="@string/hint_end_time_sample"
                         android:textSize="16sp"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -141,7 +141,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/description"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -159,7 +159,7 @@
                     android:id="@+id/editTextTaskDescription"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:hint="Complete outstanding applications"
+                    android:hint="@string/task_description_hint"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:gravity="top"
@@ -170,7 +170,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add category"
+                android:text="@string/task_add_category"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp" />
@@ -186,7 +186,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Work"
+                    android:hint="@string/task_category_hint"
                     android:textSize="16sp"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -202,7 +202,7 @@
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="UI Design"
+                    android:text="@string/task_category_ui_design"
                     app:chipBackgroundColor="?attr/colorSecondaryContainer"
                     app:chipStrokeColor="?attr/colorOutlineVariant"
                     app:chipStrokeWidth="1dp"
@@ -211,7 +211,7 @@
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Web Design"
+                    android:text="@string/task_category_web_design"
                     app:chipBackgroundColor="?attr/colorSecondaryContainer"
                     app:chipStrokeColor="?attr/colorOutlineVariant"
                     app:chipStrokeWidth="1dp"
@@ -220,7 +220,7 @@
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Designer"
+                    android:text="@string/task_category_designer"
                     app:chipBackgroundColor="?attr/colorSecondaryContainer"
                     app:chipStrokeColor="?attr/colorOutlineVariant"
                     app:chipStrokeWidth="1dp"
@@ -229,7 +229,7 @@
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="UIUX"
+                    android:text="@string/task_category_uiux"
                     app:chipBackgroundColor="?attr/colorSecondaryContainer"
                     app:chipStrokeColor="?attr/colorOutlineVariant"
                     app:chipStrokeWidth="1dp"
@@ -241,7 +241,7 @@
                 android:id="@+id/btnSaveTask"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Add Task"
+                android:text="@string/add_task"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="18dp"

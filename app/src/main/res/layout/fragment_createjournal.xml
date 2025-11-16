@@ -21,7 +21,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Back"
+                android:contentDescription="@string/action_back"
                 android:src="@drawable/ic_arrow_back" />
 
             <TextView
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Journal Entry"
+                android:text="@string/journal_entry_title"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -40,7 +40,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="end"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Save"
+                android:contentDescription="@string/save"
                 android:src="@drawable/ic_check" />
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -61,7 +61,7 @@
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Apr 1, 2025 - 9:41 AM"
+                android:text="@string/journal_entry_date_placeholder"
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp" />
 
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Title"
+                android:hint="@string/title_label"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Share Your Thoughts..."
+                android:hint="@string/journal_entry_hint"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -126,7 +126,7 @@
                         android:id="@+id/iv_journal_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:contentDescription="Journal image"
+                        android:contentDescription="@string/journal_image_description"
                         android:scaleType="centerCrop" />
 
                     <ImageButton
@@ -136,7 +136,7 @@
                         android:layout_gravity="top|end"
                         android:layout_margin="8dp"
                         android:background="@drawable/bg_circular_button"
-                        android:contentDescription="Remove image"
+                        android:contentDescription="@string/journal_remove_image"
                         android:src="@drawable/ic_close"
                         app:tint="@android:color/white" />
                 </com.google.android.material.card.MaterialCardView>
@@ -148,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Upload Image"
+                    android:text="@string/journal_upload_image"
                     app:cornerRadius="12dp"
                     app:icon="@drawable/ic_image"
                     app:iconGravity="textStart" />
@@ -160,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="24dp"
-                android:text="Create Entry"
+                android:text="@string/journal_create_entry"
                 android:textSize="16sp"
                 app:cornerRadius="16dp" />
         </LinearLayout>

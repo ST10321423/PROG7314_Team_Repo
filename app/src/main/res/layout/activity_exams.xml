@@ -17,26 +17,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Screen title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Exams"
+            android:text="@string/exams"
             android:textColor="#000000"
             android:textSize="35sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
+        <!-- Search pill -->
         <TextView
             android:id="@+id/tvSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search exams..."
+            android:text="@string/search_exams"
             android:textColor="#666666"
             android:textSize="14sp"
             android:padding="12dp"
             android:background="@drawable/search_background"
             android:layout_marginBottom="16dp" />
 
+        <!-- Filter tabs -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +50,7 @@
                 android:id="@+id/tvFilterAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All (0)"
+                android:text="@string/filter_all_default"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -59,7 +62,7 @@
                 android:id="@+id/tvFilterCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Completed (0)"
+                android:text="@string/filter_completed_default"
                 android:textColor="#666666"
                 android:textSize="14sp"
                 android:paddingHorizontal="16dp"
@@ -67,12 +70,14 @@
                 android:layout_marginStart="12dp" />
         </LinearLayout>
 
+        <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E0E0E0"
             android:layout_marginBottom="16dp" />
 
+        <!-- Exams list -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewExams"
             android:layout_width="match_parent"
@@ -83,6 +88,7 @@
             android:scrollbarStyle="outsideOverlay" />
     </LinearLayout>
 
+    <!-- Loading indicator -->
     <ProgressBar
         android:id="@+id/progressBar"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
@@ -94,11 +100,12 @@
         app:layout_constraintStart_toStartOf="@id/contentContainer"
         app:layout_constraintEnd_toEndOf="@id/contentContainer" />
 
+    <!-- Empty state text -->
     <TextView
         android:id="@+id/tvEmptyState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No exams yet"
+        android:text="@string/no_exams_yet"
         android:textColor="#666666"
         android:textSize="16sp"
         android:visibility="gone"
@@ -107,17 +114,19 @@
         app:layout_constraintStart_toStartOf="@id/contentContainer"
         app:layout_constraintEnd_toEndOf="@id/contentContainer" />
 
+    <!-- FAB: Add Exam -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddExam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="Add Exam"
+        android:contentDescription="@string/add_exam"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white" />
 
+    <!-- Fixed Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"

@@ -165,28 +165,28 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Mon" />
+                            android:text="@string/day_mon" />
 
                         <CheckBox
                             android:id="@+id/cbTue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Tue" />
+                            android:text="@string/day_tue" />
 
                         <CheckBox
                             android:id="@+id/cbWed"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Wed" />
+                            android:text="@string/day_wed" />
 
                         <CheckBox
                             android:id="@+id/cbThu"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Thu" />
+                            android:text="@string/day_thu" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -200,21 +200,21 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Fri" />
+                            android:text="@string/day_fri" />
 
                         <CheckBox
                             android:id="@+id/cbSat"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Sat" />
+                            android:text="@string/day_sat" />
 
                         <CheckBox
                             android:id="@+id/cbSun"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Sun" />
+                            android:text="@string/day_sun" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

@@ -28,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hi, Alex!"
+                    android:text="@string/savings_overview_greeting"
                     android:textSize="35sp"
                     android:textColor="#000000"
                     android:textStyle="bold"
@@ -37,7 +37,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Don't forget to save your money!"
+                    android:text="@string/savings_overview_reminder"
                     android:textSize="16sp"
                     android:textColor="#666666" />
 
@@ -55,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="R11131.00"
+                    android:text="@string/savings_overview_amount_placeholder"
                     android:textSize="32sp"
                     android:textColor="#000000"
                     android:textStyle="bold"
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saved"
+                    android:text="@string/savings_saved_label"
                     android:textSize="16sp"
                     android:textColor="@color/on_surface" />
 
@@ -82,7 +82,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Savings"
+                    android:text="@string/savings_title"
                     android:textSize="20sp"
                     android:textColor="#000000"
                     android:textStyle="bold" />
@@ -121,7 +121,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="New York Road Trip"
+                            android:text="@string/savings_goal_trip"
                             android:textSize="16sp"
                             android:textColor="#000000"
                             android:textStyle="bold" />
@@ -129,7 +129,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="60%"
+                            android:text="@string/savings_progress_sixty"
                             android:textSize="14sp"
                             android:textColor="@color/on_surface" />
 
@@ -150,7 +150,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20 days left"
+                        android:text="@string/savings_days_left_twenty"
                         android:textSize="12sp"
                         android:textColor="@color/on_surface"
                         android:layout_marginBottom="12dp" />
@@ -159,7 +159,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="R8500.00"
+                        android:text="@string/savings_goal_amount_one"
                         android:textSize="18sp"
                         android:textColor="#000000"
                         android:textStyle="bold" />
@@ -194,7 +194,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Health &amp; Medical"
+                            android:text="@string/savings_goal_health"
                             android:textSize="16sp"
                             android:textColor="#000000"
                             android:textStyle="bold" />
@@ -202,7 +202,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="95%"
+                            android:text="@string/savings_progress_ninetyfive"
                             android:textSize="14sp"
                             android:textColor="@color/on_surface" />
 
@@ -223,7 +223,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="7 days left"
+                        android:text="@string/savings_days_left_seven"
                         android:textSize="12sp"
                         android:textColor="@color/on_surface"
                         android:layout_marginBottom="12dp" />
@@ -232,7 +232,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="R2,631.00"
+                        android:text="@string/savings_goal_amount_two"
                         android:textSize="18sp"
                         android:textColor="#000000"
                         android:textStyle="bold" />
@@ -256,7 +256,7 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     android:backgroundTint="#12BFA2"
-                    android:text="Manage"
+                    android:text="@string/savings_manage_button"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"

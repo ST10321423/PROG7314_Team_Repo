@@ -8,11 +8,11 @@
         android:id="@+id/editTaskTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Task Title" />
+        android:hint="@string/title_label" />
 
     <EditText
         android:id="@+id/editTaskDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Task Description" />
+        android:hint="@string/title_label" />
 </LinearLayout>

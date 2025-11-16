@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome to UNIverse"
+            android:text="@string/login_welcome_title"
             android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="@color/on_surface"
@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Academic Companion"
+            android:text="@string/app_tagline"
             android:textSize="16sp"
             android:textColor="@color/on_surface"
             android:gravity="center"
@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign in to continue"
+            android:text="@string/login_subtitle"
             android:textSize="18sp"
             android:textColor="@color/on_surface"
             android:gravity="center"
@@ -58,7 +58,7 @@
             android:id="@+id/googleSignInButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Continue with Google"
+            android:text="@string/continue_with_google"
             android:textSize="16sp"
             app:cornerRadius="18dp"
             app:strokeColor="@color/outline_variant"
@@ -76,7 +76,7 @@
             android:id="@+id/biometricButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Unlock with biometrics"
+            android:text="@string/unlock_with_biometrics"
             android:textSize="16sp"
             android:visibility="gone"
             android:layout_marginBottom="8dp"
@@ -106,7 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Or"
+                android:text="@string/or"
                 android:textSize="14sp"
                 android:textColor="@color/on_surface"
                 android:paddingHorizontal="16dp"
@@ -116,12 +116,12 @@
 
         </RelativeLayout>
 
-        <!-- Facebook Sign-In Button (Optional - can be removed if not used) -->
+        <!-- Facebook Sign-In Button (Optional) -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/facebookButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Continue with Facebook"
+            android:text="@string/continue_with_facebook"
             android:textSize="16sp"
             app:cornerRadius="18dp"
             app:strokeColor="@color/outline_variant"
@@ -139,7 +139,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="By continuing, you agree to our Terms of Service and Privacy Policy"
+            android:text="@string/login_terms_notice"
             android:textSize="12sp"
             android:textColor="@color/on_surface"
             android:gravity="center"

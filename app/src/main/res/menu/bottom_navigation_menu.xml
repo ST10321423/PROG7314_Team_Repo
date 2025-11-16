@@ -2,26 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
-        android:title="Home"
+        android:title="@string/menu_home"
         android:icon="@drawable/ic_dashboard" />
 
     <item
         android:id="@+id/moodTrackerFragment"
-        android:title="Mood"
+        android:title="@string/menu_home"
         android:icon="@drawable/ic_mood" />
 
     <item
         android:id="@+id/journalListFragment"
-        android:title="Journal"
+        android:title="@string/menu_journal"
         android:icon="@drawable/ic_journal" />
 
     <item
         android:id="@+id/tasksListFragment"
-        android:title="Tasks"
+        android:title="@string/tasks"
         android:icon="@drawable/ic_tasks" />
 
     <item
         android:id="@+id/habitListFragment"
-        android:title="Habits"
+        android:title="@string/habits"
         android:icon="@drawable/ic_habits" />
 </menu>

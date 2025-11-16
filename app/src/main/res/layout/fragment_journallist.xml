@@ -22,14 +22,14 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Back"
+                android:contentDescription="@string/action_back"
                 android:src="@drawable/ic_arrow_back" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Journal"
+                android:text="@string/menu_journal"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -75,14 +75,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            android:text="Daily" />
+                            android:text="@string/journal_filter_daily" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_weekly"
                             style="@style/Widget.Material3.Chip.Filter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Weekly" />
+                            android:text="@string/journal_filter_weekly" />
                     </com.google.android.material.chip.ChipGroup>
 
                     <!-- Date Navigation -->
@@ -98,7 +98,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Previous"
+                            android:contentDescription="@string/action_previous"
                             android:src="@drawable/ic_chevron_left" />
 
                         <TextView
@@ -107,7 +107,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Apr 1, 2025 - Apr 1, 2025"
+                            android:text="@string/journal_date_range_placeholder"
                             android:textColor="@color/text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -117,7 +117,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Next"
+                            android:contentDescription="@string/action_next"
                             android:src="@drawable/ic_chevron_right" />
                     </LinearLayout>
                 </LinearLayout>
@@ -148,14 +148,14 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:alpha="0.5"
-                    android:contentDescription="No entries"
+                    android:contentDescription="@string/journal_empty_description"
                     android:src="@drawable/ic_journal_empty" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="No journal entries yet"
+                    android:text="@string/journal_empty_title"
                     android:textColor="@color/text_secondary"
                     android:textSize="16sp" />
 
@@ -163,7 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Tap the + button to create your first entry"
+                    android:text="@string/journal_empty_cta"
                     android:textColor="@color/text_tertiary"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -177,6 +177,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="Add new entry"
+        android:contentDescription="@string/journal_add_entry"
         app:srcCompat="@drawable/ic_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

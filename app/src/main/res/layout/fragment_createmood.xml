@@ -22,14 +22,14 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Back"
+                android:contentDescription="@string/action_back"
                 android:src="@drawable/ic_arrow_back" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="How Do You Feel Today?"
+                android:text="@string/mood_question"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -53,7 +53,7 @@
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Apr 1, 2025 - 9:41 AM"
+                android:text="@string/mood_date_placeholder"
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp" />
 
@@ -79,14 +79,14 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="end|top"
-                        android:contentDescription="Cloud"
+                        android:contentDescription="@string/mood_cloud_description"
                         android:src="@drawable/ic_cloud" />
 
                     <TextView
                         android:id="@+id/tv_mood_emoji"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="😊"
+                        android:text="@string/emoji_happy"
                         android:textSize="64sp" />
 
                     <TextView
@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="HAPPY"
+                        android:text="@string/mood_happy_label"
                         android:textColor="@color/text_primary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Your Mood"
+                android:text="@string/mood_section_title"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -122,32 +122,32 @@
                 <ImageButton
                     android:id="@+id/btn_happy"
                     style="@style/MoodButton"
-                    android:contentDescription="Happy"
-                    android:text="😊" />
+                    android:contentDescription="@string/mood_happy_description"
+                    android:text="@string/emoji_happy" />
 
                 <ImageButton
                     android:id="@+id/btn_sad"
                     style="@style/MoodButton"
-                    android:contentDescription="Sad"
-                    android:text="😢" />
+                    android:contentDescription="@string/mood_sad_description"
+                    android:text="@string/emoji_sad" />
 
                 <ImageButton
                     android:id="@+id/btn_angry"
                     style="@style/MoodButton"
-                    android:contentDescription="Angry"
-                    android:text="😠" />
+                    android:contentDescription="@string/mood_angry_description"
+                    android:text="@string/emoji_angry" />
 
                 <ImageButton
                     android:id="@+id/btn_fear"
                     style="@style/MoodButton"
-                    android:contentDescription="Fear"
-                    android:text="😰" />
+                    android:contentDescription="@string/mood_fear_description"
+                    android:text="@string/emoji_fear" />
 
                 <ImageButton
                     android:id="@+id/btn_disgust"
                     style="@style/MoodButton"
-                    android:contentDescription="Disgust"
-                    android:text="😖" />
+                    android:contentDescription="@string/mood_disgust_description"
+                    android:text="@string/emoji_disgust" />
             </LinearLayout>
 
             <!-- Optional Note -->
@@ -155,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:hint="Add a note (optional)"
+                android:hint="@string/mood_note_hint"
                 app:boxBackgroundColor="@android:color/white"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -177,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="24dp"
-                android:text="Save Mood"
+                android:text="@string/save_mood"
                 android:textSize="16sp"
                 app:cornerRadius="16dp" />
         </LinearLayout>
