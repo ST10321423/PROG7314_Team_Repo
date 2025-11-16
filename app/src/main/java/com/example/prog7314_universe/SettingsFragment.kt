@@ -88,7 +88,7 @@ class SettingsFragment : Fragment() {
 
         lifecycleScope.launch {
             prefManager.textScale.collect { scale ->
-                val progress = (scale * 100).toInt()
+                val progress = (scale * 100).toInt().coerceIn(80, 120)
                 binding.seekBarFontSize.progress = progress
                 binding.tvFontSizeValue.text = "${progress}%"
             }
@@ -120,7 +120,7 @@ class SettingsFragment : Fragment() {
         if (currentIndex >= 0) {
             binding.spinnerLanguage.setSelection(currentIndex)
         }
-        isLanguageSpinnerInitialized = true
+        var hasHandledInitialSelection = false
 
         binding.spinnerLanguage.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -131,13 +131,18 @@ class SettingsFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    if (!isLanguageSpinnerInitialized) return
+                    if (!hasHandledInitialSelection) {
+                        hasHandledInitialSelection = true
+                        return
+                    }
 
                     val selectedCode = supportedLanguageCodes[position]
                     if (selectedCode != currentLanguageCode) {
                         currentLanguageCode = selectedCode
                         val locales = LocaleListCompat.forLanguageTags(selectedCode)
                         AppCompatDelegate.setApplicationLocales(locales)
+                        lifecycleScope.launch { prefManager.setLanguage(selectedCode) }
+                        requireActivity().recreate()
                     }
                 }
 
@@ -181,7 +186,7 @@ class SettingsFragment : Fragment() {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                val progress = seekBar?.progress ?: 100
+                val progress = (seekBar?.progress ?: 100).coerceIn(80, 120)
                 val scale = progress / 100f
                 lifecycleScope.launch {
                     prefManager.setTextScale(scale)

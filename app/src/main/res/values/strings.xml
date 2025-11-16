@@ -17,6 +17,19 @@
     <string name="default_web_client_id" translatable="false">1021947947057-s5bgomu5s4e52m7ock59ecbe4st6go41.apps.googleusercontent.com</string>
     <string name="settings_user_fallback_email">No email</string>
 
+    <plurals name="mood_total_format">
+        <item quantity="one">%d mood logged</item>
+        <item quantity="other">%d moods logged</item>
+    </plurals>
+    <string name="mood_week_range">%1$s - %2$s</string>
+
+    <!-- Savings goals -->
+    <string name="no_savings_goals">No goals yet</string>
+    <string name="default_currency_zero">R0.00</string>
+    <string name="no_savings_progress">0% • 0 days left</string>
+    <string name="create_savings_goal">Create goal</string>
+    <string name="add_contribution">Add Contribution</string>
+
 
     <!-- Biometrics -->
     <string name="privacy_security">Privacy &amp; Security</string>

@@ -1,5 +1,6 @@
 package com.example.prog7314_universe
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -79,6 +80,16 @@ class MainActivity : AppCompatActivity() {
         bottomNav = findViewById(R.id.bottomNavigationView)
 
         setSupportActionBar(toolbar)
+
+        navigationView.getHeaderView(0)?.let { header ->
+            val nameView = header.findViewById<android.widget.TextView>(R.id.nav_user_name)
+            val emailView = header.findViewById<android.widget.TextView>(R.id.nav_user_email)
+            val user = auth.currentUser
+            nameView?.text = user?.displayName
+                ?: user?.email?.substringBefore("@")
+                        ?: getString(R.string.settings_user_fallback_name)
+            emailView?.text = user?.email ?: getString(R.string.settings_user_fallback_email)
+        }
     }
 
     private fun setupNavigation() {
@@ -215,6 +226,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

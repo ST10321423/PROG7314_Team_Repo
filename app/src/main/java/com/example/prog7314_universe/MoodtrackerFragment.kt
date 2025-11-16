@@ -74,6 +74,7 @@ class MoodTrackerFragment : Fragment() {
         // Observe mood entries
         viewModel.moodEntries.observe(viewLifecycleOwner) { entries ->
             updateCalendar()
+            viewModel.refreshWeeklyStats()
         }
 
         // Observe weekly stats
@@ -128,6 +129,19 @@ class MoodTrackerFragment : Fragment() {
         // Calculate total moods logged
         val total = stats.values.sum()
 
+        val weekRange = getCurrentWeekRange()
+
+        binding.tvWeekRange.text = getString(
+            R.string.mood_week_range,
+            weekRange.first,
+            weekRange.second
+        )
+        binding.tvTotalMoods.text = resources.getQuantityString(
+            R.plurals.mood_total_format,
+            total,
+            total
+        )
+
         // Update stat cards
         binding.apply {
             // Happy
@@ -161,6 +175,20 @@ class MoodTrackerFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+}
+
+private fun getCurrentWeekRange(): Pair<String, String> {
+    val calendar = Calendar.getInstance().apply {
+        firstDayOfWeek = Calendar.MONDAY
+        set(Calendar.DAY_OF_WEEK, firstDayOfWeek)
+    }
+
+    val start = calendar.time
+    calendar.add(Calendar.DAY_OF_WEEK, 6)
+    val end = calendar.time
+
+    val format = SimpleDateFormat("MMM d", Locale.getDefault())
+    return format.format(start) to format.format(end)
 }
 
 /**

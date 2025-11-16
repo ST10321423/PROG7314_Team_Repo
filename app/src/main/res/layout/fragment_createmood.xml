@@ -119,35 +119,40 @@
                 android:orientation="horizontal"
                 android:weightSum="5">
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_happy"
                     style="@style/MoodButton"
                     android:contentDescription="Happy"
-                    android:text="😊" />
+                    android:text="😊"
+                    android:textAllCaps="false"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_sad"
                     style="@style/MoodButton"
                     android:contentDescription="Sad"
-                    android:text="😢" />
+                    android:text="😢"
+                    android:textAllCaps="false"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_angry"
                     style="@style/MoodButton"
                     android:contentDescription="Angry"
-                    android:text="😠" />
+                    android:text="😠"
+                    android:textAllCaps="false"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_fear"
                     style="@style/MoodButton"
                     android:contentDescription="Fear"
-                    android:text="😰" />
+                    android:text="😰"
+                    android:textAllCaps="false"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_disgust"
                     style="@style/MoodButton"
                     android:contentDescription="Disgust"
-                    android:text="😖" />
+                    android:text="😖"
+                    android:textAllCaps="false"/>
             </LinearLayout>
 
             <!-- Optional Note -->

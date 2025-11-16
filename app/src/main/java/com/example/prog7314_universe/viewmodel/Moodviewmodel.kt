@@ -43,6 +43,10 @@ class MoodViewModel(
         loadTodaysMood()
     }
 
+    fun refreshWeeklyStats() {
+        loadWeeklyStats()
+    }
+
     /**
      * Observe mood entries from Firebase Flow
      */
