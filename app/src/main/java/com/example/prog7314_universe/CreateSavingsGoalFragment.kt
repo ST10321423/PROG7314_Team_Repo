@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.prog7314_universe.Models.SavingsGoal
 import com.example.prog7314_universe.databinding.ActivityAddSavingsGoalBinding
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
 import com.example.prog7314_universe.viewmodel.SavingsGoalViewModel
 import com.google.firebase.Timestamp
 import java.util.Calendar
@@ -40,7 +40,7 @@ class CreateSavingsGoalFragment : Fragment() {
         userId = arguments?.getString(ARG_USER_ID) ?: ""
         if (userId.isBlank()) {
             Toast.makeText(requireContext(), "Invalid user session", Toast.LENGTH_SHORT).show()
-            navigator().popBackStack()
+            findNavController().popBackStack()
             return
         }
 
@@ -72,7 +72,7 @@ class CreateSavingsGoalFragment : Fragment() {
             )
             vm.insertSavingsGoal(goal) { ok ->
                 Toast.makeText(requireContext(), if (ok) "Goal created!" else "Failed to create goal", Toast.LENGTH_SHORT).show()
-                if (ok) navigator().popBackStack()
+                if (ok) findNavController().popBackStack()
             }
         }
     }

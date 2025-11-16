@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.prog7314_universe.databinding.ActivityDashboardBinding
 import com.example.prog7314_universe.utils.getWithOfflineFallback
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
@@ -38,12 +38,11 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (auth.currentUser == null) {
-            navigator().openFragment(LoginFragment(), addToBackStack = false, clearBackStack = true)
+            findNavController().navigate(R.id.loginFragment)
             return
         }
 
         setupClickListeners()
-        setupBottomNavigation()
         loadUserData()
         loadDashboardStats()
     }
@@ -55,15 +54,15 @@ class DashboardFragment : Fragment() {
 
     private fun setupClickListeners() = with(binding) {
         addTaskButton.setOnClickListener {
-            navigator().openFragment(AddTaskFragment())
+            findNavController().navigate(R.id.addTaskFragment)
         }
 
         ivProfile.setOnClickListener {
-            navigator().openFragment(SettingsFragment(), addToBackStack = false, clearBackStack = true)
+            findNavController().navigate(R.id.settingsFragment)
         }
 
         cardTasksCompleted.setOnClickListener {
-            navigator().openFragment(TasksFragment(), addToBackStack = false, clearBackStack = true)
+            findNavController().navigate(R.id.tasksListFragment)
         }
 
         cardStudyHours.setOnClickListener {
@@ -75,7 +74,7 @@ class DashboardFragment : Fragment() {
         }
 
         tvSeeAllAssignments.setOnClickListener {
-            navigator().openFragment(TasksFragment(), addToBackStack = false, clearBackStack = true)
+            findNavController().navigate(R.id.tasksListFragment)
         }
 
         tvSeeAllCourses.setOnClickListener {
@@ -87,31 +86,7 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun setupBottomNavigation() = with(binding.bottomNavigationView) {
-        selectedItemId = R.id.dashboard
-        setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.dashboard -> true
-                R.id.tasks -> {
-                    navigator().openFragment(TasksFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.exams -> {
-                    navigator().openFragment(ExamsFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.habits -> {
-                    navigator().openFragment(HabitListFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.settings -> {
-                    navigator().openFragment(SettingsFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                else -> false
-            }
-        }
-    }
+
 
     private fun loadUserData() {
         val user = auth.currentUser

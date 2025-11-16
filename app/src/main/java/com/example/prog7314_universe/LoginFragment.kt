@@ -7,9 +7,11 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -17,11 +19,24 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import androidx.biometric.BiometricManager
+import com.example.prog7314_universe.utils.PrefManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(R.layout.activity_login) {
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val db by lazy { FirebaseFirestore.getInstance() }
+    private lateinit var prefManager: PrefManager
+    private var biometricPrompt: BiometricPrompt? = null
+    private var biometricPromptInfo: BiometricPrompt.PromptInfo? = null
+    private var canUseBiometrics: Boolean = false
+    private var biometricsEnabledByUser: Boolean = false
+    private var hasAutoPrompted = false
+    private var biometricButton: Button? = null
 
     private val signInLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -121,9 +136,21 @@ class LoginFragment : Fragment(R.layout.activity_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (auth.currentUser != null) {
-            goToMain()
-            return
+        prefManager = PrefManager(requireContext().applicationContext)
+        val biometricButton = view.findViewById<Button>(R.id.biometricButton)
+        this.biometricButton = biometricButton
+        setupBiometric(biometricButton)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            prefManager.biometricEnabled.collect { enabled ->
+                biometricsEnabledByUser = enabled
+                updateBiometricButtonState()
+                handleSignedInState()
+            }
+        }
+
+        if (auth.currentUser == null) {
+            updateBiometricButtonState()
         }
 
         val apiStatus = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(requireContext())
@@ -158,8 +185,93 @@ class LoginFragment : Fragment(R.layout.activity_login) {
         }
     }
 
+    private fun setupBiometric(button: Button) {
+        val manager = BiometricManager.from(requireContext())
+        val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG
+        canUseBiometrics = manager.canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS
+        button.isVisible = false
+        if (!canUseBiometrics) {
+            return
+        }
+
+        val executor = ContextCompat.getMainExecutor(requireContext())
+        biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                toast("Authentication successful")
+                goToMain()
+            }
+
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                super.onAuthenticationError(errorCode, errString)
+                if (errorCode != BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+                    toast(errString.toString())
+                }
+            }
+        })
+
+        biometricPromptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.biometric_prompt_title))
+            .setSubtitle(getString(R.string.biometric_prompt_subtitle))
+            .setNegativeButtonText(getString(R.string.biometric_prompt_negative))
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+            .build()
+
+        button.setOnClickListener {
+            if (auth.currentUser == null) {
+                toast("Sign in with Google first to enable biometrics")
+            } else {
+                biometricPrompt?.authenticate(biometricPromptInfo!!)
+            }
+        }
+
+        updateBiometricButtonState()
+    }
+
+    private fun updateBiometricButtonState() {
+        val button = biometricButton ?: return
+        val signedIn = auth.currentUser != null
+        val shouldShow = canUseBiometrics && biometricsEnabledByUser && signedIn
+        button.isVisible = shouldShow
+        button.isEnabled = shouldShow
+        button.alpha = if (shouldShow) 1f else 0.5f
+    }
+
+    private fun maybeAutoPrompt() {
+        if (hasAutoPrompted) return
+        if (auth.currentUser == null) return
+        if (!canUseBiometrics || !biometricsEnabledByUser) {
+            if (!biometricsEnabledByUser) {
+                hasAutoPrompted = false
+            }
+            if (!canUseBiometrics) {
+                biometricButton?.isVisible = false
+            }
+            return
+        }
+
+        val prompt = biometricPrompt ?: return
+        val promptInfo = biometricPromptInfo ?: return
+        hasAutoPrompted = true
+        prompt.authenticate(promptInfo)
+    }
+
+    private fun handleSignedInState() {
+        if (auth.currentUser == null) return
+        val shouldGateWithBiometrics =
+            canUseBiometrics && biometricsEnabledByUser && biometricPromptInfo != null
+        if (shouldGateWithBiometrics) {
+            maybeAutoPrompt()
+        } else {
+            goToMain()
+        }
+    }
+
     private fun goToMain() {
-        navigator().openFragment(DashboardFragment(), addToBackStack = false, clearBackStack = true)
+        val options = navOptions {
+            popUpTo(R.id.loginFragment) { inclusive = true }
+        }
+        findNavController().navigate(R.id.homeFragment, null, options)
     }
 
     private fun toast(msg: String) =

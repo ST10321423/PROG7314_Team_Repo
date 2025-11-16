@@ -3,6 +3,7 @@ package com.example.prog7314_universe.utils
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -23,6 +24,7 @@ class PrefManager(private val context: Context) {
         val TEXT_SCALE = floatPreferencesKey("text_scale") // 0.8f..1.2f
         val NOTIFICATIONS = booleanPreferencesKey("notifications_enabled")
         val TASK_REMINDERS = booleanPreferencesKey("task_reminders_enabled")
+        val FONT_SIZE = intPreferencesKey("font_size")
         val EXAM_ALERTS = booleanPreferencesKey("exam_alerts_enabled")
         val HABIT_REMINDERS = booleanPreferencesKey("habit_reminders_enabled")
         val BIOMETRIC_UNLOCK = booleanPreferencesKey("biometric_enabled")
@@ -34,11 +36,16 @@ class PrefManager(private val context: Context) {
     val isDarkMode: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.DARK_MODE] ?: false }
 
+    val isDarkModeEnabled: Flow<Boolean> = isDarkMode
+
     val textScale: Flow<Float> =
         context.dataStore.data.map { it[Keys.TEXT_SCALE] ?: 1.0f }
 
     val notificationsEnabled: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.NOTIFICATIONS] ?: true }
+
+    val fontSize: Flow<Int> =
+        context.dataStore.data.map { it[Keys.FONT_SIZE] ?: 14 }
 
     val taskRemindersEnabled: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.TASK_REMINDERS] ?: true }
@@ -48,6 +55,12 @@ class PrefManager(private val context: Context) {
 
     val habitRemindersEnabled: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.HABIT_REMINDERS] ?: true }
+
+    suspend fun setNotifications(value: Boolean) = setNotificationsEnabled(value)
+
+    suspend fun setFontSize(value: Int) {
+        context.dataStore.edit { it[Keys.FONT_SIZE] = value.coerceIn(10, 24) }
+    }
 
     val biometricEnabled: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.BIOMETRIC_UNLOCK] ?: false }

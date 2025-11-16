@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.prog7314_universe.Models.Exam
 import com.example.prog7314_universe.databinding.ActivityAddExamBinding
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
 import com.example.prog7314_universe.viewmodel.ExamViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -83,7 +83,7 @@ class AddExamFragment : Fragment() {
         editTextStartTime.setOnClickListener { showTimePicker(isStartTime = true) }
         editTextEndTime.setOnClickListener { showTimePicker(isStartTime = false) }
         btnSaveExam.setOnClickListener { saveExam() }
-        btnCancel.setOnClickListener { navigator().popBackStack() }
+        btnCancel.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun showDatePicker() {
@@ -180,7 +180,7 @@ class AddExamFragment : Fragment() {
         } else {
             vm.updateExam(exam)
         }
-        navigator().popBackStack()
+        findNavController().popBackStack()
     }
 
     companion object {
@@ -192,17 +192,18 @@ class AddExamFragment : Fragment() {
         private const val ARG_EXAM_END_TIME = "exam_end_time"
         private const val ARG_EXAM_DESCRIPTION = "exam_description"
 
-        fun newInstance(exam: Exam?): AddExamFragment {
-            val args = Bundle().apply {
-                putString(ARG_EXAM_ID, exam?.id)
-                putString(ARG_EXAM_SUBJECT, exam?.subject)
-                putString(ARG_EXAM_MODULE, exam?.module)
-                putString(ARG_EXAM_DATE, exam?.date)
-                putString(ARG_EXAM_START_TIME, exam?.startTime)
-                putString(ARG_EXAM_END_TIME, exam?.endTime)
-                putString(ARG_EXAM_DESCRIPTION, exam?.description)
-            }
-            return AddExamFragment().apply { arguments = args }
+        fun newInstance(exam: Exam?): AddExamFragment = AddExamFragment().apply {
+            arguments = createArgs(exam)
+        }
+
+        fun createArgs(exam: Exam?): Bundle = Bundle().apply {
+            putString(ARG_EXAM_ID, exam?.id)
+            putString(ARG_EXAM_SUBJECT, exam?.subject)
+            putString(ARG_EXAM_MODULE, exam?.module)
+            putString(ARG_EXAM_DATE, exam?.date)
+            putString(ARG_EXAM_START_TIME, exam?.startTime)
+            putString(ARG_EXAM_END_TIME, exam?.endTime)
+            putString(ARG_EXAM_DESCRIPTION, exam?.description)
         }
     }
 }

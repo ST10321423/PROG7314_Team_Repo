@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.prog7314_universe.Models.Habit
 import com.example.prog7314_universe.databinding.ActivityAddEditHabitBinding
 import com.example.prog7314_universe.utils.getWithOfflineFallbackTask
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -165,7 +165,7 @@ class AddEditHabitFragment : Fragment() {
             data["createdAt"] = now
             habits.add(data)
                 .addOnSuccessListener {
-                    navigator().popBackStack()
+                    findNavController().popBackStack()
                 }
                 .addOnFailureListener { e ->
                     binding.btnSave.isEnabled = true
@@ -175,7 +175,7 @@ class AddEditHabitFragment : Fragment() {
         } else {
             habits.document(habitId!!).update(data as Map<String, Any>)
                 .addOnSuccessListener {
-                    navigator().popBackStack()
+                    findNavController().popBackStack()
                 }
                 .addOnFailureListener { e ->
                     binding.btnSave.isEnabled = true
@@ -193,7 +193,7 @@ class AddEditHabitFragment : Fragment() {
         habitId?.let {
             db.collection("users").document(uid).collection("habits")
                 .document(it).delete()
-                .addOnSuccessListener { navigator().popBackStack() }
+                .addOnSuccessListener { findNavController().popBackStack() }
                 .addOnFailureListener { e ->
                     val reason = e.localizedMessage?.let { ": $it" } ?: ""
                     Toast.makeText(requireContext(), getString(R.string.error_delete_failed, reason), Toast.LENGTH_SHORT).show()

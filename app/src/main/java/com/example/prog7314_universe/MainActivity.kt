@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -90,8 +91,10 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.profileFragment,
-                R.id.settingsFragment
+                R.id.moodTrackerFragment,
+                R.id.journalListFragment,
+                R.id.tasksListFragment,
+                R.id.habitListFragment
             ),
             drawerLayout
         )
@@ -131,27 +134,23 @@ class MainActivity : AppCompatActivity() {
                 R.id.moodTrackerFragment,
                 R.id.journalListFragment,
                 R.id.tasksListFragment,
-                R.id.habitListFragment -> {
-                    bottomNav.visibility = android.view.View.VISIBLE
-                }
-                else -> {
-                    bottomNav.visibility = android.view.View.GONE
+                R.id.habitListFragment -> bottomNav.visibility = View.VISIBLE
+                    else -> bottomNav.visibility = View.GONE
                 }
             }
         }
-    }
 
     private fun handleNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.nav_home -> navController.navigate(R.id.homeFragment)
-            R.id.nav_mood_tracker -> navController.navigate(R.id.moodTrackerFragment)
-            R.id.nav_journal -> navController.navigate(R.id.journalListFragment)
-            R.id.nav_tasks -> navController.navigate(R.id.tasksListFragment)
-            R.id.nav_habits -> navController.navigate(R.id.habitListFragment)
-            R.id.nav_savings -> navController.navigate(R.id.savingsFragment)
-            R.id.nav_fridge -> navController.navigate(R.id.fridgeFragment)
-            R.id.nav_profile -> navController.navigate(R.id.profileFragment)
-            R.id.nav_settings -> navController.navigate(R.id.settingsFragment)
+            R.id.homeFragment -> navController.navigate(R.id.homeFragment)
+            R.id.moodTrackerFragment -> navController.navigate(R.id.moodTrackerFragment)
+            R.id.journalListFragment -> navController.navigate(R.id.journalListFragment)
+            R.id.tasksListFragment -> navController.navigate(R.id.tasksListFragment)
+            R.id.habitListFragment -> navController.navigate(R.id.habitListFragment)
+            R.id.savingGoalFragment -> navController.navigate(R.id.savingGoalFragment)
+            R.id.fridgeFragment -> navController.navigate(R.id.fridgeFragment)
+            R.id.profileFragment -> navController.navigate(R.id.profileFragment)
+            R.id.settingsFragment -> navController.navigate(R.id.settingsFragment)
             R.id.nav_logout -> handleLogout()
         }
         drawerLayout.closeDrawer(GravityCompat.START)

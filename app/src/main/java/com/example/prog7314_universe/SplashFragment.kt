@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -18,12 +19,15 @@ class SplashFragment : Fragment(R.layout.activity_splash) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             delay(splashDelay)
-            val next = if (auth.currentUser != null) {
-                DashboardFragment()
+            val destination = if (auth.currentUser != null) {
+                R.id.homeFragment
             } else {
-                LoginFragment()
+                R.id.loginFragment
             }
-            navigator().openFragment(next, addToBackStack = false, clearBackStack = true)
+            val options = navOptions {
+                popUpTo(R.id.splashFragment) { inclusive = true }
+            }
+            findNavController().navigate(destination, null, options)
         }
     }
 }

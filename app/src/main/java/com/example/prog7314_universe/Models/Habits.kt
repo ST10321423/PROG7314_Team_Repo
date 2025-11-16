@@ -13,7 +13,10 @@ data class Habit(
     var timeOfDay: String? = null,            // "morning" or "afternoon" or "evening"
     var difficulty: String = "easy",
     var createdAt: Timestamp? = null,
-    var updatedAt: Timestamp? = null
+    var updatedAt: Timestamp? = null,
+    var lastCompleted: Timestamp? = null,
+    var isCompleted: Boolean = false,
+    var streak: Int = 0
 ) {
     companion object {
         //Convert day index (Monday = 1 ... Sunday = 7) to bit position

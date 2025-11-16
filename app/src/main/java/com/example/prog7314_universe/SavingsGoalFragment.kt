@@ -10,14 +10,17 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prog7314_universe.Adapters.ContributionsAdapter
 import com.example.prog7314_universe.Models.SavingsGoal
 import com.example.prog7314_universe.databinding.ActivitySavingsGoalBinding
-import com.example.prog7314_universe.utils.navigator
+import com.example.prog7314_universe.AddContributionFragment
 import com.example.prog7314_universe.viewmodel.SavingsContributionViewModel
 import com.example.prog7314_universe.viewmodel.SavingsGoalViewModel
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 
 class SavingsGoalFragment : Fragment() {
 
@@ -45,10 +48,10 @@ class SavingsGoalFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         vm = ViewModelProvider(this)[SavingsGoalViewModel::class.java]
         contribVm = ViewModelProvider(this)[SavingsContributionViewModel::class.java]
-        userId = arguments?.getString(ARG_USER_ID) ?: ""
+        userId = arguments?.getString(ARG_USER_ID) ?: FirebaseAuth.getInstance().currentUser?.uid.orEmpty()
         if (userId.isBlank()) {
             Toast.makeText(requireContext(), "Invalid user session", Toast.LENGTH_SHORT).show()
-            navigator().popBackStack()
+            findNavController().popBackStack()
             return
         }
 
@@ -86,11 +89,12 @@ class SavingsGoalFragment : Fragment() {
         }
 
         binding.btnStatistic.setOnClickListener {
-            navigator().popBackStack()
+            findNavController().popBackStack()
         }
 
         binding.btnAdd.setOnClickListener {
-            navigator().openFragment(AddContributionFragment.newInstance(userId, selectedGoalId))
+            val args = AddContributionFragment.createArgs(userId, selectedGoalId)
+            findNavController().navigate(R.id.addContributionFragment, args)
         }
     }
 
