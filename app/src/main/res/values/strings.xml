@@ -91,6 +91,7 @@
     <!-- Language (for spinner) -->
     <string name="language_english">English</string>
     <string name="language_afrikaans">Afrikaans</string>
+    <string name="language_zulu">Zulu</string>
 
     <!-- Habit strings -->
     <string name="habits">Habits</string>

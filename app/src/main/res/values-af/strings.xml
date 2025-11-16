@@ -87,6 +87,7 @@
     <!-- Language -->
     <string name="language_english">Engels</string>
     <string name="language_afrikaans">Afrikaans</string>
+    <string name="language_zulu">Zoeloe</string>
 
     <!-- Habit strings -->
     <string name="habits">Gewoontes</string>
