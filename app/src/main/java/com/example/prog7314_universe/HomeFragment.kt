@@ -7,6 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.prog7314_universe.databinding.FragmentHomeBinding
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import com.example.prog7314_universe.viewmodel.JournalViewModel
+import com.example.prog7314_universe.viewmodel.MoodViewModel
+import com.example.prog7314_universe.viewmodel.TaskViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -22,6 +27,9 @@ class HomeFragment : Fragment() {
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val db by lazy { FirebaseFirestore.getInstance() }
+    private val moodViewModel: MoodViewModel by viewModels()
+    private val journalViewModel: JournalViewModel by viewModels()
+    private val taskViewModel: TaskViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +45,7 @@ class HomeFragment : Fragment() {
 
         setupUI()
         setupClickListeners()
-        loadDashboardData()
+        observeDashboardData()
     }
 
     private fun setupUI() {
@@ -70,63 +78,49 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun loadDashboardData() {
+    private fun observeDashboardData() {
         val userId = auth.currentUser?.uid ?: return
 
-        // Load task count
-        db.collection("users").document(userId)
-            .collection("tasks")
-            .whereEqualTo("isCompleted", false)
-            .get()
-            .addOnSuccessListener { documents ->
-                binding.tvTaskCount.text = "${documents.size()}"
-            }
+        // Tasks
+        taskViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
+            binding.tvTaskCount.text = tasks.count { !it.isCompleted }.toString()
+        }
+        taskViewModel.refresh()
 
-        // Load today's mood
-        val startOfDay = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.time
-
-        db.collection("users").document(userId)
-            .collection("moods")
-            .whereGreaterThanOrEqualTo("timestamp", startOfDay)
-            .limit(1)
-            .get()
-            .addOnSuccessListener { documents ->
-                if (documents.isEmpty) {
-                    binding.tvMoodStatus.text = "Not logged today"
-                } else {
-                    binding.tvMoodStatus.text = "Logged today ✓"
-                }
-            }
+        // Moods
+        moodViewModel.moodEntries.observe(viewLifecycleOwner) { moods ->
+            val todayMood = moods.firstOrNull { isSameDay(it.date.toDate(), Date()) }
+            binding.tvMoodStatus.text = todayMood?.let { entry ->
+                "Logged: ${entry.getMoodScale().displayName}"
+            } ?: "Not logged today"
+        }
 
         // Load active habits
         db.collection("users").document(userId)
             .collection("habits")
-            .get()
-            .addOnSuccessListener { documents ->
-                binding.tvHabitCount.text = "${documents.size()}"
+            .addSnapshotListener { snapshot, _ ->
+                binding.tvHabitCount.text = snapshot?.size()?.toString() ?: "0"
             }
 
-        // Load journal entries this week
-        val startOfWeek = Calendar.getInstance().apply {
-            set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.time
+        journalViewModel.journalEntries.observe(viewLifecycleOwner) { entries ->
+            val startOfWeek = Calendar.getInstance().apply {
+                set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }.time
 
-        db.collection("users").document(userId)
-            .collection("journal_entries")
-            .whereGreaterThanOrEqualTo("timestamp", startOfWeek)
-            .get()
-            .addOnSuccessListener { documents ->
-                binding.tvJournalCount.text = "${documents.size()} this week"
-            }
+            val weekCount = entries.count { it.createdAt?.toDate()?.after(startOfWeek) == true }
+            binding.tvJournalCount.text = "$weekCount this week"
+        }
+    }
+
+    private fun isSameDay(d1: Date, d2: Date): Boolean {
+        val c1 = Calendar.getInstance().apply { time = d1 }
+        val c2 = Calendar.getInstance().apply { time = d2 }
+        return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) &&
+                c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR)
     }
 
     override fun onDestroyView() {

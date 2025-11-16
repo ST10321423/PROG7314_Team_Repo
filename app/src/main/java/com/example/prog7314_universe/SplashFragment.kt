@@ -7,6 +7,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.example.prog7314_universe.utils.PrefManager
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -19,8 +21,10 @@ class SplashFragment : Fragment(R.layout.activity_splash) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             delay(splashDelay)
+            val prefManager = PrefManager(requireContext().applicationContext)
+            val biometricsEnabled = prefManager.biometricEnabled.first()
             val destination = if (auth.currentUser != null) {
-                R.id.homeFragment
+                if (biometricsEnabled) R.id.loginFragment else R.id.homeFragment
             } else {
                 R.id.loginFragment
             }

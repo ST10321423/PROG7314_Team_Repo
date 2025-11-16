@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
+        // Populate navigation drawer header with the signed-in user info
         navigationView.getHeaderView(0)?.let { header ->
             val nameView = header.findViewById<android.widget.TextView>(R.id.nav_user_name)
             val emailView = header.findViewById<android.widget.TextView>(R.id.nav_user_email)

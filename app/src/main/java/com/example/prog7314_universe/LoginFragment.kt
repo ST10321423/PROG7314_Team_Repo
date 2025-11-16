@@ -75,24 +75,24 @@ class LoginFragment : Fragment(R.layout.activity_login) {
                                 .set(profile)
                                 .addOnSuccessListener {
                                     toast("Welcome! Account created 🎉")
-                                    goToMain()
+                                    handleSignedInState()
                                 }
                                 .addOnFailureListener { e ->
                                     toast("Profile creation failed: ${e.message}")
                                     Log.e(TAG, "Firestore create profile failed", e)
-                                    goToMain()
+                                    handleSignedInState()
                                 }
                         } else {
                             db.collection("users").document(user.uid)
                                 .update("lastLogin", System.currentTimeMillis())
                                 .addOnSuccessListener {
                                     toast("Welcome back, ${user.displayName ?: ""}!")
-                                    goToMain()
+                                    handleSignedInState()
                                 }
                                 .addOnFailureListener { e ->
                                     Log.w(TAG, "Update lastLogin failed", e)
                                     toast("Welcome back!")
-                                    goToMain()
+                                    handleSignedInState()
                                 }
                         }
                     }
@@ -183,6 +183,11 @@ class LoginFragment : Fragment(R.layout.activity_login) {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        handleSignedInState()
     }
 
     private fun setupBiometric(button: Button) {

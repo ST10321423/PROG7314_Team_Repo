@@ -103,8 +103,12 @@ class MoodTrackerFragment : Fragment() {
 
         // Edit mood button
         binding.btnEditMood.setOnClickListener {
+            val args = Bundle().apply {
+                putLong("selected_date", Date().time)
+            }
             findNavController().navigate(
-                R.id.action_moodTrackerFragment_to_createMoodFragment
+                R.id.action_moodTrackerFragment_to_createMoodFragment,
+                args
             )
         }
     }

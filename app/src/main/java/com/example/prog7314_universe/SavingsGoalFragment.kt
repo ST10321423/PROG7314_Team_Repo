@@ -95,6 +95,14 @@ class SavingsGoalFragment : Fragment() {
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
+            if (binding.goalTypeSpinner.selectedItemPosition == AdapterView.INVALID_POSITION) {
+                binding.goalTypeSpinner.setSelection(0)
+                goals.firstOrNull()?.let { first ->
+                    binding.tvGoalName.text = first.goalName
+                    updateProgress(first)
+                    loadContributions(first.id)
+                }
+            }
         }
 
         binding.btnStatistic.setOnClickListener {
@@ -136,12 +144,18 @@ class SavingsGoalFragment : Fragment() {
 
     private fun openContribution() {
         if (selectedGoalId.isBlank()) {
-            openCreateGoal()
-            return
+            if (goals.isNotEmpty()) {
+                selectedGoalId = goals.first().id
+            }
+            if (selectedGoalId.isBlank()) {
+                openCreateGoal()
+                return
+            }
         }
         val args = AddContributionFragment.createArgs(userId, selectedGoalId)
         findNavController().navigate(R.id.addContributionFragment, args)
     }
+
 
     companion object {
         private const val ARG_USER_ID = "user_id"
