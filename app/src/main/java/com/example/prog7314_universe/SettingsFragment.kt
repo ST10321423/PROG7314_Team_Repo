@@ -71,7 +71,7 @@ class SettingsFragment : Fragment() {
 
     private fun loadSettings() {
         lifecycleScope.launch {
-            prefManager.isDarkModeEnabled.collect { isDark ->
+            prefManager.isDarkMode.collect { isDark ->
                 binding.switchDarkMode.isChecked = isDark
             }
         }
@@ -83,9 +83,10 @@ class SettingsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            prefManager.fontSize.collect { size ->
-                binding.seekBarFontSize.progress = size
-                binding.tvFontSizeValue.text = "$size"
+            prefManager.textScale.collect { scale ->
+                val progress = (scale * 100).toInt()
+                binding.seekBarFontSize.progress = progress
+                binding.tvFontSizeValue.text = "${progress}%"
             }
         }
     }
@@ -149,7 +150,7 @@ class SettingsFragment : Fragment() {
         // Notifications toggle
         binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             lifecycleScope.launch {
-                prefManager.setNotifications(isChecked)
+                prefManager.setNotificationsEnabled(isChecked)
             }
             Toast.makeText(
                 requireContext(),
@@ -170,7 +171,7 @@ class SettingsFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 val size = seekBar?.progress ?: 14
                 lifecycleScope.launch {
-                    prefManager.setFontSize(size)
+                    prefManager.setTextScale(size)
                 }
             }
         })

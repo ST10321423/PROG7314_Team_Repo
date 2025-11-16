@@ -19,9 +19,11 @@ import com.example.prog7314_universe.Adapters.HabitUi
 import com.example.prog7314_universe.Models.DateKeys
 import com.example.prog7314_universe.Models.Habit
 import com.example.prog7314_universe.databinding.ActivityHabitListBinding
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import java.time.LocalDate
 
 class HabitListFragment : Fragment() {
@@ -31,6 +33,7 @@ class HabitListFragment : Fragment() {
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val db by lazy { FirebaseFirestore.getInstance() }
+    private var habitsListener: ListenerRegistration? = null
 
     private val adapter by lazy {
         HabitAdapter(
@@ -134,8 +137,11 @@ class HabitListFragment : Fragment() {
         val uid = auth.currentUser?.uid ?: return
         val col = db.collection("users").document(uid).collection("habits")
 
+        // Remove previous listener if exists
+        habitsListener?.remove()
+
         binding.progressBar.isVisible = true
-        col.orderBy("name").addSnapshotListener(viewLifecycleOwner) { snap, err ->
+        habitsListener = col.orderBy("name").addSnapshotListener { snap, err ->
             binding.progressBar.isVisible = false
             if (err != null || snap == null) {
                 Toast.makeText(requireContext(), "Error loading habits", Toast.LENGTH_SHORT).show()
@@ -157,7 +163,7 @@ class HabitListFragment : Fragment() {
         var filtered = allHabits
 
         timeFilter?.let { filter ->
-            filtered = filtered.filter { it.timeOfDay.equals(filter, true) }
+            filtered = filtered.filter { it.timeOfDay.equals(filter, true) == true}
         }
 
         filtered = when (statusFilter) {
@@ -172,6 +178,7 @@ class HabitListFragment : Fragment() {
 
         adapter.submitList(filtered)
         binding.tvEmptyState.isVisible = filtered.isEmpty()
+        updateFilterCounts()
     }
 
 
@@ -188,16 +195,31 @@ class HabitListFragment : Fragment() {
             tvFilterCompleted.isSelected = statusFilter == StatusFilter.COMPLETED
     }
 
+    private fun updateFilterCounts() = with(binding) {
+        tvFilterAll.text = "All (${allHabits.size})"
+        val todayMask = DateKeys.dayOfWeekToMask(LocalDate.now().dayOfWeek)
+        val dueCount = allHabits.count { habit ->
+            habit.daysMask and todayMask != 0 && !habit.isCompleted
+        }
+        val completedCount = allHabits.count { it.isCompleted }
+        tvFilterDueToday.text = "Due Today ($dueCount)"
+        tvFilterCompleted.text = "Completed ($completedCount)"
+    }
+
     private fun toggleCompletion(habit: HabitUi, checked: Boolean) {
         val uid = auth.currentUser?.uid ?: return
         val doc = db.collection("users").document(uid)
             .collection("habits").document(habit.habitId)
 
+        val now = Timestamp.now()
+        val lastCompletedValue = if (checked) now else null
+        val streakValue: Any = if (checked) FieldValue.increment(1) else 0
+
         doc.update(
-            mapOf(
-                "lastCompleted" to if (checked) Timestamp.now() else null,
-                "isCompleted" to checked
-            )
+            "lastCompleted", lastCompletedValue,
+            "isCompleted", checked,
+            "updatedAt", now,
+            "streak", streakValue
         ).addOnFailureListener {
             Toast.makeText(requireContext(), "Failed to update habit", Toast.LENGTH_SHORT).show()
         }
@@ -205,6 +227,7 @@ class HabitListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        habitsListener?.remove()
         _binding = null
     }
 }

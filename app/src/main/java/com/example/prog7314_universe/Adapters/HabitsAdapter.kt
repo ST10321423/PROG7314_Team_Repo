@@ -7,24 +7,56 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.prog7314_universe.databinding.ItemHabitBinding
+import com.example.prog7314_universe.Models.DateKeys
 import com.example.prog7314_universe.Models.Habit
+import java.time.Instant
+import java.time.ZoneId
+import java.util.Locale
 
 data class HabitUi(
-    val habit: Habit,
+    val habitId: String,
+    val name: String,
+    val daysMask: Int,
+    val timeOfDay: String?,
+    val difficulty: String,
+    val streak: Int,
     val isDueToday: Boolean,
-    val completedToday: Boolean,
-    val currentStreak: Int
-)
+    val isCompleted: Boolean
+){
+    companion object {
+        fun fromHabit(habit: Habit, nowMillis: Long): HabitUi {
+            val todayMask = DateKeys.dayOfWeekToMask(
+                Instant.ofEpochMilli(nowMillis)
+                    .atZone(ZoneId.systemDefault())
+                    .dayOfWeek
+            )
+            val isDue = habit.daysMask == 0 || (habit.daysMask and todayMask) != 0
+
+            val streak = habit.streak.coerceAtLeast(0)
+
+            return HabitUi(
+                habitId = habit.habitId,
+                name = habit.name,
+                daysMask = habit.daysMask,
+                timeOfDay = habit.timeOfDay,
+                difficulty = habit.difficulty,
+                streak = streak,
+                isDueToday = isDue,
+                isCompleted = habit.isCompleted
+            )
+        }
+    }
+}
 
 class HabitAdapter(
-    private val onToggle: (Habit, Boolean) -> Unit,
-    private val onEdit: (Habit) -> Unit
+    private val onToggle: (HabitUi, Boolean) -> Unit,
+    private val onEdit: (HabitUi) -> Unit
 ) : ListAdapter<HabitUi, HabitAdapter.VH>(DIFF) {
 
     companion object {
         val DIFF = object : DiffUtil.ItemCallback<HabitUi>() {
             override fun areItemsTheSame(oldItem: HabitUi, newItem: HabitUi) =
-                oldItem.habit.habitId == newItem.habit.habitId
+                oldItem.habitId == newItem.habitId
             override fun areContentsTheSame(old: HabitUi, new: HabitUi) = old == new
         }
     }
@@ -40,14 +72,14 @@ class HabitAdapter(
         val item = getItem(pos)
 
         // Habit name
-        h.b.tvName.text = item.habit.name
+        h.b.tvName.text = item.name
 
         // Streak
-        h.b.tvStreak.text = " Streak: ${item.currentStreak} days"
+        h.b.tvStreak.text = " Streak: ${item.streak} days"
 
         // Checkbox
         h.b.cbComplete.setOnCheckedChangeListener(null)
-        h.b.cbComplete.isChecked = item.completedToday
+        h.b.cbComplete.isChecked = item.isCompleted
         h.b.cbComplete.isEnabled = item.isDueToday
 
         // Due badge
@@ -62,19 +94,20 @@ class HabitAdapter(
         }
 
         // Time of day
-        h.b.tvTimeOfDay.text = item.habit.timeOfDay?.capitalize() ?: "Anytime"
+        h.b.tvTimeOfDay.text = item.timeOfDay?.replaceFirstChar { ch ->
+            if (ch.isLowerCase()) ch.titlecase(Locale.getDefault()) else ch.toString()
+        } ?: "Anytime"
 
-        // Difficulty
-        val difficultyEmoji = when (item.habit.difficulty?.lowercase()) {
+        val difficultyEmoji = when (item.difficulty.lowercase(Locale.getDefault())) {
             "easy" -> "😊 Easy"
             "medium" -> "💪 Medium"
             "hard" -> "🔥 Hard"
-            else -> "Medium"
+            else -> item.difficulty
         }
         h.b.tvDifficulty.text = difficultyEmoji
 
         // Applies strikethrough if completed
-        if (item.completedToday) {
+        if (item.isCompleted) {
             h.b.tvName.paintFlags = h.b.tvName.paintFlags or
                     android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
             h.b.tvName.alpha = 0.6f
@@ -86,11 +119,11 @@ class HabitAdapter(
 
         // Click listeners
         h.b.cbComplete.setOnCheckedChangeListener { _, checked ->
-            onToggle(item.habit, checked)
+            onToggle(item, checked)
         }
 
         h.b.btnEdit.setOnClickListener {
-            onEdit(item.habit)
+            onEdit(item)
         }
     }
 }

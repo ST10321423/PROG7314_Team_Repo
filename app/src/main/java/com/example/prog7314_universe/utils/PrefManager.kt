@@ -63,7 +63,7 @@ class PrefManager(private val context: Context) {
         context.dataStore.edit { it[Keys.DARK_MODE] = value }
     }
 
-    suspend fun setTextScale(value: Float) {
+    suspend fun setTextScale(value: Int) {
         context.dataStore.edit {
             it[Keys.TEXT_SCALE] = value.coerceIn(0.8f, 1.2f)
         }
