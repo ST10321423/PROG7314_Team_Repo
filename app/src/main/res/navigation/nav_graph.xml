@@ -4,6 +4,25 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
+    <!-- Home Fragment -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.prog7314_universe.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_home_to_mood"
+            app:destination="@id/moodTrackerFragment" />
+        <action
+            android:id="@+id/action_home_to_journal"
+            app:destination="@id/journalListFragment" />
+        <action
+            android:id="@+id/action_home_to_tasks"
+            app:destination="@id/tasksListFragment" />
+        <action
+            android:id="@+id/action_home_to_habits"
+            app:destination="@id/habitListFragment" />
+    </fragment>
+
     <!-- Mood Tracker Navigation -->
     <fragment
         android:id="@+id/moodTrackerFragment"
@@ -53,9 +72,40 @@
             android:defaultValue="@null" />
     </fragment>
 
-    <!-- Add your other fragments here -->
+    <!-- Tasks Fragment -->
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.prog7314_universe.HomeFragment"
-        android:label="Home" />
+        android:id="@+id/tasksListFragment"
+        android:name="com.example.prog7314_universe.TasksListFragment"
+        android:label="Tasks" />
+
+    <!-- Habits Fragment -->
+    <fragment
+        android:id="@+id/habitListFragment"
+        android:name="com.example.prog7314_universe.HabitListFragment"
+        android:label="Habits" />
+
+    <!-- Savings Fragment -->
+    <fragment
+        android:id="@+id/savingsFragment"
+        android:name="com.example.prog7314_universe.SavingsFragment"
+        android:label="Savings Goals" />
+
+    <!-- Fridge Fragment -->
+    <fragment
+        android:id="@+id/fridgeFragment"
+        android:name="com.example.prog7314_universe.FridgeFragment"
+        android:label="Fridge Manager" />
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.prog7314_universe.ProfileFragment"
+        android:label="Profile" />
+
+    <!-- Settings Fragment -->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.prog7314_universe.SettingsFragment"
+        android:label="Settings" />
+
 </navigation>

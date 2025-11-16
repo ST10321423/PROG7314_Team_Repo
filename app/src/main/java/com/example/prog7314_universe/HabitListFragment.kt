@@ -46,7 +46,7 @@ class HabitListFragment : AppCompatActivity() {
     private val adapter by lazy {
         HabitAdapter(
             onToggle = { habit, checked -> toggleCompletion(habit, checked) },
-            onEdit = { habit -> AddEditHabitActivity.start(this, habit.habitId) }
+            onEdit = { habit -> AddEditHabitFragment.start(this, habit.habitId) }
         )
     }
 
@@ -116,7 +116,7 @@ class HabitListFragment : AppCompatActivity() {
 
     private fun setupClickListeners() {
         fabAdd.setOnClickListener {
-            AddEditHabitActivity.start(this, null)
+            AddEditHabitFragment.start(this, null)
         }
 
         tvSearch.setOnClickListener {
@@ -161,7 +161,7 @@ class HabitListFragment : AppCompatActivity() {
                     true
                 }
                 R.id.exams -> {
-                    startActivity(Intent(this, ExamsActivity::class.java))
+                    startActivity(Intent(this, ExamsFragment::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true

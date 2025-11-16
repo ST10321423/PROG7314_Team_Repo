@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.prog7314_universe.databinding.ActivitySettingsBinding
 import com.example.prog7314_universe.utils.PrefManager
-import com.example.prog7314_universe.utils.navigator
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -49,7 +48,6 @@ class SettingsFragment : Fragment() {
         loadSettings()
         setupLanguageSpinner()
         setupListeners()
-        setupBottomNavigation()
     }
 
     override fun onDestroyView() {
@@ -65,313 +63,167 @@ class SettingsFragment : Fragment() {
             binding.tvUserName.text =
                 user.displayName ?: getString(R.string.settings_user_fallback_name)
             binding.tvUserEmail.text =
-                user.email ?: getString(R.string.settings_no_email)
-        } else {
-            binding.tvUserName.text = getString(R.string.settings_guest_user_name)
-            binding.tvUserEmail.text = getString(R.string.settings_not_logged_in)
+                user.email ?: getString(R.string.settings_user_fallback_email)
         }
     }
 
-    // ---------------- Settings loading ----------------
+    // ---------------- Load settings from SharedPreferences ----------------
 
     private fun loadSettings() {
-        // Dark mode
-        viewLifecycleOwner.lifecycleScope.launch {
-            prefManager.isDarkMode.collect { isDark ->
+        lifecycleScope.launch {
+            prefManager.isDarkModeEnabled.collect { isDark ->
                 binding.switchDarkMode.isChecked = isDark
             }
         }
 
-        // Text scale
-        viewLifecycleOwner.lifecycleScope.launch {
-            prefManager.textScale.collect { scale ->
-                binding.seekBarTextSize.progress = ((scale - 0.8f) * 100).toInt()
-                binding.tvTextSizeValue.text = "${(scale * 100).toInt()}%"
-            }
-        }
-
-        // Language
-        viewLifecycleOwner.lifecycleScope.launch {
-            prefManager.language.collect { language ->
-                val code = if (supportedLanguageCodes.contains(language)) {
-                    language
-                } else {
-                    supportedLanguageCodes.first()
-                }
-                currentLanguageCode = code
-                val index = supportedLanguageCodes.indexOf(code)
-                if (index != -1 && binding.spinnerLanguage.selectedItemPosition != index) {
-                    binding.spinnerLanguage.setSelection(index, false)
-                }
-            }
-        }
-
-        // Notifications
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             prefManager.notificationsEnabled.collect { enabled ->
                 binding.switchNotifications.isChecked = enabled
-                updateNotificationSwitches(enabled)
             }
         }
 
-        // Task reminders
-        viewLifecycleOwner.lifecycleScope.launch {
-            prefManager.taskRemindersEnabled.collect { enabled ->
-                binding.switchTaskReminders.isChecked = enabled
-            }
-        }
-
-        // Exam alerts
-        viewLifecycleOwner.lifecycleScope.launch {
-            prefManager.examAlertsEnabled.collect { enabled ->
-                binding.switchExamAlerts.isChecked = enabled
-            }
-        }
-
-        // Habit reminders
-        viewLifecycleOwner.lifecycleScope.launch {
-            prefManager.habitRemindersEnabled.collect { enabled ->
-                binding.switchHabitReminders.isChecked = enabled
+        lifecycleScope.launch {
+            prefManager.fontSize.collect { size ->
+                binding.seekBarFontSize.progress = size
+                binding.tvFontSizeValue.text = "$size"
             }
         }
     }
 
-    // ---------------- Listeners ----------------
+    // ---------------- Language Spinner ----------------
 
-    private fun setupListeners() {
-        // Dark mode
-        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                prefManager.setDarkMode(isChecked)
-                applyTheme(isChecked)
-            }
-        }
-
-        // Text size
-        binding.seekBarTextSize.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: SeekBar?,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                val scale = 0.8f + (progress / 100f * 0.4f)
-                binding.tvTextSizeValue.text = "${(scale * 100).toInt()}%"
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                val scale = 0.8f + (seekBar!!.progress / 100f * 0.4f)
-                viewLifecycleOwner.lifecycleScope.launch {
-                    prefManager.setTextScale(scale)
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.settings_text_size_updated),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-
-        // Global notifications
-        binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                prefManager.setNotificationsEnabled(isChecked)
-                updateNotificationSwitches(isChecked)
-            }
-        }
-
-        // Individual notification types
-        binding.switchTaskReminders.setOnCheckedChangeListener { _, isChecked ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                prefManager.setTaskRemindersEnabled(isChecked)
-            }
-        }
-
-        binding.switchExamAlerts.setOnCheckedChangeListener { _, isChecked ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                prefManager.setExamAlertsEnabled(isChecked)
-            }
-        }
-
-        binding.switchHabitReminders.setOnCheckedChangeListener { _, isChecked ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                prefManager.setHabitRemindersEnabled(isChecked)
-            }
-        }
-
-        // Auth actions
-        binding.btnLogout.setOnClickListener { showLogoutDialog() }
-        binding.btnDeleteAccount.setOnClickListener { showDeleteAccountDialog() }
-    }
-
-    // ---------------- Language spinner ----------------
-
+    @SuppressLint("RestrictedApi")
     private fun setupLanguageSpinner() {
+        // Get currently selected locale
+        val appLocales = AppCompatDelegate.getApplicationLocales()
+        currentLanguageCode = if (!appLocales.isEmpty) {
+            appLocales[0]?.language ?: supportedLanguageCodes.first()
+        } else {
+            supportedLanguageCodes.first()
+        }
+
+        // Pre-select the current language
+        val currentIndex = supportedLanguageCodes.indexOf(currentLanguageCode)
+        if (currentIndex >= 0) {
+            binding.spinnerLanguage.setSelection(currentIndex)
+        }
+        isLanguageSpinnerInitialized = true
+
         binding.spinnerLanguage.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
+                @SuppressLint("RestrictedApi")
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
                     id: Long
                 ) {
-                    // First automatic call from Android – ignore
-                    if (!isLanguageSpinnerInitialized) {
-                        isLanguageSpinnerInitialized = true
-                        return
-                    }
+                    if (!isLanguageSpinnerInitialized) return
 
-                    val selectedCode =
-                        supportedLanguageCodes.getOrElse(position) { supportedLanguageCodes.first() }
-
+                    val selectedCode = supportedLanguageCodes[position]
                     if (selectedCode != currentLanguageCode) {
                         currentLanguageCode = selectedCode
-                        viewLifecycleOwner.lifecycleScope.launch {
-                            prefManager.setLanguage(selectedCode)
-                        }
-                        applyLanguage(selectedCode)
+                        val locales = LocaleListCompat.forLanguageTags(selectedCode)
+                        AppCompatDelegate.setApplicationLocales(locales)
                     }
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
     }
 
-    // ---------------- Bottom navigation ----------------
+    // ---------------- Listeners ----------------
 
-    private fun setupBottomNavigation() = with(binding.bottomNavigationView) {
-        selectedItemId = R.id.settings
-        setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.dashboard -> {
-                    navigator().openFragment(
-                        DashboardFragment(),
-                        addToBackStack = false,
-                        clearBackStack = true
-                    )
-                    true
-                }
-
-                R.id.tasks -> {
-                    navigator().openFragment(
-                        TasksFragment(),
-                        addToBackStack = false,
-                        clearBackStack = true
-                    )
-                    true
-                }
-
-                R.id.exams -> {
-                    navigator().openFragment(
-                        ExamsFragment(),
-                        addToBackStack = false,
-                        clearBackStack = true
-                    )
-                    true
-                }
-
-                R.id.habits -> {
-                    navigator().openFragment(
-                        HabitListFragment(),
-                        addToBackStack = false,
-                        clearBackStack = true
-                    )
-                    true
-                }
-
-                R.id.settings -> true
-                else -> false
+    private fun setupListeners() {
+        // Dark mode toggle
+        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                prefManager.setDarkMode(isChecked)
             }
+            val mode =
+                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+                else AppCompatDelegate.MODE_NIGHT_NO
+            AppCompatDelegate.setDefaultNightMode(mode)
         }
-    }
 
-    // ---------------- Helpers ----------------
+        // Notifications toggle
+        binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                prefManager.setNotifications(isChecked)
+            }
+            Toast.makeText(
+                requireContext(),
+                if (isChecked) "Notifications enabled" else "Notifications disabled",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
-    private fun updateNotificationSwitches(enabled: Boolean) {
-        binding.switchTaskReminders.isEnabled = enabled
-        binding.switchExamAlerts.isEnabled = enabled
-        binding.switchHabitReminders.isEnabled = enabled
+        // Font size seekbar
+        binding.seekBarFontSize.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.tvFontSizeValue.text = "$progress"
+            }
 
-        val alpha = if (enabled) 1f else 0.5f
-        binding.switchTaskReminders.alpha = alpha
-        binding.switchExamAlerts.alpha = alpha
-        binding.switchHabitReminders.alpha = alpha
-    }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
-    private fun applyTheme(isDark: Boolean) {
-        AppCompatDelegate.setDefaultNightMode(
-            if (isDark) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
-        )
-        requireActivity().recreate()
-    }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                val size = seekBar?.progress ?: 14
+                lifecycleScope.launch {
+                    prefManager.setFontSize(size)
+                }
+            }
+        })
 
-    private fun applyLanguage(languageCode: String) {
-        val localeList = LocaleListCompat.forLanguageTags(languageCode)
-        AppCompatDelegate.setApplicationLocales(localeList)
-        requireActivity().recreate()
+        // Clear cache button
+        binding.btnClearCache.setOnClickListener {
+            showClearCacheDialog()
+        }
+
+        // Delete account button
+        binding.btnDeleteAccount.setOnClickListener {
+            showDeleteAccountDialog()
+        }
     }
 
     // ---------------- Dialogs ----------------
 
-    private fun showLogoutDialog() {
+    private fun showClearCacheDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.settings_logout_title))
-            .setMessage(getString(R.string.settings_logout_message))
-            .setPositiveButton(getString(R.string.settings_logout)) { _, _ ->
-                auth.signOut()
-                navigator().openFragment(
-                    LoginFragment(),
-                    addToBackStack = false,
-                    clearBackStack = true
-                )
+            .setTitle("Clear Cache")
+            .setMessage("Are you sure you want to clear all cached data?")
+            .setPositiveButton("Clear") { _, _ ->
+                requireContext().cacheDir.deleteRecursively()
+                Toast.makeText(requireContext(), "Cache cleared", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton(getString(R.string.cancel), null)
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
     private fun showDeleteAccountDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.settings_delete_account_title))
-            .setMessage(getString(R.string.settings_delete_account_message))
-            .setPositiveButton(getString(R.string.settings_delete_account_confirm)) { _, _ ->
+            .setTitle("Delete Account")
+            .setMessage("This action cannot be undone. Are you sure you want to delete your account?")
+            .setPositiveButton("Delete") { _, _ ->
                 deleteAccount()
             }
-            .setNegativeButton(getString(R.string.cancel), null)
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
-    // ---------------- Account deletion ----------------
-
     private fun deleteAccount() {
         val user = auth.currentUser
-        if (user != null) {
-            user.delete()
-                .addOnSuccessListener {
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.settings_account_deleted),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    navigator().openFragment(
-                        LoginFragment(),
-                        addToBackStack = false,
-                        clearBackStack = true
-                    )
-                }
-                .addOnFailureListener { e ->
-                    val message = getString(
-                        R.string.settings_delete_account_error,
-                        e.message ?: getString(R.string.settings_unknown_error)
-                    )
-                    Toast.makeText(
-                        requireContext(),
-                        message,
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-        }
+        user?.delete()
+            ?.addOnSuccessListener {
+                Toast.makeText(requireContext(), "Account deleted", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+            }
+            ?.addOnFailureListener { e ->
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to delete account: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 }

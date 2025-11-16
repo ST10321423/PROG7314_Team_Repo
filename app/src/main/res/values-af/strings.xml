@@ -34,6 +34,22 @@
     <string name="error_save_failed">Kon nie gewoonte stoor%1$s nie</string>
     <string name="error_delete_failed">Kon nie gewoonte verwyder%1$s nie</string>
 
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Maak navigasielade oop</string>
+    <string name="navigation_drawer_close">Maak navigasielade toe</string>
+
+    <!-- Menu Items -->
+    <string name="menu_home">Huis</string>
+    <string name="menu_mood_tracker">Stemmingsopsporing</string>
+    <string name="menu_journal">Tydskrif</string>
+    <string name="menu_tasks">Take</string>
+    <string name="menu_habits">Gewoontes</string>
+    <string name="menu_savings">Spaar Doelwitte</string>
+    <string name="menu_fridge">Yskas Bestuurder</string>
+    <string name="menu_profile">Profiel</string>
+    <string name="menu_settings">Instellings</string>
+    <string name="menu_logout">Teken uit</string>
+
     <!-- Task strings -->
     <string name="tasks">Take</string>
     <string name="add_task">Voeg taak by</string>

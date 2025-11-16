@@ -1,59 +1,136 @@
 package com.example.prog7314_universe
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.prog7314_universe.databinding.FragmentHomeBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * HomeFragment - Dashboard showing overview of all app features
  */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    private val db by lazy { FirebaseFirestore.getInstance() }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupUI()
+        setupClickListeners()
+        loadDashboardData()
+    }
+
+    private fun setupUI() {
+        // Set welcome message with user name
+        val user = auth.currentUser
+        val name = user?.displayName?.split(" ")?.firstOrNull() ?: "Student"
+        binding.tvWelcome.text = "Welcome back, $name!"
+
+        // Set current date
+        val dateFormat = SimpleDateFormat("EEEE, MMMM dd", Locale.getDefault())
+        binding.tvDate.text = dateFormat.format(Date())
+    }
+
+    private fun setupClickListeners() {
+        // Navigation to different sections
+        binding.cardMood.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_mood)
+        }
+
+        binding.cardJournal.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_journal)
+        }
+
+        binding.cardTasks.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_tasks)
+        }
+
+        binding.cardHabits.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_habits)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+    private fun loadDashboardData() {
+        val userId = auth.currentUser?.uid ?: return
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        // Load task count
+        db.collection("users").document(userId)
+            .collection("tasks")
+            .whereEqualTo("isCompleted", false)
+            .get()
+            .addOnSuccessListener { documents ->
+                binding.tvTaskCount.text = "${documents.size()}"
+            }
+
+        // Load today's mood
+        val startOfDay = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
+
+        db.collection("users").document(userId)
+            .collection("moods")
+            .whereGreaterThanOrEqualTo("timestamp", startOfDay)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    binding.tvMoodStatus.text = "Not logged today"
+                } else {
+                    binding.tvMoodStatus.text = "Logged today ✓"
                 }
             }
+
+        // Load active habits
+        db.collection("users").document(userId)
+            .collection("habits")
+            .get()
+            .addOnSuccessListener { documents ->
+                binding.tvHabitCount.text = "${documents.size()}"
+            }
+
+        // Load journal entries this week
+        val startOfWeek = Calendar.getInstance().apply {
+            set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
+
+        db.collection("users").document(userId)
+            .collection("journal_entries")
+            .whereGreaterThanOrEqualTo("timestamp", startOfWeek)
+            .get()
+            .addOnSuccessListener { documents ->
+                binding.tvJournalCount.text = "${documents.size()} this week"
+            }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

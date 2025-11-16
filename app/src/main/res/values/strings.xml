@@ -36,6 +36,22 @@
     <string name="error_save_failed">Failed to save habit%1$s</string>
     <string name="error_delete_failed">Failed to delete habit%1$s</string>
 
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Menu Items -->
+    <string name="menu_home">Home</string>
+    <string name="menu_mood_tracker">Mood Tracker</string>
+    <string name="menu_journal">Journal</string>
+    <string name="menu_tasks">Tasks</string>
+    <string name="menu_habits">Habits</string>
+    <string name="menu_savings">Savings Goals</string>
+    <string name="menu_fridge">Fridge Manager</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Logout</string>
+
     <!-- Task strings -->
     <string name="tasks">Tasks</string>
     <string name="add_task">Add Task</string>
