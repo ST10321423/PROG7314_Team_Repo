@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/dashboard"
-        android:title="Dashboard"
+        android:id="@+id/homeFragment"
+        android:title="Home"
         android:icon="@drawable/ic_dashboard" />
 
     <item
-        android:id="@+id/tasks"
+        android:id="@+id/moodTrackerFragment"
+        android:title="Mood"
+        android:icon="@drawable/ic_mood" />
+
+    <item
+        android:id="@+id/journalListFragment"
+        android:title="Journal"
+        android:icon="@drawable/ic_journal" />
+
+    <item
+        android:id="@+id/tasksListFragment"
         android:title="Tasks"
         android:icon="@drawable/ic_tasks" />
 
     <item
-        android:id="@+id/exams"
-        android:title="Exams"
-        android:icon="@drawable/ic_exams" />
-
-    <item
-        android:id="@+id/habits"
+        android:id="@+id/habitListFragment"
         android:title="Habits"
         android:icon="@drawable/ic_habits" />
-
-    <item
-        android:id="@+id/settings"
-        android:title="Settings"
-        android:icon="@drawable/ic_settings" />
 </menu>

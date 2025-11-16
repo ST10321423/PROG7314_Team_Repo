@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.prog7314_universe.databinding.ActivityAddTaskBinding
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
 import com.example.prog7314_universe.viewmodel.TaskViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -39,7 +39,6 @@ class AddTaskFragment : Fragment() {
 
         binding.editTextExamDate.setOnClickListener { showDatePicker() }
         binding.btnSaveTask.setOnClickListener { saveTask() }
-        setupBottomNavigation()
     }
 
     override fun onDestroyView() {
@@ -85,36 +84,6 @@ class AddTaskFragment : Fragment() {
         }
 
         vm.addTask(title, desc.ifEmpty { null }, selectedDateIso)
-        navigator().popBackStack()
-    }
-
-    private fun setupBottomNavigation() = with(binding.bottomNavigationView) {
-        selectedItemId = R.id.tasks
-
-        setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.dashboard -> {
-                    navigator().openFragment(DashboardFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.tasks -> {
-                    navigator().openFragment(TasksFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.exams -> {
-                    navigator().openFragment(ExamsFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.habits -> {
-                    navigator().openFragment(HabitListFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.settings -> {
-                    navigator().openFragment(SettingsFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                else -> false
-            }
-        }
+        findNavController().popBackStack()
     }
 }

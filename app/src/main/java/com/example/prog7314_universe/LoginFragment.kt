@@ -7,7 +7,8 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
@@ -159,7 +160,10 @@ class LoginFragment : Fragment(R.layout.activity_login) {
     }
 
     private fun goToMain() {
-        navigator().openFragment(DashboardFragment(), addToBackStack = false, clearBackStack = true)
+        val options = navOptions {
+            popUpTo(R.id.loginFragment) { inclusive = true }
+        }
+        findNavController().navigate(R.id.homeFragment, null, options)
     }
 
     private fun toast(msg: String) =

@@ -54,19 +54,19 @@ class HomeFragment : Fragment() {
     private fun setupClickListeners() {
         // Navigation to different sections
         binding.cardMood.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_mood)
+            findNavController().navigate(R.id.action_homeFragment_to_moodTrackerFragment)
         }
 
         binding.cardJournal.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_journal)
+            findNavController().navigate(R.id.action_homeFragment_to_journalListFragment)
         }
 
         binding.cardTasks.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_tasks)
+            findNavController().navigate(R.id.action_homeFragment_to_tasksListFragment)
         }
 
         binding.cardHabits.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_habits)
+            findNavController().navigate(R.id.action_homeFragment_to_habitListFragment)
         }
     }
 

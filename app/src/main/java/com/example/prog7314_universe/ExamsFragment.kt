@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prog7314_universe.Adapters.ExamAdapter
 import com.example.prog7314_universe.Models.Exam
 import com.example.prog7314_universe.databinding.ActivityExamsBinding
-import com.example.prog7314_universe.utils.navigator
+import androidx.navigation.fragment.findNavController
 import com.example.prog7314_universe.viewmodel.ExamViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -40,7 +40,6 @@ class ExamsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupClickListeners()
-        setupBottomNavigation()
         observeViewModel()
     }
 
@@ -67,7 +66,7 @@ class ExamsFragment : Fragment() {
 
     private fun setupClickListeners() = with(binding) {
         fabAddExam.setOnClickListener {
-            navigator().openFragment(AddExamFragment.newInstance(null))
+            findNavController().navigate(R.id.addExamFragment)
         }
 
         tvFilterAll.setOnClickListener {
@@ -87,32 +86,6 @@ class ExamsFragment : Fragment() {
         }
     }
 
-    private fun setupBottomNavigation() = with(binding.bottomNavigationView) {
-        selectedItemId = R.id.exams
-
-        setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.dashboard -> {
-                    navigator().openFragment(DashboardFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.tasks -> {
-                    navigator().openFragment(TasksFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.exams -> true
-                R.id.habits -> {
-                    navigator().openFragment(HabitListFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                R.id.settings -> {
-                    navigator().openFragment(SettingsFragment(), addToBackStack = false, clearBackStack = true)
-                    true
-                }
-                else -> false
-            }
-        }
-    }
 
     private fun observeViewModel() {
         vm.exams.observe(viewLifecycleOwner) { exams ->
@@ -189,7 +162,8 @@ class ExamsFragment : Fragment() {
     }
 
     private fun editExam(exam: Exam) {
-        navigator().openFragment(AddExamFragment.newInstance(exam))
+        val args = AddExamFragment.createArgs(exam)
+        findNavController().navigate(R.id.addExamFragment, args)
     }
 
     private fun showDeleteDialog(exam: Exam) {

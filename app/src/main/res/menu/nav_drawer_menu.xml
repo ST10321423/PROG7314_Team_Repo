@@ -5,49 +5,49 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/homeFragment"
             android:icon="@drawable/ic_home"
             android:title="Home" />
 
         <item
-            android:id="@+id/nav_mood_tracker"
+            android:id="@+id/moodTrackerFragment"
             android:icon="@drawable/ic_mood"
             android:title="Mood Tracker" />
 
         <item
-            android:id="@+id/nav_journal"
+            android:id="@+id/journalListFragment"
             android:icon="@drawable/ic_journal"
             android:title="Journal" />
 
         <item
-            android:id="@+id/nav_tasks"
+            android:id="@+id/tasksListFragment"
             android:icon="@drawable/ic_tasks"
             android:title="Tasks" />
 
         <item
-            android:id="@+id/nav_habits"
+            android:id="@+id/habitListFragment"
             android:icon="@drawable/ic_habits"
             android:title="Habits" />
 
         <item
-            android:id="@+id/nav_savings"
+            android:id="@+id/savingGoalFragment"
             android:icon="@drawable/ic_savings"
             android:title="Savings Goals" />
 
         <item
-            android:id="@+id/nav_fridge"
+            android:id="@+id/fridgeFragment"
             android:icon="@drawable/ic_fridge"
             android:title="Fridge Manager" />
     </group>
 
     <group android:id="@+id/group_account">
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/profileFragment"
             android:icon="@drawable/ic_person"
             android:title="Profile" />
 
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_settings"
             android:title="Settings" />
     </group>

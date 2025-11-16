@@ -13,7 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.prog7314_universe.Models.SavingsContribution
 import com.example.prog7314_universe.Models.SavingsGoal
 import com.example.prog7314_universe.databinding.ActivityAddContributionBinding
-import com.example.prog7314_universe.utils.navigator
+//new navigation controller added
+import androidx.navigation.fragment.findNavController
 import com.example.prog7314_universe.viewmodel.SavingsContributionViewModel
 import com.example.prog7314_universe.viewmodel.SavingsGoalViewModel
 import com.google.firebase.Timestamp
@@ -89,7 +90,7 @@ class AddContributionFragment : Fragment() {
                 setLoading(false)
                 if (success) {
                     toast("Contribution saved")
-                    navigator().popBackStack()
+                    findNavController().popBackStack()
                 } else {
                     toast("Failed to save contribution")
                 }
@@ -107,7 +108,7 @@ class AddContributionFragment : Fragment() {
             goals = list
             if (list.isNullOrEmpty()) {
                 toast("No savings goals found. Create one first.")
-                navigator().popBackStack()
+                findNavController().popBackStack()
                 return@observe
             }
 
@@ -159,10 +160,12 @@ class AddContributionFragment : Fragment() {
         private const val ARG_GOAL_ID = "goal_id"
 
         fun newInstance(userId: String, goalId: String?): AddContributionFragment = AddContributionFragment().apply {
-            arguments = bundleOf(
-                ARG_USER_ID to userId,
-                ARG_GOAL_ID to goalId
-            )
+            arguments = createArgs(userId, goalId)
         }
+
+        fun createArgs(userId: String, goalId: String?): Bundle = bundleOf(
+            ARG_USER_ID to userId,
+            ARG_GOAL_ID to goalId
+        )
     }
 }
