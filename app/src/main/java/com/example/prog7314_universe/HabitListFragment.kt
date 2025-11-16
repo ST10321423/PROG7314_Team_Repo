@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.example.prog7314_universe.utils.getWithOfflineFallbackTask
 import java.time.DayOfWeek
 import java.time.LocalDate
-
+//fix
 class HabitListFragment : AppCompatActivity() {
 
     private lateinit var recycler: RecyclerView
