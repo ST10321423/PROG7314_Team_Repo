@@ -8,9 +8,11 @@
     </queries>
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
+        android:name=".UniVerseApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,9 +24,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-        <!-- SPLASH ACTIVITY - Entry Point -->
         <activity
-            android:name=".SplashActivity"
+            android:name=".RootActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -32,47 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- LOGIN ACTIVITY -->
-        <activity
-            android:name=".LoginFragment"
-            android:exported="false"
-            android:theme="@style/Base.Theme.PROG7314_Universe" />
-
-        <!-- MAIN ACTIVITY - Dashboard -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/Base.Theme.PROG7314_Universe" />
-
-        <!-- Other activities -->
-        <activity
-            android:name=".HabitsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HabitListFragment"
-            android:exported="false" />
-        <activity
-            android:name=".AddEditHabitActivity"
-            android:exported="false"
-            android:label="Habit" />
-        <activity
-            android:name=".CreateHabitActivity"
-            android:label="Create Habit"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-        <activity
-            android:name=".AddContributionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsFragment"
-            android:exported="false" />
-        <activity android:name=".TasksFragment" />
-        <activity android:name=".AddTaskFragment" />
-        <activity android:name=".ExamsActivity" />
-        <activity android:name=".`AddExamFragment.kt`" />
-        <activity android:name=".SavingsGoalFragment" />
-        <activity android:name=".CreateSavingsGoalFragment" />
     </application>
 
 </manifest>

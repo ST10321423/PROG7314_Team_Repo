@@ -138,7 +138,7 @@ class TasksFragment : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.dashboard -> {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, RootActivity::class.java))
                     overridePendingTransition(0, 0)
                     finish()
                     true

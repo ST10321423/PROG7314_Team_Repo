@@ -2,6 +2,7 @@ package com.example.prog7314_universe.repo
 
 import com.example.prog7314_universe.Models.MoodEntry
 import com.example.prog7314_universe.Models.MoodScale
+import com.example.prog7314_universe.utils.getWithOfflineFallback
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -76,8 +77,7 @@ class MoodRepository {
                 .whereGreaterThanOrEqualTo("date", startOfDay)
                 .whereLessThanOrEqualTo("date", endOfDay)
                 .limit(1)
-                .get()
-                .await()
+                .getWithOfflineFallback()
 
             snapshot.documents.firstOrNull()?.toObject(MoodEntry::class.java)
         } catch (e: Exception) {
@@ -152,8 +152,7 @@ class MoodRepository {
                 .whereEqualTo("userId", userId)
                 .whereGreaterThanOrEqualTo("date", startOfMonth)
                 .whereLessThanOrEqualTo("date", endOfMonth)
-                .get()
-                .await()
+                .getWithOfflineFallback()
 
             snapshot.documents.mapNotNull { doc ->
                 doc.toObject(MoodEntry::class.java)
@@ -187,8 +186,7 @@ class MoodRepository {
                 .whereEqualTo("userId", userId)
                 .whereGreaterThanOrEqualTo("date", startOfWeek)
                 .whereLessThanOrEqualTo("date", endOfWeek)
-                .get()
-                .await()
+                .getWithOfflineFallback()
 
             snapshot.documents.mapNotNull { doc ->
                 doc.toObject(MoodEntry::class.java)

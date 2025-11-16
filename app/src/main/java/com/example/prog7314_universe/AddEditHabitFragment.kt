@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.prog7314_universe.Models.Habit
 import com.example.prog7314_universe.databinding.ActivityAddEditHabitBinding
+import com.example.prog7314_universe.utils.getWithOfflineFallbackTask
 import com.example.prog7314_universe.utils.navigator
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -71,7 +72,7 @@ class AddEditHabitFragment : Fragment() {
     private fun loadHabit() {
         val uid = auth.currentUser?.uid ?: return
         db.collection("users").document(uid).collection("habits").document(habitId!!)
-            .get()
+            .getWithOfflineFallbackTask()
             .addOnSuccessListener { d ->
                 current = d.toObject(Habit::class.java)?.apply { habitId = d.id }
                 current?.let { fillForm(it) }

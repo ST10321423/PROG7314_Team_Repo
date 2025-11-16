@@ -8,11 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.prog7314_universe.databinding.ActivityDashboardBinding
+import com.example.prog7314_universe.utils.getWithOfflineFallback
 import com.example.prog7314_universe.utils.navigator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -143,21 +143,21 @@ class DashboardFragment : Fragment() {
 
     private suspend fun loadTasksStats(uid: String) {
         val tasksRef = db.collection("users").document(uid).collection("tasks")
-        val snapshot = tasksRef.get().await()
+        val snapshot = tasksRef.getWithOfflineFallback()
         val tasksCompleted = snapshot.documents.count { it.getBoolean("completed") == true }
         binding.tvTasksCompleted.text = "$tasksCompleted"
     }
 
     private suspend fun loadExamsStats(uid: String) {
         val examsRef = db.collection("users").document(uid).collection("exams")
-        val snapshot = examsRef.get().await()
+        val snapshot = examsRef.getWithOfflineFallback()
         val coursesCount = snapshot.size()
         binding.tvCoursesCount.text = "$coursesCount"
     }
 
     private suspend fun loadHabitsStats(uid: String) {
         val habitsRef = db.collection("users").document(uid).collection("habits")
-        val snapshot = habitsRef.get().await()
+        val snapshot = habitsRef.getWithOfflineFallback()
         val studyHours = snapshot.size() * 2
         binding.tvStudyHours.text = "$studyHours"
     }
