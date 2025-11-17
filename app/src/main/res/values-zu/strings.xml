@@ -107,8 +107,8 @@
     <string name="save">Londoloza</string>
 
     <!-- Language -->
-    <string name="language_english">IsiNgisi</string>
-    <string name="language_afrikaans">IsiBhunu</string>
+    <string name="language_english">English</string>
+    <string name="language_afrikaans">Afrikaans</string>
     <string name="language_zulu">IsiZulu</string>
 
     <!-- Habit strings -->

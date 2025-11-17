@@ -10,9 +10,9 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.biometric.BiometricManager
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
-import androidx.biometric.BiometricManager
 import androidx.lifecycle.lifecycleScope
 import com.example.prog7314_universe.databinding.ActivitySettingsBinding
 import com.example.prog7314_universe.utils.PrefManager
@@ -32,6 +32,7 @@ class SettingsFragment : Fragment() {
     // Language support
     private val supportedLanguageCodes = listOf("en", "af", "zu")
     private var isLanguageSpinnerInitialized = false
+    private var suppressLanguageCallback = false
     private var currentLanguageCode: String = supportedLanguageCodes.first()
 
     @SuppressLint("RestrictedApi")
@@ -74,6 +75,7 @@ class SettingsFragment : Fragment() {
     // ---------------- Load settings from SharedPreferences ----------------
 
     private fun loadSettings() {
+        // You can keep lifecycleScope here (Fragment scope) or switch to viewLifecycleOwner.lifecycleScope if you prefer
         lifecycleScope.launch {
             prefManager.isDarkMode.collect { isDark ->
                 binding.switchDarkMode.isChecked = isDark
@@ -107,20 +109,24 @@ class SettingsFragment : Fragment() {
 
     @SuppressLint("RestrictedApi")
     private fun setupLanguageSpinner() {
-        // Get currently selected locale
-        val appLocales = AppCompatDelegate.getApplicationLocales()
-        currentLanguageCode = if (!appLocales.isEmpty) {
-            appLocales[0]?.language ?: supportedLanguageCodes.first()
-        } else {
-            supportedLanguageCodes.first()
-        }
+        // Observe stored language from PrefManager and keep spinner in sync
+        viewLifecycleOwner.lifecycleScope.launch {
+            prefManager.language.collect { storedCode ->
+                val resolvedCode =
+                    if (storedCode in supportedLanguageCodes) storedCode
+                    else supportedLanguageCodes.first()
 
-        // Pre-select the current language
-        val currentIndex = supportedLanguageCodes.indexOf(currentLanguageCode)
-        if (currentIndex >= 0) {
-            binding.spinnerLanguage.setSelection(currentIndex)
+                currentLanguageCode = resolvedCode
+                val currentIndex = supportedLanguageCodes.indexOf(resolvedCode)
+
+                if (currentIndex >= 0 &&
+                    binding.spinnerLanguage.selectedItemPosition != currentIndex
+                ) {
+                    suppressLanguageCallback = true
+                    binding.spinnerLanguage.setSelection(currentIndex)
+                }
+            }
         }
-        var hasHandledInitialSelection = false
 
         binding.spinnerLanguage.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -131,8 +137,9 @@ class SettingsFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    if (!hasHandledInitialSelection) {
-                        hasHandledInitialSelection = true
+                    // Prevent callback when we programmatically change selection
+                    if (suppressLanguageCallback) {
+                        suppressLanguageCallback = false
                         return
                     }
 
@@ -141,7 +148,13 @@ class SettingsFragment : Fragment() {
                         currentLanguageCode = selectedCode
                         val locales = LocaleListCompat.forLanguageTags(selectedCode)
                         AppCompatDelegate.setApplicationLocales(locales)
-                        lifecycleScope.launch { prefManager.setLanguage(selectedCode) }
+
+                        // Persist language choice
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            prefManager.setLanguage(selectedCode)
+                        }
+
+                        // Recreate activity to apply new locale
                         requireActivity().recreate()
                     }
                 }
@@ -204,6 +217,7 @@ class SettingsFragment : Fragment() {
             showDeleteAccountDialog()
         }
 
+        // Biometric lock
         binding.switchBiometricLock.setOnCheckedChangeListener { _, isChecked ->
             if (updatingBiometricSwitch) return@setOnCheckedChangeListener
 
@@ -246,13 +260,16 @@ class SettingsFragment : Fragment() {
     private fun setupBiometricCapability() {
         val manager = BiometricManager.from(requireContext())
         val authenticators =
-            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK
+            BiometricManager.Authenticators.BIOMETRIC_STRONG or
+                    BiometricManager.Authenticators.BIOMETRIC_WEAK
+
         val status = manager.canAuthenticate(authenticators)
         biometricSupported = status == BiometricManager.BIOMETRIC_SUCCESS ||
                 status == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
 
         binding.switchBiometricLock.isEnabled = biometricSupported
         binding.switchBiometricLock.alpha = if (biometricSupported) 1f else 0.5f
+
         if (status == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
             binding.switchBiometricLock.text = getString(R.string.unlock_with_biometrics)
         }
