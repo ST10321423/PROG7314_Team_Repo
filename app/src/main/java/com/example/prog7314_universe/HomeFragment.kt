@@ -81,38 +81,40 @@ class HomeFragment : Fragment() {
     private fun observeDashboardData() {
         val userId = auth.currentUser?.uid ?: return
 
-        // Tasks
-        taskViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
-            binding.tvTaskCount.text = tasks.count { !it.isCompleted }.toString()
-        }
-        taskViewModel.refresh()
+        if (_binding != null) {
+            // Tasks
+            taskViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
+                binding.tvTaskCount.text = tasks.count { !it.isCompleted }.toString()
+            }
+            taskViewModel.refresh()
 
-        // Moods
-        moodViewModel.moodEntries.observe(viewLifecycleOwner) { moods ->
-            val todayMood = moods.firstOrNull { isSameDay(it.date.toDate(), Date()) }
-            binding.tvMoodStatus.text = todayMood?.let { entry ->
-                "Logged: ${entry.getMoodScale().displayName}"
-            } ?: "Not logged today"
-        }
-
-        // Load active habits
-        db.collection("users").document(userId)
-            .collection("habits")
-            .addSnapshotListener { snapshot, _ ->
-                binding.tvHabitCount.text = snapshot?.size()?.toString() ?: "0"
+            // Moods
+            moodViewModel.moodEntries.observe(viewLifecycleOwner) { moods ->
+                val todayMood = moods.firstOrNull { isSameDay(it.date.toDate(), Date()) }
+                binding.tvMoodStatus.text = todayMood?.let { entry ->
+                    "Logged: ${entry.getMoodScale().displayName}"
+                } ?: "Not logged today"
             }
 
-        journalViewModel.journalEntries.observe(viewLifecycleOwner) { entries ->
-            val startOfWeek = Calendar.getInstance().apply {
-                set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }.time
+            // Load active habits
+            db.collection("users").document(userId)
+                .collection("habits")
+                .addSnapshotListener { snapshot, _ ->
+                    binding.tvHabitCount.text = snapshot?.size()?.toString() ?: "0"
+                }
 
-            val weekCount = entries.count { it.createdAt?.toDate()?.after(startOfWeek) == true }
-            binding.tvJournalCount.text = "$weekCount this week"
+            journalViewModel.journalEntries.observe(viewLifecycleOwner) { entries ->
+                val startOfWeek = Calendar.getInstance().apply {
+                    set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }.time
+
+                val weekCount = entries.count { it.createdAt?.toDate()?.after(startOfWeek) == true }
+                binding.tvJournalCount.text = "$weekCount this week"
+            }
         }
     }
 

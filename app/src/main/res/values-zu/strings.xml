@@ -23,6 +23,14 @@
     </plurals>
     <string name="mood_week_range">%1$s - %2$s</string>
 
+    <!-- Savings goals -->
+    <string name="no_savings_goals">No goals yet</string>
+    <string name="default_currency_zero">R0.00</string>
+    <string name="no_savings_progress">0% • 0 days left</string>
+    <string name="create_savings_goal">Create goal</string>
+    <string name="moodtracker_title">Mood Tracker</string>
+
+
     <!-- Biometrics -->
     <string name="privacy_security">Ubumfihlo nezokuphepha</string>
     <string name="biometric_unlock">Ukuvula ngebhayomethrikhi</string>
