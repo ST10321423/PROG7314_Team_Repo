@@ -14,6 +14,11 @@
         android:name="com.example.prog7314_universe.LoginFragment"
         android:label="@string/title_login" />
 
+    <fragment
+        android:id="@+id/biometricGateFragment"
+        android:name="com.example.prog7314_universe.BiometricGateFragment"
+        android:label="@string/biometric_prompt_title" />
+
     <!-- Home Fragment -->
     <fragment
         android:id="@+id/homeFragment"

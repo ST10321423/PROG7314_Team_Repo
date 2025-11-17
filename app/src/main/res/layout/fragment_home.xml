@@ -56,14 +56,16 @@
         <!-- Stats Grid -->
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/statsGrid"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="388dp"
+            android:layout_height="285dp"
             android:layout_marginTop="12dp"
+            app:alignmentMode="alignMargins"
             app:columnCount="2"
-            app:rowCount="2"
-            app:layout_constraintTop_toBottomOf="@id/tvQuickStats"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/tvQuickStats"
+            app:rowCount="2"
+            app:useDefaultMargins="true">
 
             <!-- Mood Card -->
             <com.google.android.material.card.MaterialCardView
@@ -120,7 +122,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="133dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -207,7 +209,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="132dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">

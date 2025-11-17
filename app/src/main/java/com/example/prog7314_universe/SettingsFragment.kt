@@ -247,11 +247,15 @@ class SettingsFragment : Fragment() {
         val manager = BiometricManager.from(requireContext())
         val authenticators =
             BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK
-        biometricSupported = manager.canAuthenticate(authenticators) ==
-                BiometricManager.BIOMETRIC_SUCCESS
+        val status = manager.canAuthenticate(authenticators)
+        biometricSupported = status == BiometricManager.BIOMETRIC_SUCCESS ||
+                status == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
 
         binding.switchBiometricLock.isEnabled = biometricSupported
         binding.switchBiometricLock.alpha = if (biometricSupported) 1f else 0.5f
+        if (status == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
+            binding.switchBiometricLock.text = getString(R.string.unlock_with_biometrics)
+        }
     }
 
     // ---------------- Dialogs ----------------

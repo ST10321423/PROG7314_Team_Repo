@@ -276,7 +276,7 @@ class LoginFragment : Fragment(R.layout.activity_login) {
         val options = navOptions {
             popUpTo(R.id.loginFragment) { inclusive = true }
         }
-        findNavController().navigate(R.id.homeFragment, null, options)
+        findNavController().navigate(R.id.biometricGateFragment, null, options)
     }
 
     private fun toast(msg: String) =

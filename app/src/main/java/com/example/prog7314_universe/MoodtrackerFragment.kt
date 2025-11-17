@@ -16,6 +16,9 @@ import com.example.prog7314_universe.Models.MoodScale
 import com.example.prog7314_universe.viewmodel.MoodViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.prog7314_universe.Adapters.MoodEntryAdapter
+import com.example.prog7314_universe.viewmodel.ViewMode
 
 /**
  * Fragment for Mood Tracker dashboard
@@ -28,6 +31,7 @@ class MoodTrackerFragment : Fragment() {
 
     private val viewModel: MoodViewModel by viewModels()
     private lateinit var moodCalendarAdapter: MoodCalendarAdapter
+    private lateinit var moodEntryAdapter: MoodEntryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +45,8 @@ class MoodTrackerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
+        setupCalendar()
+        setupMoodList()
         setupObservers()
         setupClickListeners()
     }
@@ -51,7 +56,7 @@ class MoodTrackerFragment : Fragment() {
         viewModel.refreshWeeklyStats()
     }
 
-    private fun setupRecyclerView() {
+    private fun setupCalendar() {
         moodCalendarAdapter = MoodCalendarAdapter { date ->
             // Navigate to edit mood for selected date
             val bundle = Bundle().apply {
@@ -69,6 +74,14 @@ class MoodTrackerFragment : Fragment() {
         }
     }
 
+    private fun setupMoodList() {
+        moodEntryAdapter = MoodEntryAdapter()
+        binding.rvMoodEntries.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = moodEntryAdapter
+        }
+    }
+
     private fun setupObservers() {
         // Observe selected month
         viewModel.selectedMonth.observe(viewLifecycleOwner) { month ->
@@ -76,10 +89,22 @@ class MoodTrackerFragment : Fragment() {
             updateCalendar()
         }
 
+        viewModel.selectedDate.observe(viewLifecycleOwner) { date ->
+            updateDateDisplay(date)
+            updateMoodList()
+        }
+
+        viewModel.viewMode.observe(viewLifecycleOwner) { mode ->
+            updateViewModeUI(mode)
+            viewModel.selectedDate.value?.let { updateDateDisplay(it) }
+            updateMoodList()
+        }
+
         // Observe mood entries
         viewModel.moodEntries.observe(viewLifecycleOwner) { entries ->
             updateCalendar()
             viewModel.refreshWeeklyStats()
+            updateMoodList()
         }
 
         // Observe weekly stats
@@ -97,6 +122,22 @@ class MoodTrackerFragment : Fragment() {
         // Next month button
         binding.btnNextMonth.setOnClickListener {
             viewModel.nextMonth()
+        }
+
+        binding.chipDaily.setOnClickListener {
+            viewModel.setViewMode(ViewMode.DAILY)
+        }
+
+        binding.chipWeekly.setOnClickListener {
+            viewModel.setViewMode(ViewMode.WEEKLY)
+        }
+
+        binding.btnPrevious.setOnClickListener {
+            viewModel.navigatePrevious()
+        }
+
+        binding.btnNext.setOnClickListener {
+            viewModel.navigateNext()
         }
 
         // Today's mood button
@@ -123,15 +164,48 @@ class MoodTrackerFragment : Fragment() {
         binding.tvMonthYear.text = dateFormat.format(month)
     }
 
+    private fun updateDateDisplay(date: Date) {
+        val mode = viewModel.viewMode.value
+        if (mode == ViewMode.WEEKLY) {
+            val cal = Calendar.getInstance().apply { time = date; set(Calendar.DAY_OF_WEEK, firstDayOfWeek) }
+            val start = SimpleDateFormat("MMM d", Locale.getDefault()).format(cal.time)
+            cal.add(Calendar.DAY_OF_WEEK, 6)
+            val end = SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(cal.time)
+            binding.tvDateRange.text = "$start - $end"
+        } else {
+            val format = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
+            binding.tvDateRange.text = format.format(date)
+        }
+    }
+
     private fun updateCalendar() {
         val dates = viewModel.getDatesInMonth()
-        val moodMap = viewModel.moodEntries.value?.associateBy { it.date } ?: emptyMap()
-
         val calendarItems = dates.map { date ->
             MoodCalendarItem(date, viewModel.getMoodForDate(date))
         }
 
         moodCalendarAdapter.submitList(calendarItems)
+    }
+
+    private fun updateViewModeUI(mode: ViewMode?) {
+        binding.chipDaily.isChecked = mode != ViewMode.WEEKLY
+        binding.chipWeekly.isChecked = mode == ViewMode.WEEKLY
+    }
+
+    private fun updateMoodList() {
+        val entries = when (viewModel.viewMode.value) {
+            ViewMode.WEEKLY -> viewModel.getEntriesForWeek()
+            else -> viewModel.selectedDate.value?.let { viewModel.getEntriesForDate(it) } ?: emptyList()
+        }
+
+        moodEntryAdapter.submitList(entries)
+        if (entries.isEmpty()) {
+            binding.tvEmptyState.visibility = View.VISIBLE
+            binding.rvMoodEntries.visibility = View.GONE
+        } else {
+            binding.tvEmptyState.visibility = View.GONE
+            binding.rvMoodEntries.visibility = View.VISIBLE
+        }
     }
 
     private fun updateWeeklyStats(stats: Map<MoodScale, Int>) {

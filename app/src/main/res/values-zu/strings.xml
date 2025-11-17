@@ -25,6 +25,8 @@
 
     <string name="profile_habits">imizamo esebenzayo</string>
     <string name="savings_add_goal">umgomo omusha</string>
+    <string name="mood_empty_state">No moods recorded for this period yet</string>
+    <string name="action_logout">Log out</string>
 
     <!-- Savings goals -->
     <string name="no_savings_goals">No goals yet</string>

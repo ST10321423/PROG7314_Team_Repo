@@ -4,6 +4,8 @@
 
     <string name="profile_habits">Active Habits</string>
     <string name="savings_add_goal">New goal</string>
+    <string name="mood_empty_state">No moods recorded for this period yet</string>
+    <string name="action_logout">Log out</string>
 
     <!-- Auth / Login -->
     <string name="sign_in_to_your_account">Sign in to your Account</string>

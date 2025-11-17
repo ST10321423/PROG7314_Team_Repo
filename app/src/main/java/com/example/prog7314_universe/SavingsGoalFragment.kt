@@ -141,14 +141,18 @@ class SavingsGoalFragment : Fragment() {
     }
 
     private fun openContribution() {
-        if (selectedGoalId.isBlank()) {
-            if (goals.isNotEmpty()) {
+        if (goals.isNotEmpty()) {
+            val pos = binding.goalTypeSpinner.selectedItemPosition
+            if (pos in goals.indices) {
+                selectedGoalId = goals[pos].id
+            } else {
                 selectedGoalId = goals.first().id
             }
-            if (selectedGoalId.isBlank()) {
-                openCreateGoal()
-                return
-            }
+        }
+
+        if (selectedGoalId.isBlank()) {
+            openCreateGoal()
+            return
         }
         val args = AddContributionFragment.createArgs(userId, selectedGoalId)
         findNavController().navigate(R.id.addContributionFragment, args)

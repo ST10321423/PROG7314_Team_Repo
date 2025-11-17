@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.prog7314_universe.Models.MoodEntry
 import com.example.prog7314_universe.Models.MoodScale
 import com.example.prog7314_universe.repo.MoodRepository
+import com.example.prog7314_universe.viewmodel.ViewMode
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
@@ -24,6 +25,12 @@ class MoodViewModel(
 
     private val _selectedMonth = MutableLiveData<Date>(Date())
     val selectedMonth: LiveData<Date> = _selectedMonth
+
+    private val _selectedDate = MutableLiveData<Date>(Date())
+    val selectedDate: LiveData<Date> = _selectedDate
+
+    private val _viewMode = MutableLiveData<ViewMode>(ViewMode.DAILY)
+    val viewMode: LiveData<ViewMode> = _viewMode
 
     private val _weeklyMoodStats = MutableLiveData<Map<MoodScale, Int>>()
     val weeklyMoodStats: LiveData<Map<MoodScale, Int>> = _weeklyMoodStats
@@ -99,6 +106,36 @@ class MoodViewModel(
         }
     }
 
+    fun setViewMode(mode: ViewMode) {
+        _viewMode.value = mode
+    }
+
+    fun navigatePrevious() {
+        _selectedDate.value?.let { current ->
+            val cal = Calendar.getInstance().apply { time = current }
+            when (_viewMode.value) {
+                ViewMode.DAILY -> cal.add(Calendar.DAY_OF_MONTH, -1)
+                ViewMode.WEEKLY -> cal.add(Calendar.WEEK_OF_YEAR, -1)
+                else -> return
+            }
+            _selectedDate.value = cal.time
+            _selectedMonth.value = cal.time
+        }
+    }
+
+    fun navigateNext() {
+        _selectedDate.value?.let { current ->
+            val cal = Calendar.getInstance().apply { time = current }
+            when (_viewMode.value) {
+                ViewMode.DAILY -> cal.add(Calendar.DAY_OF_MONTH, 1)
+                ViewMode.WEEKLY -> cal.add(Calendar.WEEK_OF_YEAR, 1)
+                else -> return
+            }
+            _selectedDate.value = cal.time
+            _selectedMonth.value = cal.time
+        }
+    }
+
     /**
      * Create or update mood entry for specific date
      */
@@ -130,6 +167,25 @@ class MoodViewModel(
         return moodEntries.value?.find { entry ->
             isSameDay(entry.date.toDate(), date)
         }
+    }
+
+    fun getEntriesForDate(date: Date): List<MoodEntry> {
+        return moodEntries.value?.filter { entry ->
+            isSameDay(entry.date.toDate(), date)
+        } ?: emptyList()
+    }
+
+    fun getEntriesForWeek(anchor: Date = _selectedDate.value ?: Date()): List<MoodEntry> {
+        val cal = Calendar.getInstance().apply { time = anchor; set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0); set(Calendar.SECOND, 0); set(Calendar.MILLISECOND, 0) }
+        cal.set(Calendar.DAY_OF_WEEK, cal.firstDayOfWeek)
+        val start = cal.time
+        cal.add(Calendar.DAY_OF_WEEK, 7)
+        val end = cal.time
+
+        return moodEntries.value?.filter { entry ->
+            val d = entry.date.toDate()
+            d.after(start) && d.before(end)
+        } ?: emptyList()
     }
 
     /**

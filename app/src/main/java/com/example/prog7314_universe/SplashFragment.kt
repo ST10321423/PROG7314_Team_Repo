@@ -21,7 +21,7 @@ class SplashFragment : Fragment(R.layout.activity_splash) {
         viewLifecycleOwner.lifecycleScope.launch {
             delay(splashDelay)
             val destination = if (auth.currentUser != null) {
-                R.id.homeFragment
+                R.id.biometricGateFragment
             } else {
                 R.id.loginFragment
             }
