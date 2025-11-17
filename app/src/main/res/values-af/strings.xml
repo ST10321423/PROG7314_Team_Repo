@@ -16,6 +16,9 @@
 
     <string name="settings_user_fallback_email">Geen E-pos</string>
 
+    <string name="profile_habits">Aktiewe Gewoontes</string>
+    <string name="savings_add_goal">nuwe doel</string>
+
     <plurals name="mood_total_format">
         <item quantity="one">%d mood logged</item>
         <item quantity="other">%d moods logged</item>

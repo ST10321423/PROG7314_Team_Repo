@@ -39,6 +39,14 @@
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNewGoal"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/savings_add_goal"
+                    android:textAllCaps="false" />
+
                 <Spinner
                     android:id="@+id/goalTypeSpinner"
                     android:layout_width="wrap_content"

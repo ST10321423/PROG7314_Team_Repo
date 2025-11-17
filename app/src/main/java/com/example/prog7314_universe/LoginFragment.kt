@@ -192,7 +192,7 @@ class LoginFragment : Fragment(R.layout.activity_login) {
 
     private fun setupBiometric(button: Button) {
         val manager = BiometricManager.from(requireContext())
-        val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG
+        val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK
         canUseBiometrics = manager.canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS
         button.isVisible = false
         if (!canUseBiometrics) {
@@ -219,7 +219,7 @@ class LoginFragment : Fragment(R.layout.activity_login) {
             .setTitle(getString(R.string.biometric_prompt_title))
             .setSubtitle(getString(R.string.biometric_prompt_subtitle))
             .setNegativeButtonText(getString(R.string.biometric_prompt_negative))
-            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+            .setAllowedAuthenticators(authenticators)
             .build()
 
         button.setOnClickListener {

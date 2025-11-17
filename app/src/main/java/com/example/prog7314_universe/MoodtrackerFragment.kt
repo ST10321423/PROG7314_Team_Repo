@@ -46,6 +46,11 @@ class MoodTrackerFragment : Fragment() {
         setupClickListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshWeeklyStats()
+    }
+
     private fun setupRecyclerView() {
         moodCalendarAdapter = MoodCalendarAdapter { date ->
             // Navigate to edit mood for selected date

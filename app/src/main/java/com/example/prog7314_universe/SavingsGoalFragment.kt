@@ -76,7 +76,6 @@ class SavingsGoalFragment : Fragment() {
             selectedGoalId = goals.first().id
             binding.goalTypeSpinner.isEnabled = true
             binding.btnAdd.text = getString(R.string.add_contribution)
-            binding.btnAdd.setOnClickListener { openContribution() }
 
 
             val names = goals.map { it.goalName }
@@ -109,9 +108,8 @@ class SavingsGoalFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.btnAdd.setOnClickListener {
-            openContribution()
-        }
+        binding.btnAdd.setOnClickListener { openContribution() }
+        binding.btnNewGoal.setOnClickListener { openCreateGoal() }
     }
 
     override fun onDestroyView() {

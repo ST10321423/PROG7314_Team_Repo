@@ -13,6 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import com.example.prog7314_universe.utils.PrefManager
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -34,6 +40,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: MaterialToolbar
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val auth by lazy { FirebaseAuth.getInstance() }
+    private lateinit var prefManager: PrefManager
+
+    private var biometricPrompt: BiometricPrompt? = null
+    private var biometricPromptInfo: BiometricPrompt.PromptInfo? = null
+    private var biometricAuthenticated = false
 
     // Permission launcher for notifications
     private val requestNotificationPermissionLauncher = registerForActivityResult(
@@ -60,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize notification channels
         NotificationHelper(this)
+        prefManager = PrefManager(applicationContext)
 
         // Request notification permission for Android 13+
         requestNotificationPermission()
@@ -68,9 +80,20 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
         setupDrawerToggle()
         setupBottomNavigation()
+        setupBiometricPrompt()
 
         // Handle deep linking from notifications
         handleNotificationIntent()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        maybeRequireBiometric()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        biometricAuthenticated = false
     }
 
     private fun setupViews() {
@@ -221,6 +244,51 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.tasksListFragment)
                 }
             }
+        }
+    }
+
+    private fun setupBiometricPrompt() {
+        val authenticators =
+            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK
+        val executor = ContextCompat.getMainExecutor(this)
+        biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                biometricAuthenticated = true
+            }
+
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                super.onAuthenticationError(errorCode, errString)
+                Toast.makeText(this@MainActivity, errString, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        biometricPromptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.biometric_prompt_title))
+            .setSubtitle(getString(R.string.biometric_prompt_subtitle))
+            .setNegativeButtonText(getString(R.string.biometric_prompt_negative))
+            .setAllowedAuthenticators(authenticators)
+            .build()
+    }
+
+    private fun maybeRequireBiometric() {
+        if (auth.currentUser == null) return
+
+        val prompt = biometricPrompt ?: return
+        val promptInfo = biometricPromptInfo ?: return
+
+        lifecycleScope.launch {
+            val enabled = prefManager.biometricEnabled.first()
+            if (!enabled) return@launch
+
+            val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG or
+                    BiometricManager.Authenticators.BIOMETRIC_WEAK
+            val manager = BiometricManager.from(this@MainActivity)
+            val canAuth = manager.canAuthenticate(authenticators)
+            if (canAuth != BiometricManager.BIOMETRIC_SUCCESS) return@launch
+            if (biometricAuthenticated) return@launch
+
+            prompt.authenticate(promptInfo)
         }
     }
 

@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">PROG7314_Universe</string>
 
+    <string name="profile_habits">Active Habits</string>
+    <string name="savings_add_goal">New goal</string>
+
     <!-- Auth / Login -->
     <string name="sign_in_to_your_account">Sign in to your Account</string>
     <string name="enter_your_email_and_password">Enter your email and password to log in.</string>

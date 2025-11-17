@@ -245,9 +245,10 @@ class SettingsFragment : Fragment() {
 
     private fun setupBiometricCapability() {
         val manager = BiometricManager.from(requireContext())
-        biometricSupported =
-            manager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG) ==
-                    BiometricManager.BIOMETRIC_SUCCESS
+        val authenticators =
+            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK
+        biometricSupported = manager.canAuthenticate(authenticators) ==
+                BiometricManager.BIOMETRIC_SUCCESS
 
         binding.switchBiometricLock.isEnabled = biometricSupported
         binding.switchBiometricLock.alpha = if (biometricSupported) 1f else 0.5f

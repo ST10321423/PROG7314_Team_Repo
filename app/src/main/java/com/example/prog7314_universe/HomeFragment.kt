@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.prog7314_universe.databinding.FragmentHomeBinding
 import androidx.fragment.app.activityViewModels
+import com.google.firebase.firestore.ListenerRegistration
 import androidx.fragment.app.viewModels
 import com.example.prog7314_universe.viewmodel.JournalViewModel
 import com.example.prog7314_universe.viewmodel.MoodViewModel
@@ -30,6 +31,8 @@ class HomeFragment : Fragment() {
     private val moodViewModel: MoodViewModel by viewModels()
     private val journalViewModel: JournalViewModel by viewModels()
     private val taskViewModel: TaskViewModel by activityViewModels()
+    private var habitsListener: ListenerRegistration? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,45 +79,49 @@ class HomeFragment : Fragment() {
         binding.cardHabits.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_habitListFragment)
         }
+
+        binding.cardSavings.setOnClickListener {
+            findNavController().navigate(R.id.savingGoalFragment)
+        }
     }
 
     private fun observeDashboardData() {
         val userId = auth.currentUser?.uid ?: return
 
-        if (_binding != null) {
-            // Tasks
-            taskViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
-                binding.tvTaskCount.text = tasks.count { !it.isCompleted }.toString()
+        val binding = _binding ?: return
+
+        // Tasks
+        taskViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
+            binding.tvTaskCount.text = tasks.count { !it.isCompleted }.toString()
+        }
+        taskViewModel.refresh()
+
+        // Moods
+        moodViewModel.moodEntries.observe(viewLifecycleOwner) { moods ->
+            val todayMood = moods.firstOrNull { isSameDay(it.date.toDate(), Date()) }
+            binding.tvMoodStatus.text = todayMood?.let { entry ->
+                "Logged: ${entry.getMoodScale().displayName}"
+            } ?: "Not logged today"
+        }
+
+        // Load active habits
+        habitsListener = db.collection("users").document(userId)
+            .collection("habits")
+            .addSnapshotListener { snapshot, _ ->
+                _binding?.tvHabitCount?.text = snapshot?.size()?.toString() ?: "0"
             }
-            taskViewModel.refresh()
 
-            // Moods
-            moodViewModel.moodEntries.observe(viewLifecycleOwner) { moods ->
-                val todayMood = moods.firstOrNull { isSameDay(it.date.toDate(), Date()) }
-                binding.tvMoodStatus.text = todayMood?.let { entry ->
-                    "Logged: ${entry.getMoodScale().displayName}"
-                } ?: "Not logged today"
-            }
+        journalViewModel.journalEntries.observe(viewLifecycleOwner) { entries ->
+            val startOfWeek = Calendar.getInstance().apply {
+                set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }.time
 
-            // Load active habits
-            db.collection("users").document(userId)
-                .collection("habits")
-                .addSnapshotListener { snapshot, _ ->
-                    binding.tvHabitCount.text = snapshot?.size()?.toString() ?: "0"
-                }
-
-            journalViewModel.journalEntries.observe(viewLifecycleOwner) { entries ->
-                val startOfWeek = Calendar.getInstance().apply {
-                    set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-                    set(Calendar.HOUR_OF_DAY, 0)
-                    set(Calendar.MINUTE, 0)
-                    set(Calendar.SECOND, 0)
-                    set(Calendar.MILLISECOND, 0)
-                }.time
-
-                val weekCount = entries.count { it.createdAt?.toDate()?.after(startOfWeek) == true }
-                binding.tvJournalCount.text = "$weekCount this week"
-            }
+            val weekCount = entries.count { it.createdAt?.toDate()?.after(startOfWeek) == true }
+            binding.tvJournalCount.text = "$weekCount this week"
         }
     }
 
@@ -127,6 +134,8 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        habitsListener?.remove()
+        habitsListener = null
         _binding = null
     }
 }

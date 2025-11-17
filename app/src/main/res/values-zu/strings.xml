@@ -23,6 +23,9 @@
     </plurals>
     <string name="mood_week_range">%1$s - %2$s</string>
 
+    <string name="profile_habits">imizamo esebenzayo</string>
+    <string name="savings_add_goal">umgomo omusha</string>
+
     <!-- Savings goals -->
     <string name="no_savings_goals">No goals yet</string>
     <string name="default_currency_zero">R0.00</string>
