@@ -39,13 +39,21 @@ class CreateMoodFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Get selected date from arguments
-        arguments?.getLong("selected_date")?.let { timestamp ->
-            selectedDate = Date(timestamp)
+        arguments?.let { args ->
+            if (args.containsKey("selected_date")) {
+                val timestamp = args.getLong("selected_date")
+                if (timestamp > 0) {
+                    selectedDate = Date(timestamp)
+                }
+            }
         }
 
         setupUI()
         setupClickListeners()
         loadExistingMood()
+        viewModel.moodEntries.observe(viewLifecycleOwner) {
+            loadExistingMood()
+        }
     }
 
     private fun setupUI() {

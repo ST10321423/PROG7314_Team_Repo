@@ -2,6 +2,7 @@ package com.example.prog7314_universe.Models
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.PropertyName
 
 data class Habit(
     @DocumentId var habitId: String = "",
@@ -15,6 +16,8 @@ data class Habit(
     var createdAt: Timestamp? = null,
     var updatedAt: Timestamp? = null,
     var lastCompleted: Timestamp? = null,
+    @get:PropertyName("isCompleted")
+    @set:PropertyName("isCompleted")
     var isCompleted: Boolean = false,
     var streak: Int = 0
 ) {

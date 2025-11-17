@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.os.bundleOf
+
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,6 @@ import com.example.prog7314_universe.databinding.ActivitySavingsGoalBinding
 import com.example.prog7314_universe.AddContributionFragment
 import com.example.prog7314_universe.viewmodel.SavingsContributionViewModel
 import com.example.prog7314_universe.viewmodel.SavingsGoalViewModel
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 
 class SavingsGoalFragment : Fragment() {
@@ -62,13 +62,22 @@ class SavingsGoalFragment : Fragment() {
         vm.getSavingsGoals(userId).observe(viewLifecycleOwner) { list ->
             goals = list
             if (goals.isEmpty()) {
-                binding.tvGoalName.text = "No goals yet"
-                binding.txtAmount.text = "R0.00"
-                binding.txtProgress.text = "0% • 0 days left"
+                selectedGoalId = ""
+                binding.goalTypeSpinner.isEnabled = false
+                binding.tvGoalName.text = getString(R.string.no_savings_goals)
+                binding.txtAmount.text = getString(R.string.default_currency_zero)
+                binding.txtProgress.text = getString(R.string.no_savings_progress)
                 binding.progressCircle.setProgressCompat(0, false)
+                binding.btnAdd.text = getString(R.string.create_savings_goal)
+                binding.btnAdd.setOnClickListener { openCreateGoal() }
                 adapter.updateList(emptyList())
                 return@observe
             }
+            selectedGoalId = goals.first().id
+            binding.goalTypeSpinner.isEnabled = true
+            binding.btnAdd.text = getString(R.string.add_contribution)
+            binding.btnAdd.setOnClickListener { openContribution() }
+
 
             val names = goals.map { it.goalName }
             binding.goalTypeSpinner.adapter = ArrayAdapter(
@@ -86,6 +95,14 @@ class SavingsGoalFragment : Fragment() {
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
+            if (binding.goalTypeSpinner.selectedItemPosition == AdapterView.INVALID_POSITION) {
+                binding.goalTypeSpinner.setSelection(0)
+                goals.firstOrNull()?.let { first ->
+                    binding.tvGoalName.text = first.goalName
+                    updateProgress(first)
+                    loadContributions(first.id)
+                }
+            }
         }
 
         binding.btnStatistic.setOnClickListener {
@@ -93,8 +110,7 @@ class SavingsGoalFragment : Fragment() {
         }
 
         binding.btnAdd.setOnClickListener {
-            val args = AddContributionFragment.createArgs(userId, selectedGoalId)
-            findNavController().navigate(R.id.addContributionFragment, args)
+            openContribution()
         }
     }
 
@@ -120,6 +136,26 @@ class SavingsGoalFragment : Fragment() {
             binding.tvEmptyState.isVisible = contributions.isEmpty()
         }
     }
+
+    private fun openCreateGoal() {
+        val args = Bundle().apply { putString(ARG_USER_ID, userId) }
+        findNavController().navigate(R.id.createSavingsGoalFragment, args)
+    }
+
+    private fun openContribution() {
+        if (selectedGoalId.isBlank()) {
+            if (goals.isNotEmpty()) {
+                selectedGoalId = goals.first().id
+            }
+            if (selectedGoalId.isBlank()) {
+                openCreateGoal()
+                return
+            }
+        }
+        val args = AddContributionFragment.createArgs(userId, selectedGoalId)
+        findNavController().navigate(R.id.addContributionFragment, args)
+    }
+
 
     companion object {
         private const val ARG_USER_ID = "user_id"

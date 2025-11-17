@@ -80,7 +80,7 @@ class HabitAdapter(
         // Checkbox
         h.b.cbComplete.setOnCheckedChangeListener(null)
         h.b.cbComplete.isChecked = item.isCompleted
-        h.b.cbComplete.isEnabled = item.isDueToday
+        h.b.cbComplete.isEnabled = true
 
         // Due badge
         if (item.isDueToday) {

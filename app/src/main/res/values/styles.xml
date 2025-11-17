@@ -45,11 +45,13 @@
     <!-- Mood Button Style -->
     <style name="MoodButton">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_height">64dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
         <item name="android:alpha">0.5</item>
     </style>
 
