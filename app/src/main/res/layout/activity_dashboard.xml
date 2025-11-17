@@ -35,7 +35,7 @@
                         android:id="@+id/tvUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hello, Alex!"
+                        android:text="@string/dashboard_greeting_placeholder"
                         android:textColor="#000000"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -44,7 +44,7 @@
                         android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Thursday, May 15"
+                        android:text="@string/dashboard_date_placeholder"
                         android:textColor="#666666"
                         android:textSize="16sp"
                         android:paddingTop="4dp" />
@@ -92,7 +92,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tasks Completed"
+                            android:text="@string/tasks_completed"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
@@ -100,7 +100,7 @@
                             android:id="@+id/tvTasksCompleted"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="7/12"
+                            android:text="@string/tasks_completed_placeholder"
                             android:textColor="#FFFFFF"
                             android:textSize="32sp"
                             android:textStyle="bold"
@@ -132,7 +132,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Study Hours"
+                            android:text="@string/study_hours"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
@@ -140,7 +140,7 @@
                             android:id="@+id/tvStudyHours"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4.5h"
+                            android:text="@string/study_hours_placeholder"
                             android:textColor="#FFFFFF"
                             android:textSize="32sp"
                             android:textStyle="bold"
@@ -165,7 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/gradient_purple"
-                    android:text="Add Task"
+                    android:text="@string/add_task"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -198,7 +198,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Upcoming Assignments"
+                            android:text="@string/upcoming_assignments"
                             android:textColor="#000000"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -207,7 +207,7 @@
                             android:id="@+id/tvSeeAllAssignments"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="See all >"
+                            android:text="@string/see_all"
                             android:textColor="#666666"
                             android:textSize="14sp"
                             android:clickable="true"
@@ -224,7 +224,6 @@
                         android:paddingTop="8dp">
 
                         <!-- Example static assignments (Term paper, Problem Set, Lab Report) -->
-                        <!-- You already have them here so I kept them unchanged -->
 
                     </LinearLayout>
 
@@ -267,7 +266,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Courses"
+                                android:text="@string/courses_title"
                                 android:textColor="#000000"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -276,7 +275,7 @@
                                 android:id="@+id/tvSeeAllCourses"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="See all >"
+                                android:text="@string/see_all"
                                 android:textColor="#666666"
                                 android:textSize="14sp"
                                 android:clickable="true"
@@ -288,7 +287,7 @@
                             android:id="@+id/tvCoursesCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5"
+                            android:text="@string/courses_count_placeholder"
                             android:textColor="#000000"
                             android:textSize="24sp"
                             android:textStyle="bold"
@@ -333,7 +332,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Class Schedule"
+                            android:text="@string/class_schedule_title"
                             android:textColor="#000000"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -342,7 +341,7 @@
                             android:id="@+id/tvSeeAllSchedule"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="See all >"
+                            android:text="@string/see_all"
                             android:textColor="#666666"
                             android:textSize="14sp"
                             android:clickable="true"
@@ -368,7 +367,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Group Study Session"
+                                android:text="@string/group_study_session"
                                 android:textColor="#000000"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -382,14 +381,14 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Physics Final Exam"
+                                    android:text="@string/physics_final_exam"
                                     android:textColor="#666666"
                                     android:textSize="12sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Tomorrow, 3:00 PM"
+                                    android:text="@string/dashboard_time_tomorrow_placeholder"
                                     android:textColor="#666666"
                                     android:textSize="12sp" />
 
@@ -407,7 +406,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tuition"
+                                android:text="@string/tuition"
                                 android:textColor="#000000"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -421,14 +420,14 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Mathematics"
+                                    android:text="@string/mathematics"
                                     android:textColor="#666666"
                                     android:textSize="12sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Friday, 2:00 PM"
+                                    android:text="@string/dashboard_time_friday_placeholder"
                                     android:textColor="#666666"
                                     android:textSize="12sp" />
 

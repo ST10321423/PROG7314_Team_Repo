@@ -16,26 +16,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Habits"
+            android:text="@string/habits"
             android:textColor="#000000"
             android:textSize="35sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
+        <!-- Search pill -->
         <TextView
             android:id="@+id/tvSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search habits..."
+            android:text="@string/search_habits"
             android:textColor="#666666"
             android:textSize="14sp"
             android:padding="12dp"
             android:background="@drawable/search_background"
             android:layout_marginBottom="16dp" />
 
+        <!-- Time filter spinner -->
         <Spinner
             android:id="@+id/spinnerTime"
             android:layout_width="match_parent"
@@ -43,6 +46,7 @@
             android:layout_marginBottom="20dp"
             android:spinnerMode="dropdown" />
 
+        <!-- Filter tabs -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,7 +57,7 @@
                 android:id="@+id/tvFilterAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All (0)"
+                android:text="@string/habits_filter_all_default"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -65,7 +69,7 @@
                 android:id="@+id/tvFilterDueToday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Due Today (0)"
+                android:text="@string/habits_filter_due_today_default"
                 android:textColor="#666666"
                 android:textSize="14sp"
                 android:paddingHorizontal="16dp"
@@ -76,7 +80,7 @@
                 android:id="@+id/tvFilterCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Completed (0)"
+                android:text="@string/habits_filter_completed_default"
                 android:textColor="#666666"
                 android:textSize="14sp"
                 android:paddingHorizontal="16dp"
@@ -84,12 +88,14 @@
                 android:layout_marginStart="12dp" />
         </LinearLayout>
 
+        <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E0E0E0"
             android:layout_marginBottom="16dp" />
 
+        <!-- Habits list -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
@@ -100,6 +106,7 @@
             android:scrollbarStyle="outsideOverlay" />
     </LinearLayout>
 
+    <!-- Loading indicator -->
     <ProgressBar
         android:id="@+id/progressBar"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
@@ -111,11 +118,12 @@
         app:layout_constraintStart_toStartOf="@id/contentContainer"
         app:layout_constraintEnd_toEndOf="@id/contentContainer" />
 
+    <!-- Empty state -->
     <TextView
         android:id="@+id/tvEmptyState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No habits yet"
+        android:text="@string/no_habits_yet"
         android:textColor="#666666"
         android:textSize="16sp"
         android:visibility="gone"
@@ -124,12 +132,13 @@
         app:layout_constraintStart_toStartOf="@id/contentContainer"
         app:layout_constraintEnd_toEndOf="@id/contentContainer" />
 
+    <!-- FAB: Add habit -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="Add Habit"
+        android:contentDescription="@string/add_habit"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

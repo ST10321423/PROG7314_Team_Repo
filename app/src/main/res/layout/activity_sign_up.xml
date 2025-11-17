@@ -19,17 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
-            android:text="Create an Account"
+            android:text="@string/sign_up_title"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="@color/on_surface"
-
             android:layout_marginBottom="8dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter your details to create your account"
+            android:text="@string/sign_up_subtitle"
             android:textSize="16sp"
             android:textColor="@color/on_surface"
             android:textAlignment="textStart"
@@ -54,7 +53,7 @@
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:textSize="16sp"
                 android:padding="16dp" />
@@ -80,7 +79,7 @@
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textSize="16sp"
                 android:padding="16dp" />
@@ -106,7 +105,7 @@
                 android:id="@+id/confirmPasswordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirm Password"
+                android:hint="@string/confirm_password"
                 android:inputType="textPassword"
                 android:textSize="16sp"
                 android:padding="16dp" />
@@ -118,7 +117,7 @@
             android:id="@+id/signUpButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="18dp"
@@ -142,7 +141,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Or"
+                android:text="@string/or"
                 android:textSize="14sp"
                 android:textColor="@color/outline_variant"
                 android:paddingHorizontal="16dp"
@@ -156,7 +155,7 @@
             android:id="@+id/googleButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Continue with Google"
+            android:text="@string/continue_with_google"
             android:textSize="16sp"
             app:cornerRadius="18dp"
             app:strokeColor="@color/outline_variant"
@@ -166,13 +165,13 @@
             android:layout_marginBottom="12dp"
             style="@style/Widget.Material3.Button.OutlinedButton"
             app:icon="@drawable/ic_google"
-            app:iconTint="@null"/>
+            app:iconTint="@null" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/facebookButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Continue with Facebook"
+            android:text="@string/continue_with_facebook"
             android:textSize="16sp"
             app:cornerRadius="18dp"
             app:strokeColor="@color/outline_variant"
@@ -194,7 +193,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already have an account? "
+                android:text="@string/already_have_account"
                 android:textSize="14sp"
                 android:textColor="@color/on_surface" />
 
@@ -202,7 +201,7 @@
                 android:id="@+id/signInText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign In"
+                android:text="@string/log_in"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary" />

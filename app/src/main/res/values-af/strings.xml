@@ -100,6 +100,7 @@
     <!-- Language -->
     <string name="language_english">Engels</string>
     <string name="language_afrikaans">Afrikaans</string>
+    <string name="language_zulu">Zoeloe</string>
 
     <!-- Habit strings -->
     <string name="habits">Gewoontes</string>
@@ -158,5 +159,221 @@
     <string name="settings_account_deleted">Rekening geskrap</string>
     <string name="settings_delete_account_error">Kon nie rekening skrap nie: %1$s</string>
     <string name="settings_unknown_error">Onbekende fout</string>
+
+    <!-- Lokalisering toevoegings / Actions -->
+    <string name="action_back">Terug</string>
+    <string name="action_next">Volgende</string>
+    <string name="action_previous">Vorige</string>
+    <string name="action_previous_month">Vorige maand</string>
+    <string name="action_next_month">Volgende maand</string>
+
+    <!-- Extra UI / dashboard / helper strings -->
+    <string name="activity_section_title">Aktiwiteit</string>
+    <string name="add_contribution">Voeg bydrae by</string>
+    <string name="add_new_task">Voeg nuwe taak by</string>
+    <string name="add_savings_target">Voeg spaardoelwit by</string>
+    <string name="already_have_account">Het jy al n rekening?</string>
+    <string name="app_tagline">Jou akademiese metgesel</string>
+    <string name="class_schedule_title">Klasrooster</string>
+    <string name="color_hex_code">Kleur (hekskode)</string>
+    <string name="confirm_password">Bevestig wagwoord</string>
+    <string name="contribution_amount_placeholder">R0.00</string>
+    <string name="contribution_date_placeholder">1 Januarie 2025</string>
+    <string name="courses_title">Kursusse</string>
+    <string name="courses_count_placeholder">5</string>
+    <string name="dashboard_greeting_placeholder">Hallo, Alex!</string>
+    <string name="dashboard_date_placeholder">Donderdag, 15 Mei</string>
+    <string name="dashboard_time_tomorrow_placeholder">Môre, 15:00</string>
+    <string name="dashboard_time_friday_placeholder">Vrydag, 14:00</string>
+
+    <!-- Days & day initials -->
+    <string name="days_hint">Dae (laat almal ongemerk vir daagliks)</string>
+    <string name="day_mon">Ma</string>
+    <string name="day_tue">Di</string>
+    <string name="day_wed">Wo</string>
+    <string name="day_thu">Do</string>
+    <string name="day_fri">Vr</string>
+    <string name="day_sat">Sa</string>
+    <string name="day_sun">So</string>
+    <string name="day_m_initial">M</string>
+    <string name="day_t_initial">D</string>
+    <string name="day_w_initial">W</string>
+    <string name="day_f_initial">V</string>
+    <string name="day_s_initial">S</string>
+
+    <!-- Tasks / filters / difficulty labels -->
+    <string name="delete_task">Skrap taak</string>
+    <string name="difficulty_easy_label">😊 Maklik</string>
+    <string name="difficulty_medium_label">💪 Medium</string>
+    <string name="difficulty_hard_label">🔥 Moeilik</string>
+    <string name="edit_task">Wysig taak</string>
+    <string name="filter_all_default">Alle (0)</string>
+    <string name="filter_completed_default">Voltooi (0)</string>
+    <string name="tasks_completed">Take voltooi</string>
+    <string name="tasks_completed_placeholder">7/12</string>
+
+    <!-- Emoji labels -->
+    <string name="emoji_happy">😊</string>
+    <string name="emoji_sad">😢</string>
+    <string name="emoji_angry">😠</string>
+    <string name="emoji_fear">😰</string>
+    <string name="emoji_disgust">😖</string>
+
+    <!-- Misc UI helpers -->
+    <string name="font_size_value_placeholder">14</string>
+    <string name="group_study_session">Groepstudiesessie</string>
+    <string name="habit_streak_placeholder">Reeks: 0</string>
+    <string name="habits_filter_all_default">Alle (0)</string>
+    <string name="habits_filter_due_today_default">Verskuldig vandag (0)</string>
+    <string name="habits_filter_completed_default">Voltooi (0)</string>
+    <string name="hint_additional_notes">Bykomende aantekeninge of besonderhede</string>
+    <string name="hint_color_example">#4CAF50</string>
+    <string name="hint_currency_prefix">R</string>
+    <string name="hint_end_time_label">Einde: 16:00</string>
+    <string name="hint_end_time_sample">16:00</string>
+    <string name="hint_habit_name_examples">bv. Oggendoefening, Lees 30 minute</string>
+    <string name="hint_module_examples">Modulenaam of kode</string>
+    <string name="hint_sample_full_date">Saterdag, 28 November 2025</string>
+    <string name="hint_savings_amount">R15000.00</string>
+    <string name="hint_select_date">Kies n datum</string>
+    <string name="hint_select_goal">Kies n doelwit</string>
+    <string name="hint_select_time">Kies tyd</string>
+    <string name="hint_start_time_label">Begin: 14:00</string>
+    <string name="hint_start_time_sample">14:00</string>
+    <string name="hint_subject_examples">bv. Wiskunde, Fisika</string>
+    <string name="hint_target_deadline">08/01/2026</string>
+    <string name="hint_target_name">Kaapstad-toer</string>
+
+    <!-- Home screen -->
+    <string name="home_welcome">Welkom terug, Student!</string>
+    <string name="home_date_placeholder">Maandag, 1 Januarie</string>
+    <string name="home_quick_stats">Vinnige statistiek</string>
+    <string name="home_mood_label">Stemming</string>
+    <string name="home_mood_empty">Nie vandag gelog nie</string>
+    <string name="home_journal_zero">0 hierdie week</string>
+    <string name="home_explore_features">Verken funksies</string>
+    <string name="home_savings_description">Volg jou finansiële doelwitte</string>
+    <string name="home_fridge_description">Bestuur jou kosvoorraad</string>
+
+    <!-- Journal -->
+    <string name="journal_add_entry">Voeg nuwe inskrywing by</string>
+    <string name="journal_create_entry">Skep inskrywing</string>
+    <string name="journal_date_range_placeholder">1 Apr 2025 - 1 Apr 2025</string>
+    <string name="journal_empty_title">Geen joernaalinskrywings nog nie</string>
+    <string name="journal_empty_cta">Tik die +-knoppie om jou eerste inskrywing te skep</string>
+    <string name="journal_empty_description">Geen inskrywings</string>
+    <string name="journal_entry_title">Joernaalinskrywing</string>
+    <string name="journal_entry_date_placeholder">1 Apr 2025 - 09:41</string>
+    <string name="journal_entry_hint">Deel jou gedagtes...</string>
+    <string name="journal_filter_daily">Daagliks</string>
+    <string name="journal_filter_weekly">Weekliks</string>
+    <string name="journal_image_description">Joernaalbeeld</string>
+    <string name="journal_remove_image">Verwyder beeld</string>
+    <string name="journal_upload_image">Laai beeld op</string>
+
+    <!-- Labels -->
+    <string name="label_amount">Bedrag</string>
+    <string name="label_goal">Doelwit</string>
+
+    <!-- Login / sign up extra text -->
+    <string name="login_welcome_title">Welkom by UNIverse</string>
+    <string name="login_subtitle">Meld aan om voort te gaan</string>
+    <string name="login_terms_notice">Deur voort te gaan, stem jy in tot ons diensbepalings en privaatheidsbeleid</string>
+    <string name="sign_up_title">Skep n rekening</string>
+    <string name="sign_up_subtitle">Voer jou besonderhede in om jou rekening te skep</string>
+
+    <!-- Misc domain strings -->
+    <string name="mathematics">Wiskunde</string>
+    <string name="physics_final_exam">Fisika finale eksamen</string>
+
+    <!-- Mood logging -->
+    <string name="mood_question">Hoe voel jy vandag?</string>
+    <string name="mood_date_placeholder">1 Apr 2025 - 09:41</string>
+    <string name="mood_cloud_description">Wolk</string>
+    <string name="mood_happy_label">GELUKKIG</string>
+    <string name="mood_section_title">Jou stemming</string>
+    <string name="mood_note_hint">Voeg n nota by (opsioneel)</string>
+    <string name="mood_happy_description">Gelukkig</string>
+    <string name="mood_sad_description">Hartseer</string>
+    <string name="mood_angry_description">Kwaad</string>
+    <string name="mood_fear_description">Vrees</string>
+    <string name="mood_disgust_description">Walging</string>
+    <string name="mood_calendar_day_placeholder">1</string>
+    <string name="mood_calendar_emoji_placeholder">😊</string>
+    <string name="save_mood">Stoor stemming</string>
+
+    <!-- Mood tracker -->
+    <string name="moodtracker_weekly_title">Weeklikse stemming</string>
+    <string name="moodtracker_month_placeholder">Desember 2025</string>
+    <string name="moodtracker_today_title">Vandag se stemming</string>
+    <string name="moodtracker_edit_button">Wysig stemming</string>
+
+    <!-- Contributions -->
+    <string name="no_contributions_yet">Geen bydraes nog nie</string>
+
+    <!-- Profile -->
+    <string name="profile_statistics_title">Jou statistiek</string>
+    <string name="profile_total_tasks">Totale take voltooi</string>
+    <string name="profile_mood_entries">Stemmingsinskrywings</string>
+    <string name="profile_journal_entries">Joernaalinskrywings</string>
+    <string name="profile_image_description">Profielbeeld</string>
+
+    <!-- Savings -->
+    <string name="savings_goal_title">Spaardoelwit</string>
+    <string name="savings_amount_placeholder">R0.00</string>
+    <string name="savings_progress_placeholder">0% • 0 dae oor</string>
+    <string name="savings_days_left_twenty">20 dae oor</string>
+    <string name="savings_days_left_seven">7 dae oor</string>
+    <string name="savings_goal_amount_one">R8500.00</string>
+    <string name="savings_goal_amount_two">R2 631.00</string>
+    <string name="savings_goal_health">Gesondheid en medies</string>
+    <string name="savings_goal_trip">New York-padtrip</string>
+    <string name="savings_manage_button">Bestuur</string>
+    <string name="savings_overview_greeting">Hallo, Alex!</string>
+    <string name="savings_overview_reminder">Moenie vergeet om te spaar nie!</string>
+    <string name="savings_overview_amount_placeholder">R11131.00</string>
+    <string name="savings_progress_sixty">60%</string>
+    <string name="savings_progress_ninetyfive">95%</string>
+    <string name="savings_saved_label">Gespaard</string>
+    <string name="savings_title">Spaar</string>
+    <string name="savings_target_label">Spaardoelwit</string>
+
+    <!-- Misc UI -->
+    <string name="see_all">Sien alles &gt;</string>
+    <string name="settings_clear_cache">Vee kas uit</string>
+    <string name="settings_dark_mode_description">Skakel oor na donker tema</string>
+    <string name="settings_data_and_privacy">Data en privaatheid</string>
+    <string name="settings_enable_notifications_description">Ontvang herinnerings en opdaterings</string>
+    <string name="study_hours">Studie-ure</string>
+    <string name="study_hours_placeholder">4.5h</string>
+    <string name="target_name">Doelwitnaam</string>
+    <string name="target_deadline">Doelwit sperdatum</string>
+
+    <!-- Task details -->
+    <string name="task_add_category">Voeg kategorie by</string>
+    <string name="task_category_hint">Werk</string>
+    <string name="task_category_ui_design">UI-ontwerp</string>
+    <string name="task_category_web_design">Webontwerp</string>
+    <string name="task_category_designer">Ontwerper</string>
+    <string name="task_category_uiux">UI/UX</string>
+    <string name="task_title_placeholder">Taaktitel</string>
+    <string name="task_description_placeholder">Taakbeskrywing</string>
+    <string name="task_title_hint">Voltooi werksaansoeke</string>
+    <string name="task_description_hint">Voltooi uitstaande aansoeke</string>
+
+    <string name="title_label">Titel</string>
+    <string name="tuition">Kollegegeld</string>
+    <string name="unlock_with_biometrics">Ontsluit met biometrie</string>
+    <string name="upcoming_assignments">Komende opdragte</string>
+    <string name="value_zero">0</string>
+
+    <!-- Navigation titles -->
+    <string name="mood">Stemming</string>
+    <string name="title_splash">Beginblad</string>
+    <string name="title_login">Meld aan</string>
+    <string name="title_create_mood">Skep stemming</string>
+    <string name="title_create_journal_entry">Skep joernaalinskrywing</string>
+    <string name="title_add_edit_habit">Voeg by/Wysig gewoonte</string>
+    <string name="title_create_savings_goal">Skep spaardoelwit</string>
 
 </resources>

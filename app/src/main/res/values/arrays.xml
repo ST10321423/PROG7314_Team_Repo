@@ -3,5 +3,6 @@
     <string-array name="languages">
         <item>@string/language_english</item>
         <item>@string/language_afrikaans</item>
+        <item>@string/language_zulu</item>
     </string-array>
 </resources>

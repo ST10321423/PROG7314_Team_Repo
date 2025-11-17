@@ -23,7 +23,7 @@
                 android:id="@+id/tvHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Contribution"
+                android:text="@string/add_contribution"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnSurface"
@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Amount"
+                android:text="@string/label_amount"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp"
@@ -54,7 +54,7 @@
                     android:id="@+id/etContributionAmt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="R"
+                    android:hint="@string/hint_currency_prefix"
                     android:inputType="numberDecimal"
                     android:textSize="16sp"
                     android:padding="16dp" />
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="@string/date"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp"
@@ -85,7 +85,7 @@
                     android:id="@+id/etContributionDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Saturday, November 28, 2025"
+                    android:hint="@string/hint_sample_full_date"
                     android:focusable="false"
                     android:clickable="true"
                     android:textSize="16sp"
@@ -96,7 +96,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Goal"
+                android:text="@string/label_goal"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="8dp"
@@ -116,20 +116,19 @@
                     android:id="@+id/spinnerContributionGoal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Select a Goal"
+                    android:hint="@string/hint_select_goal"
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="16sp"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <!-- Add button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddContribution"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Add Contribution"
+                android:text="@string/add_contribution"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="18dp"

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PROG7314_Universe</string>
+
+    <!-- Auth / Login -->
+    <string name="sign_in_to_your_account">Ngena ngemvume ku-akhawunti yakho</string>
+    <string name="enter_your_email_and_password">Faka i-imeyili yakho nephasiwedi ukuze ungene.</string>
+    <string name="email">I-imeyili</string>
+    <string name="password">Iphasiwedi</string>
+    <string name="forgot_password">Ukhohliwe iphasiwedi?</string>
+    <string name="log_in">Ngena</string>
+    <string name="or">Noma</string>
+    <string name="continue_with_google">Qhubeka no-Google</string>
+    <string name="continue_with_facebook">Qhubeka no-Facebook</string>
+    <string name="dont_have_an_account">Awunayo i-akhawunti?</string>
+    <string name="sign_up">Bhalisa</string>
+
+    <string name="settings_user_fallback_email">Awekho imeyili</string>
+
+    <!-- Biometrics -->
+    <string name="privacy_security">Ubumfihlo nezokuphepha</string>
+    <string name="biometric_unlock">Ukuvula ngebhayomethrikhi</string>
+    <string name="biometric_unlock_description">Sebenzisa iminwe noma ubuso ukuze uvule uhlelo ngokushesha.</string>
+    <string name="biometric_enable_prompt_title">Nika amandla ukuvula ngebhayomethrikhi</string>
+    <string name="biometric_enable_prompt_subtitle">Qinisekisa ubuwena ukuze usebenzise ibhayomethrikhi</string>
+    <string name="biometric_prompt_title">Vula i-UNIverse</string>
+    <string name="biometric_prompt_subtitle">Qinisekisa ukuze ufinyelele ideshibhodi yakho</string>
+    <string name="biometric_prompt_negative">Khansela</string>
+    <string name="biometric_not_available">Ukuqinisekisa ngebhayomethrikhi akutholakali kule divayisi.</string>
+    <string name="biometric_enable_success">Ukuvula ngebhayomethrikhi kunikwe amandla</string>
+    <string name="biometric_disable_success">Ukuvula ngebhayomethrikhi kukhutshaziwe</string>
+    <string name="biometric_required">Ukuqinisekisa kuyadingeka ukuze uqhubeke</string>
+
+    <!-- Habit CRUD errors -->
+    <string name="save_habit">Londoloza umkhuba</string>
+    <string name="update_habit">Buyekeza umkhuba</string>
+    <string name="delete_habit">Susa umkhuba</string>
+    <string name="error_not_signed_in">Asikwazanga ukuthola umsebenzisi wamanje. Sicela ungene futhi.</string>
+    <string name="error_save_failed">Yehlulekile ukulondoloza umkhuba %1$s</string>
+    <string name="error_delete_failed">Yehlulekile ukususa umkhuba %1$s</string>
+
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Vula ibhokisi lokuzulazula</string>
+    <string name="navigation_drawer_close">Vala ibhokisi lokuzulazula</string>
+
+    <!-- Menu Items -->
+    <string name="menu_home">Ikhaya</string>
+    <string name="menu_mood_tracker">Umlandeli wemizwa</string>
+    <string name="menu_journal">Idayari</string>
+    <string name="menu_tasks">Imisebenzi</string>
+    <string name="menu_habits">Imikhuba</string>
+    <string name="menu_savings">Izinhloso zokonga</string>
+    <string name="menu_fridge">Umphathi wefriji</string>
+    <string name="menu_profile">Iphrofayela</string>
+    <string name="menu_settings">Izilungiselelo</string>
+    <string name="menu_logout">Phuma</string>
+
+    <!-- Task strings -->
+    <string name="tasks">Imisebenzi</string>
+    <string name="add_task">Nezela umsebenzi</string>
+    <string name="search_tasks">Sesha imisebenzi...</string>
+    <string name="no_tasks_yet">Ayikabikho imisebenzi\nCofa + ukuze wengeze umsebenzi wakho wokuqala</string>
+
+    <!-- Exam strings -->
+    <string name="exams">Izivivinyo</string>
+    <string name="add_exam">Nezela isivivinyo</string>
+    <string name="edit_exam">Hlela isivivinyo</string>
+    <string name="save_exam">Londoloza isivivinyo</string>
+    <string name="update_exam">Buyekeza isivivinyo</string>
+    <string name="delete_exam">Susa isivivinyo</string>
+    <string name="subject">Isifundo</string>
+    <string name="module">Imojula</string>
+    <string name="date">Usuku</string>
+    <string name="time">Isikhathi</string>
+    <string name="start_time">Isikhathi sokuqala</string>
+    <string name="end_time">Isikhathi sokuphela</string>
+    <string name="description">Incazelo</string>
+    <string name="no_exams_yet">Azikho izivivinyo okwamanje\nCofa + ukuze wengeze isivivinyo sakho sokuqala</string>
+    <string name="search_exams">Sesha izivivinyo...</string>
+    <string name="all">Konke</string>
+    <string name="completed">Kuqediwe</string>
+
+    <!-- Common strings -->
+    <string name="add">Nezela</string>
+    <string name="edit">Hlela</string>
+    <string name="delete">Susa</string>
+    <string name="cancel">Khansela</string>
+    <string name="save">Londoloza</string>
+
+    <!-- Language -->
+    <string name="language_english">IsiNgisi</string>
+    <string name="language_afrikaans">IsiBhunu</string>
+    <string name="language_zulu">IsiZulu</string>
+
+    <!-- Habit strings -->
+    <string name="habits">Imikhuba</string>
+    <string name="add_habit">Nezela umkhuba</string>
+    <string name="edit_habit">Hlela umkhuba</string>
+    <string name="habit_name">Igama lomkhuba</string>
+    <string name="streak">Uchungechunge</string>
+    <string name="due_today">Okumele kwenziwe namuhla</string>
+    <string name="not_due">Akukafiki isikhathi</string>
+    <string name="no_habits_yet">Awekho amakhuba okwamanje\nCofa + ukuze wengeze umkhuba wakho wokuqala</string>
+    <string name="search_habits">Sesha imikhuba...</string>
+    <string name="filter_by_time">Hlunga ngokwesikhathi</string>
+    <string name="all_times">Wonke amaxesha</string>
+    <string name="morning">Ekuseni</string>
+    <string name="afternoon">Emini</string>
+    <string name="evening">Kusihlwa</string>
+    <string name="difficulty">Ubunzima</string>
+    <string name="easy">Kulula</string>
+    <string name="medium">Maphakathi</string>
+    <string name="hard">Kunzima</string>
+    <string name="time_of_day">Isikhathi sosuku</string>
+    <string name="days">Izinsuku</string>
+    <string name="color">Umbala</string>
+    <string name="great_job">Usebenze kahle!</string>
+    <string name="no_habits_due_today">Awekho amakhuba adingekayo namuhla</string>
+    <string name="no_completed_habits">Awekho amakhuba aqediwe namuhla</string>
+
+    <!-- Placeholder -->
+    <string name="hello_blank_fragment">Sawubona isiqeshana esingenalutho</string>
+
+    <!-- Settings -->
+    <string name="settings_account_title">I-akhawunti</string>
+    <string name="settings_user_name_placeholder">Igama lomsebenzisi</string>
+    <string name="settings_user_email_placeholder">umsebenzisi@isibonelo.com</string>
+    <string name="settings_theme_display">Itimu neziboniso</string>
+    <string name="settings_dark_mode">Imodi emnyama</string>
+    <string name="settings_language">Ulimi</string>
+    <string name="settings_text_size">Usayizi wombhalo</string>
+    <string name="settings_text_size_default">100%</string>
+    <string name="settings_notifications_title">Izaziso</string>
+    <string name="settings_enable_notifications">Nika amandla izaziso</string>
+    <string name="settings_task_reminders">Izikhumbuzi zemisebenzi</string>
+    <string name="settings_exam_alerts">Izaziso zezifundo</string>
+    <string name="settings_habit_reminders">Izikhumbuzi zemikhuba</string>
+    <string name="settings_account_actions">Izenzo ze-akhawunti</string>
+    <string name="settings_logout">Phuma</string>
+    <string name="settings_delete_account">Susa i-akhawunti</string>
+    <string name="settings_guest_user_name">Isivakashi</string>
+    <string name="settings_no_email">Awekho imeyili</string>
+    <string name="settings_not_logged_in">Awungenile</string>
+    <string name="settings_user_fallback_name">Umsebenzisi</string>
+    <string name="settings_text_size_updated">Usayizi wombhalo ubuyekeziwe. Qalisa kabusha uhlelo ukuze kusebenze.</string>
+    <string name="settings_logout_title">Phuma</string>
+    <string name="settings_logout_message">Uqinisekile ukuthi ufuna ukuphuma?</string>
+    <string name="settings_delete_account_title">Susa i-akhawunti</string>
+    <string name="settings_delete_account_message">Uqinisekile ukuthi ufuna ukususa i-akhawunti yakho unomphela? Lesi senzo asikwazi ukubuyiselwa.</string>
+    <string name="settings_delete_account_confirm">Susa</string>
+    <string name="settings_account_deleted">I-akhawunti isusiwe</string>
+    <string name="settings_delete_account_error">Yehlulekile ukususa i-akhawunti: %1$s</string>
+    <string name="settings_unknown_error">Iphutha elingaziwa</string>
+
+    <!-- Lokalisering / Actions -->
+    <string name="action_back">Emuva</string>
+    <string name="action_next">Okulandelayo</string>
+    <string name="action_previous">Okwandulela</string>
+    <string name="action_previous_month">Inyanga edlule</string>
+    <string name="action_next_month">Inyanga ezayo</string>
+
+    <!-- Extra UI / dashboard / helper strings -->
+    <string name="activity_section_title">Umsebenzi</string>
+    <string name="add_contribution">Nezela umnikelo</string>
+    <string name="add_new_task">Nezela umsebenzi omusha</string>
+    <string name="add_savings_target">Nezela inhloso yokonga</string>
+    <string name="already_have_account">Usunayo i-akhawunti?</string>
+    <string name="app_tagline">Umlingani wakho wezifundo</string>
+    <string name="class_schedule_title">Isheduli yekilasi</string>
+    <string name="color_hex_code">Umbala (ikhodi ye-hex)</string>
+    <string name="confirm_password">Qinisekisa iphasiwedi</string>
+    <string name="contribution_amount_placeholder">R0.00</string>
+    <string name="contribution_date_placeholder">1 Januwari 2025</string>
+    <string name="courses_title">Izifundo</string>
+    <string name="courses_count_placeholder">5</string>
+    <string name="dashboard_greeting_placeholder">Sawubona, Alex!</string>
+    <string name="dashboard_date_placeholder">ULwesine, 15 Meyi</string>
+    <string name="dashboard_time_tomorrow_placeholder">Kusasa, 15:00</string>
+    <string name="dashboard_time_friday_placeholder">ULwesihlanu, 14:00</string>
+
+    <!-- Days & day initials -->
+    <string name="days_hint">Izinsuku (shiya zingakhethiwe zonke uma kuwansuku zonke)</string>
+    <string name="day_mon">MS</string>
+    <string name="day_tue">LB</string>
+    <string name="day_wed">LSTH</string>
+    <string name="day_thu">LSTN</string>
+    <string name="day_fri">LHS</string>
+    <string name="day_sat">Mgq</string>
+    <string name="day_sun">Son</string>
+    <string name="day_m_initial">M</string>
+    <string name="day_t_initial">T</string>
+    <string name="day_w_initial">W</string>
+    <string name="day_f_initial">F</string>
+    <string name="day_s_initial">S</string>
+
+    <!-- Tasks / filters / difficulty labels -->
+    <string name="delete_task">Susa umsebenzi</string>
+    <string name="difficulty_easy_label">😊 Kulula</string>
+    <string name="difficulty_medium_label">💪 Maphakathi</string>
+    <string name="difficulty_hard_label">🔥 Kunzima</string>
+    <string name="edit_task">Hlela umsebenzi</string>
+    <string name="filter_all_default">Konke (0)</string>
+    <string name="filter_completed_default">Kuqediwe (0)</string>
+    <string name="tasks_completed">Imisebenzi eqediwe</string>
+    <string name="tasks_completed_placeholder">7/12</string>
+
+    <!-- Emoji labels -->
+    <string name="emoji_happy">😊</string>
+    <string name="emoji_sad">😢</string>
+    <string name="emoji_angry">😠</string>
+    <string name="emoji_fear">😰</string>
+    <string name="emoji_disgust">😖</string>
+
+    <!-- Misc UI helpers -->
+    <string name="font_size_value_placeholder">14</string>
+    <string name="group_study_session">Iseshini yokufunda ndawonye</string>
+    <string name="habit_streak_placeholder">Uchungechunge: 0</string>
+    <string name="habits_filter_all_default">Konke (0)</string>
+    <string name="habits_filter_due_today_default">Okumele kwenziwe namuhla (0)</string>
+    <string name="habits_filter_completed_default">Kuqediwe (0)</string>
+    <string name="hint_additional_notes">Amanothi angeziwe noma imininingwane</string>
+    <string name="hint_color_example">#4CAF50</string>
+    <string name="hint_currency_prefix">R</string>
+    <string name="hint_end_time_label">Phela: 16:00</string>
+    <string name="hint_end_time_sample">16:00</string>
+    <string name="hint_habit_name_examples">isb. Ukuzivocavoca ekuseni, Funda imizuzu engama-30</string>
+    <string name="hint_module_examples">Igama noma ikhodi yemojula</string>
+    <string name="hint_sample_full_date">UMgqibelo, 28 Novemba 2025</string>
+    <string name="hint_savings_amount">R15000.00</string>
+    <string name="hint_select_date">Khetha usuku</string>
+    <string name="hint_select_goal">Khetha inhloso</string>
+    <string name="hint_select_time">Khetha isikhathi</string>
+    <string name="hint_start_time_label">Qala: 14:00</string>
+    <string name="hint_start_time_sample">14:00</string>
+    <string name="hint_subject_examples">isb. Imathematika, Ifizikisi</string>
+    <string name="hint_target_deadline">08/01/2026</string>
+    <string name="hint_target_name">Uhambo lokuya eKapa</string>
+
+    <!-- Home screen -->
+    <string name="home_welcome">Siyakwamukela futhi, Mfundi!</string>
+    <string name="home_date_placeholder">UMsombuluko, 1 Januwari</string>
+    <string name="home_quick_stats">Izibalo ezisheshayo</string>
+    <string name="home_mood_label">Imizwa</string>
+    <string name="home_mood_empty">Awukazibhalisi namuhla</string>
+    <string name="home_journal_zero">0 kuleli sonto</string>
+    <string name="home_explore_features">Hlola izinto ezikhona</string>
+    <string name="home_savings_description">Landelela izinhloso zakho zezimali</string>
+    <string name="home_fridge_description">Phatha ukudla kwakho nasefrijini</string>
+
+    <!-- Journal -->
+    <string name="journal_add_entry">Nezela okokufaka okusha</string>
+    <string name="journal_create_entry">Dala okokufaka</string>
+    <string name="journal_date_range_placeholder">1 Ephreli 2025 - 1 Ephreli 2025</string>
+    <string name="journal_empty_title">Azikho okokufaka kwidayari okwamanje</string>
+    <string name="journal_empty_cta">Cofa inkinobho ethi + ukuze udale okokuqala</string>
+    <string name="journal_empty_description">Azikho okokufaka</string>
+    <string name="journal_entry_title">Okokufaka kwidayari</string>
+    <string name="journal_entry_date_placeholder">1 Ephreli 2025 - 09:41</string>
+    <string name="journal_entry_hint">Yabelana ngemizwa nemicabango yakho...</string>
+    <string name="journal_filter_daily">Nsuku zonke</string>
+    <string name="journal_filter_weekly">Ngeviki</string>
+    <string name="journal_image_description">Isithombe sedayari</string>
+    <string name="journal_remove_image">Susa isithombe</string>
+    <string name="journal_upload_image">Layisha isithombe</string>
+
+    <!-- Labels -->
+    <string name="label_amount">Inani</string>
+    <string name="label_goal">Inhloso</string>
+
+    <!-- Login / sign up extra text -->
+    <string name="login_welcome_title">Siyakwamukela ku-UNIverse</string>
+    <string name="login_subtitle">Ngena ukuze uqhubeke</string>
+    <string name="login_terms_notice">Ngokuqhubeka, uvuma imigomo yokusebenzisa kanye nenqubomgomo yobumfihlo</string>
+    <string name="sign_up_title">Dala i-akhawunti</string>
+    <string name="sign_up_subtitle">Faka imininingwane yakho ukuze udale i-akhawunti yakho</string>
+
+    <!-- Misc domain strings -->
+    <string name="mathematics">Imathematika</string>
+    <string name="physics_final_exam">Isivivinyo sokugcina seFizikisi</string>
+
+    <!-- Mood logging -->
+    <string name="mood_question">Uzizwa kanjani namuhla?</string>
+    <string name="mood_date_placeholder">1 Ephreli 2025 - 09:41</string>
+    <string name="mood_cloud_description">Ifu</string>
+    <string name="mood_happy_label">JABULE</string>
+    <string name="mood_section_title">Imizwa yakho</string>
+    <string name="mood_note_hint">Nezela inothi (ozikhethela)</string>
+    <string name="mood_happy_description">Ujabule</string>
+    <string name="mood_sad_description">Udangele</string>
+    <string name="mood_angry_description">Uthukuthele</string>
+    <string name="mood_fear_description">Unovalo</string>
+    <string name="mood_disgust_description">Unesithukuthezi / ukwenyanya</string>
+    <string name="mood_calendar_day_placeholder">1</string>
+    <string name="mood_calendar_emoji_placeholder">😊</string>
+    <string name="save_mood">Londoloza imizwa</string>
+
+    <!-- Mood tracker -->
+    <string name="moodtracker_weekly_title">Imizwa yeviki</string>
+    <string name="moodtracker_month_placeholder">Disemba 2025</string>
+    <string name="moodtracker_today_title">Imizwa yanamuhla</string>
+    <string name="moodtracker_edit_button">Hlela imizwa</string>
+
+    <!-- Contributions -->
+    <string name="no_contributions_yet">Awekho amaminikelo okwamanje</string>
+
+    <!-- Profile -->
+    <string name="profile_statistics_title">Izibalo zakho</string>
+    <string name="profile_total_tasks">Imisebenzi eqediwe iyonke</string>
+    <string name="profile_mood_entries">Okokufaka kwemizwa</string>
+    <string name="profile_journal_entries">Okokufaka kwidayari</string>
+    <string name="profile_image_description">Isithombe sephrofayela</string>
+
+    <!-- Savings -->
+    <string name="savings_goal_title">Inhloso yokonga</string>
+    <string name="savings_amount_placeholder">R0.00</string>
+    <string name="savings_progress_placeholder">0% • izinsuku ezi-0 ezisele</string>
+    <string name="savings_days_left_twenty">izinsuku ezingama-20 ezisele</string>
+    <string name="savings_days_left_seven">izinsuku ezi-7 ezisele</string>
+    <string name="savings_goal_amount_one">R8500.00</string>
+    <string name="savings_goal_amount_two">R2 631.00</string>
+    <string name="savings_goal_health">Impilo nezokwelashwa</string>
+    <string name="savings_goal_trip">Uhambo oluya eNew York</string>
+    <string name="savings_manage_button">Phatha</string>
+    <string name="savings_overview_greeting">Sawubona, Alex!</string>
+    <string name="savings_overview_reminder">Ungakhohlwa ukonga!</string>
+    <string name="savings_overview_amount_placeholder">R11131.00</string>
+    <string name="savings_progress_sixty">60%</string>
+    <string name="savings_progress_ninetyfive">95%</string>
+    <string name="savings_saved_label">Okulondoloziwe</string>
+    <string name="savings_title">Ongayo</string>
+    <string name="savings_target_label">Inhloso yokonga</string>
+
+    <!-- Misc UI -->
+    <string name="see_all">Bona konke &gt;</string>
+    <string name="settings_clear_cache">Sula i-cache</string>
+    <string name="settings_dark_mode_description">Guqula uye kwimodi emnyama</string>
+    <string name="settings_data_and_privacy">Idatha nobumfihlo</string>
+    <string name="settings_enable_notifications_description">Thola izikhumbuzi nezibuyekezo</string>
+    <string name="study_hours">Amahora okufunda</string>
+    <string name="study_hours_placeholder">4.5h</string>
+    <string name="target_name">Igama lenhloso</string>
+    <string name="target_deadline">Usuku lokuphela kwenhloso</string>
+
+    <!-- Task details -->
+    <string name="task_add_category">Nezela isigaba</string>
+    <string name="task_category_hint">Umsebenzi</string>
+    <string name="task_category_ui_design">Umklamo we-UI</string>
+    <string name="task_category_web_design">Umklamo wewebhu</string>
+    <string name="task_category_designer">Umklami</string>
+    <string name="task_category_uiux">UI/UX</string>
+    <string name="task_title_placeholder">Isihloko somsebenzi</string>
+    <string name="task_description_placeholder">Incazelo yomsebenzi</string>
+    <string name="task_title_hint">Qeda izicelo zomsebenzi</string>
+    <string name="task_description_hint">Qeda izicelo ezisele</string>
+
+    <string name="title_label">Isihloko</string>
+    <string name="tuition">Imali yokufunda</string>
+    <string name="unlock_with_biometrics">Vula ngebhayomethrikhi</string>
+    <string name="upcoming_assignments">Imisebenzi ezayo</string>
+    <string name="value_zero">0</string>
+
+    <!-- Navigation titles -->
+    <string name="mood">Imizwa</string>
+    <string name="title_splash">Ikhasi lokuqala</string>
+    <string name="title_login">Ngena ngemvume</string>
+    <string name="title_create_mood">Dala imizwa</string>
+    <string name="title_create_journal_entry">Dala okokufaka kwidayari</string>
+    <string name="title_add_edit_habit">Engeza/Hlela umkhuba</string>
+    <string name="title_create_savings_goal">Dala inhloso yokonga</string>
+
+</resources>

@@ -20,9 +20,10 @@
 
             <!-- Header -->
             <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit Habit"
+                android:text="@string/edit_habit"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/on_surface"
@@ -33,7 +34,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Habit Name"
+                android:text="@string/habit_name"
                 android:textSize="16sp"
                 android:textColor="@color/on_surface"
                 android:layout_marginBottom="8dp" />
@@ -53,7 +54,7 @@
                     android:id="@+id/etEditHabitName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="e.g., Morning Workout, Read 30 minutes"
+                    android:hint="@string/hint_habit_name_examples"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:inputType="text" />
@@ -64,7 +65,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Color (Hex Code)"
+                android:text="@string/color_hex_code"
                 android:textSize="16sp"
                 android:textColor="@color/on_surface"
                 android:layout_marginBottom="8dp" />
@@ -84,7 +85,7 @@
                     android:id="@+id/etEditHabitColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="#4CAF50"
+                    android:hint="@string/hint_color_example"
                     android:textSize="16sp"
                     android:padding="16dp"
                     android:inputType="text" />
@@ -95,7 +96,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time of Day"
+                android:text="@string/time_of_day"
                 android:textSize="16sp"
                 android:textColor="@color/on_surface"
                 android:layout_marginBottom="8dp" />
@@ -114,19 +115,18 @@
                     android:id="@+id/spinnerEditHabitTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Select Time"
+                    android:hint="@string/hint_select_time"
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="16sp"
                     android:padding="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <!-- Difficulty Section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Difficulty"
+                android:text="@string/difficulty"
                 android:textSize="16sp"
                 android:textColor="@color/on_surface"
                 android:layout_marginBottom="8dp" />
@@ -143,7 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="😊 Easy"
+                    android:text="@string/difficulty_easy_label"
                     android:textSize="14sp"
                     android:padding="8dp" />
 
@@ -152,7 +152,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="💪 Medium"
+                    android:text="@string/difficulty_medium_label"
                     android:textSize="14sp"
                     android:checked="true"
                     android:padding="8dp" />
@@ -162,7 +162,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="🔥 Hard"
+                    android:text="@string/difficulty_hard_label"
                     android:textSize="14sp"
                     android:padding="8dp" />
 
@@ -172,7 +172,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Days (leave all unchecked for daily)"
+                android:text="@string/days_hint"
                 android:textSize="16sp"
                 android:textColor="@color/on_surface"
                 android:layout_marginBottom="8dp" />
@@ -192,72 +192,75 @@
                     android:padding="12dp"
                     android:gravity="center">
 
-                    <!-- Your CheckBoxes (Mon–Sun) remain unchanged -->
                     <CheckBox
                         android:id="@+id/cbMonEdit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="M"
+                        android:text="@string/day_m_initial"
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
+
                     <CheckBox
                         android:id="@+id/cbTuesEdit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="T"
+                        android:text="@string/day_t_initial"
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
+
                     <CheckBox
                         android:id="@+id/cbWedEdit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="W"
+                        android:text="@string/day_w_initial"
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
+
                     <CheckBox
                         android:id="@+id/cbThursEdit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="T"
+                        android:text="@string/day_t_initial"
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
+
                     <CheckBox
                         android:id="@+id/cbFriEdit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="F"
+                        android:text="@string/day_f_initial"
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
+
                     <CheckBox
                         android:id="@+id/cbSatEdit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="S"
+                        android:text="@string/day_s_initial"
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
+
                     <CheckBox
                         android:id="@+id/cbSunEdit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="S"
+                        android:text="@string/day_s_initial"
                         android:textSize="12sp"
                         android:gravity="center"
                         android:button="@drawable/custom_checkbox" />
-
-
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -267,7 +270,7 @@
                 android:id="@+id/btnEditHabit"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Save Habit"
+                android:text="@string/save_habit"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="18dp"
@@ -283,7 +286,7 @@
                 android:id="@+id/btnDeleteHabit"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Delete Habit"
+                android:text="@string/delete_habit"
                 android:textSize="16sp"
                 app:cornerRadius="18dp"
                 app:strokeColor="#D32F2F"

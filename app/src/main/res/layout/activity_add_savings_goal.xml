@@ -22,18 +22,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Savings Target"
+                android:text="@string/add_savings_target"
                 android:textSize="28sp"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:layout_marginBottom="32dp"
-                android:textAlignment="textStart"/>
+                android:textAlignment="textStart" />
 
             <!-- Target Name Section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Target Name"
+                android:text="@string/target_name"
                 android:textSize="16sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="8dp" />
@@ -48,17 +48,16 @@
                     android:id="@+id/edtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Cape Town Trip"
+                    android:hint="@string/hint_target_name"
                     android:textSize="16sp"
                     android:minHeight="48dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Target Deadline Section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Target Deadline"
+                android:text="@string/target_deadline"
                 android:textSize="16sp"
                 android:textColor="#000000"
                 android:layout_marginTop="20dp"
@@ -74,21 +73,20 @@
                     android:id="@+id/edtDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="08/01/2026"
+                    android:hint="@string/hint_target_deadline"
                     android:textSize="16sp"
                     android:minHeight="48dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Savings Target Section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Savings Target"
+                android:text="@string/savings_target_label"
                 android:textSize="16sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/RoundedTextInputLayout"
@@ -100,10 +98,9 @@
                     android:id="@+id/edtAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="R15000.00"
+                    android:hint="@string/hint_savings_amount"
                     android:textSize="16sp"
                     android:minHeight="48dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Next Button -->
@@ -111,7 +108,7 @@
                 android:id="@+id/btnCreateGoal"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Next"
+                android:text="@string/action_next"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="18dp"

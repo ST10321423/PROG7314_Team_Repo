@@ -7,18 +7,18 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.prog7314_universe.SplashFragment"
-        android:label="Splash" />
+        android:label="@string/title_splash" />
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.prog7314_universe.LoginFragment"
-        android:label="Login" />
+        android:label="@string/title_login" />
 
     <!-- Home Fragment -->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.prog7314_universe.HomeFragment"
-        android:label="Home">
+        android:label="@string/menu_home">
         <action
             android:id="@+id/action_homeFragment_to_moodTrackerFragment"
             app:destination="@id/moodTrackerFragment" />
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/moodTrackerFragment"
         android:name="com.example.prog7314_universe.MoodTrackerFragment"
-        android:label="Mood Tracker">
+        android:label="@string/menu_mood_tracker">
         <action
             android:id="@+id/action_moodTrackerFragment_to_createMoodFragment"
             app:destination="@id/createMoodFragment" />
@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/createMoodFragment"
         android:name="com.example.prog7314_universe.CreateMoodFragment"
-        android:label="Create Mood">
+        android:label="@string/title_create_mood">
         <argument
             android:name="selected_date"
             app:argType="long"
@@ -57,7 +57,7 @@
     <fragment
         android:id="@+id/journalListFragment"
         android:name="com.example.prog7314_universe.JournalListFragment"
-        android:label="Journal">
+        android:label="@string/menu_journal">
         <action
             android:id="@+id/action_journalListFragment_to_createJournalFragment"
             app:destination="@id/createJournalFragment" />
@@ -66,7 +66,7 @@
     <fragment
         android:id="@+id/createJournalFragment"
         android:name="com.example.prog7314_universe.CreateJournalFragment"
-        android:label="Create Journal Entry">
+        android:label="@string/title_create_journal_entry">
         <argument
             android:name="entry_id"
             app:argType="string"
@@ -78,21 +78,21 @@
     <fragment
         android:id="@+id/tasksListFragment"
         android:name="com.example.prog7314_universe.TasksListFragment"
-        android:label="Tasks" >
+        android:label="@string/menu_tasks">
         <action
-        android:id="@+id/action_tasksListFragment_to_addTaskFragment"
-        app:destination="@id/addTaskFragment" />
+            android:id="@+id/action_tasksListFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/addTaskFragment"
         android:name="com.example.prog7314_universe.AddTaskFragment"
-        android:label="Add Task" />
+        android:label="@string/add_task" />
 
     <fragment
         android:id="@+id/examsFragment"
         android:name="com.example.prog7314_universe.ExamsFragment"
-        android:label="Exams">
+        android:label="@string/exams">
         <action
             android:id="@+id/action_examsFragment_to_addExamFragment"
             app:destination="@id/addExamFragment" />
@@ -101,7 +101,7 @@
     <fragment
         android:id="@+id/addExamFragment"
         android:name="com.example.prog7314_universe.AddExamFragment"
-        android:label="Add Exam">
+        android:label="@string/add_exam">
         <argument
             android:name="exam_id"
             app:argType="string"
@@ -136,7 +136,7 @@
     <fragment
         android:id="@+id/habitListFragment"
         android:name="com.example.prog7314_universe.HabitListFragment"
-        android:label="Habits" >
+        android:label="@string/menu_habits">
         <action
             android:id="@+id/action_habitListFragment_to_addEditHabitFragment"
             app:destination="@id/addEditHabitFragment" />
@@ -145,7 +145,7 @@
     <fragment
         android:id="@+id/addEditHabitFragment"
         android:name="com.example.prog7314_universe.AddEditHabitFragment"
-        android:label="Add/Edit Habit">
+        android:label="@string/title_add_edit_habit">
         <argument
             android:name="habitId"
             app:argType="string"
@@ -156,12 +156,12 @@
     <fragment
         android:id="@+id/savingGoalFragment"
         android:name="com.example.prog7314_universe.SavingsGoalFragment"
-        android:label="Savings Goal" />
+        android:label="@string/savings_goal_title" />
 
     <fragment
         android:id="@+id/createSavingsGoalFragment"
         android:name="com.example.prog7314_universe.CreateSavingsGoalFragment"
-        android:label="Create Savings Goal" >
+        android:label="@string/title_create_savings_goal">
         <argument
             android:name="user_id"
             app:argType="string" />
@@ -170,36 +170,36 @@
     <fragment
         android:id="@+id/addContributionFragment"
         android:name="com.example.prog7314_universe.AddContributionFragment"
-        android:label="Add Contribution">
+        android:label="@string/add_contribution">
         <argument
             android:name="user_id"
-            app:argType="string"/>
+            app:argType="string" />
         <argument
             android:name="goal_id"
             app:argType="string"
-            app:nullable="true"/>
+            app:nullable="true" />
     </fragment>
 
     <fragment
         android:id="@+id/savingsFragment"
         android:name="com.example.prog7314_universe.SavingsFragment"
-        android:label="Savings"/>
+        android:label="@string/savings_title" />
 
     <fragment
         android:id="@+id/fridgeFragment"
         android:name="com.example.prog7314_universe.FridgeFragment"
-        android:label="Fridge"/>
+        android:label="@string/menu_fridge" />
 
     <!-- Profile Fragment -->
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.prog7314_universe.ProfileFragment"
-        android:label="Profile" />
+        android:label="@string/menu_profile" />
 
     <!-- Settings Fragment -->
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.prog7314_universe.SettingsFragment"
-        android:label="Settings" />
+        android:label="@string/menu_settings" />
 
 </navigation>

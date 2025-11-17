@@ -7,37 +7,37 @@
         <item
             android:id="@+id/homeFragment"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/menu_home" />
 
         <item
             android:id="@+id/moodTrackerFragment"
             android:icon="@drawable/ic_mood"
-            android:title="Mood Tracker" />
+            android:title="@string/menu_mood_tracker" />
 
         <item
             android:id="@+id/journalListFragment"
             android:icon="@drawable/ic_journal"
-            android:title="Journal" />
+            android:title="@string/menu_journal" />
 
         <item
             android:id="@+id/tasksListFragment"
             android:icon="@drawable/ic_tasks"
-            android:title="Tasks" />
+            android:title="@string/menu_tasks" />
 
         <item
             android:id="@+id/habitListFragment"
             android:icon="@drawable/ic_habits"
-            android:title="Habits" />
+            android:title="@string/menu_habits" />
 
         <item
             android:id="@+id/savingGoalFragment"
             android:icon="@drawable/ic_savings"
-            android:title="Savings Goals" />
+            android:title="@string/menu_savings" />
 
         <item
             android:id="@+id/fridgeFragment"
             android:icon="@drawable/ic_fridge"
-            android:title="Fridge Manager" />
+            android:title="@string/menu_fridge" />
     </group>
 
     <group android:id="@+id/group_account">

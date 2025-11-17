@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PROG7314_Universe</string>
 
@@ -6,15 +7,17 @@
     <string name="enter_your_email_and_password">Enter your email and password to log in.</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="forgot_password">Forgot Password ?</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="log_in">Log In</string>
     <string name="or">Or</string>
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
-    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="dont_have_an_account">Dont have an account?</string>
     <string name="sign_up">Sign Up</string>
 
-    <string name="default_web_client_id" translatable="false">1021947947057-s5bgomu5s4e52m7ock59ecbe4st6go41.apps.googleusercontent.com</string>
+    <string name="default_web_client_id" translatable="false">
+        1021947947057-s5bgomu5s4e52m7ock59ecbe4st6go41.apps.googleusercontent.com
+    </string>
     <string name="settings_user_fallback_email">No email</string>
 
     <plurals name="mood_total_format">
@@ -50,8 +53,8 @@
     <string name="update_habit">Update Habit</string>
     <string name="delete_habit">Delete Habit</string>
     <string name="error_not_signed_in">Unable to determine the current user. Please sign in again.</string>
-    <string name="error_save_failed">Failed to save habit%1$s</string>
-    <string name="error_delete_failed">Failed to delete habit%1$s</string>
+    <string name="error_save_failed">Failed to save habit %1$s</string>
+    <string name="error_delete_failed">Failed to delete habit %1$s</string>
 
     <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -104,6 +107,7 @@
     <!-- Language (for spinner) -->
     <string name="language_english">English</string>
     <string name="language_afrikaans">Afrikaans</string>
+    <string name="language_zulu">Zulu</string>
 
     <!-- Habit strings -->
     <string name="habits">Habits</string>
@@ -134,7 +138,7 @@
     <!-- Placeholder -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Settings (new from Codex) -->
+    <!-- Settings (existing) -->
     <string name="settings_account_title">Account</string>
     <string name="settings_user_name_placeholder">User Name</string>
     <string name="settings_user_email_placeholder">user@example.com</string>
@@ -166,5 +170,214 @@
     <string name="settings_account_deleted">Account deleted</string>
     <string name="settings_delete_account_error">Failed to delete account: %1$s</string>
     <string name="settings_unknown_error">Unknown error</string>
+
+    <!-- Localization additions -->
+    <string name="action_back">Back</string>
+    <string name="action_next">Next</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_previous_month">Previous month</string>
+    <string name="action_next_month">Next month</string>
+    <string name="activity_section_title">Activity</string>
+    <string name="add_contribution">Add Contribution</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="add_savings_target">Add Savings Target</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="app_tagline">Your Academic Companion</string>
+    <string name="class_schedule_title">Class Schedule</string>
+    <string name="color_hex_code">Color (Hex Code)</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="contribution_amount_placeholder">R0.00</string>
+    <string name="contribution_date_placeholder">1 January 2025</string>
+    <string name="courses_title">Courses</string>
+    <string name="courses_count_placeholder">5</string>
+    <string name="dashboard_greeting_placeholder">Hello, Alex!</string>
+    <string name="dashboard_date_placeholder">Thursday, May 15</string>
+    <string name="dashboard_time_tomorrow_placeholder">Tomorrow, 3:00 PM</string>
+    <string name="dashboard_time_friday_placeholder">Friday, 2:00 PM</string>
+    <string name="days_hint">Days (leave all unchecked for daily)</string>
+    <string name="day_mon">Mon</string>
+    <string name="day_tue">Tue</string>
+    <string name="day_wed">Wed</string>
+    <string name="day_thu">Thu</string>
+    <string name="day_fri">Fri</string>
+    <string name="day_sat">Sat</string>
+    <string name="day_sun">Sun</string>
+    <string name="day_m_initial">M</string>
+    <string name="day_t_initial">T</string>
+    <string name="day_w_initial">W</string>
+    <string name="day_f_initial">F</string>
+    <string name="day_s_initial">S</string>
+    <string name="delete_task">Delete Task</string>
+
+    <!-- Difficulty labels without emojis -->
+    <string name="difficulty_easy_label">Easy</string>
+    <string name="difficulty_medium_label">Medium</string>
+    <string name="difficulty_hard_label">Hard</string>
+
+    <!-- Emoji labels as text instead of emoji -->
+    <string name="emoji_happy">Happy</string>
+    <string name="emoji_sad">Sad</string>
+    <string name="emoji_angry">Angry</string>
+    <string name="emoji_fear">Fear</string>
+    <string name="emoji_disgust">Disgust</string>
+
+    <string name="edit_task">Edit Task</string>
+    <string name="filter_all_default">All (0)</string>
+    <string name="filter_completed_default">Completed (0)</string>
+    <string name="font_size_value_placeholder">14</string>
+    <string name="group_study_session">Group Study Session</string>
+    <string name="habit_streak_placeholder">Streak: 0</string>
+    <string name="habits_filter_all_default">All (0)</string>
+    <string name="habits_filter_due_today_default">Due Today (0)</string>
+    <string name="habits_filter_completed_default">Completed (0)</string>
+    <string name="hint_additional_notes">Additional notes or details</string>
+    <string name="hint_color_example">#4CAF50</string>
+    <string name="hint_currency_prefix">R</string>
+    <string name="hint_end_time_label">End: 04:00 PM</string>
+    <string name="hint_end_time_sample">04:00 PM</string>
+    <string name="hint_habit_name_examples">e.g., Morning Workout, Read 30 minutes</string>
+    <string name="hint_module_examples">Module name or code</string>
+    <string name="hint_sample_full_date">Saturday, November 28, 2025</string>
+    <string name="hint_savings_amount">R15000.00</string>
+    <string name="hint_select_date">Select a Date</string>
+    <string name="hint_select_goal">Select a Goal</string>
+    <string name="hint_select_time">Select Time</string>
+    <string name="hint_start_time_label">Start: 02:00 PM</string>
+    <string name="hint_start_time_sample">02:00 PM</string>
+    <string name="hint_subject_examples">e.g., Mathematics, Physics</string>
+    <string name="hint_target_deadline">08/01/2026</string>
+    <string name="hint_target_name">Cape Town Trip</string>
+    <string name="home_welcome">Welcome back, Student!</string>
+    <string name="home_date_placeholder">Monday, January 1</string>
+    <string name="home_quick_stats">Quick Stats</string>
+    <string name="home_mood_label">Mood</string>
+    <string name="home_mood_empty">Not logged today</string>
+    <string name="home_journal_zero">0 this week</string>
+    <string name="home_explore_features">Explore Features</string>
+    <string name="home_savings_description">Track your financial goals</string>
+    <string name="home_fridge_description">Manage your food inventory</string>
+
+    <!-- Journal -->
+    <string name="journal_add_entry">Add new entry</string>
+    <string name="journal_create_entry">Create Entry</string>
+    <string name="journal_date_range_placeholder">Apr 1, 2025 - Apr 1, 2025</string>
+    <string name="journal_empty_title">No journal entries yet</string>
+    <string name="journal_empty_cta">Tap the + button to create your first entry</string>
+    <string name="journal_empty_description">No entries</string>
+    <string name="journal_entry_title">Journal Entry</string>
+    <string name="journal_entry_date_placeholder">Apr 1, 2025 - 9:41 AM</string>
+    <string name="journal_entry_hint">Share Your Thoughts...</string>
+    <string name="journal_filter_daily">Daily</string>
+    <string name="journal_filter_weekly">Weekly</string>
+    <string name="journal_image_description">Journal image</string>
+    <string name="journal_remove_image">Remove image</string>
+    <string name="journal_upload_image">Upload Image</string>
+
+    <!-- Labels -->
+    <string name="label_amount">Amount</string>
+    <string name="label_goal">Goal</string>
+
+    <!-- Login / sign up extra -->
+    <string name="login_welcome_title">Welcome to UNIverse</string>
+    <string name="login_subtitle">Sign in to continue</string>
+    <string name="login_terms_notice">By continuing, you agree to our Terms of Service and Privacy Policy</string>
+    <string name="sign_up_title">Create an Account</string>
+    <string name="sign_up_subtitle">Enter your details to create your account</string>
+
+    <!-- Misc domain strings -->
+    <string name="mathematics">Mathematics</string>
+    <string name="physics_final_exam">Physics Final Exam</string>
+
+    <!-- Mood logging -->
+    <string name="mood_question">How Do You Feel Today?</string>
+    <string name="mood_date_placeholder">Apr 1, 2025 - 9:41 AM</string>
+    <string name="mood_cloud_description">Cloud</string>
+    <string name="mood_happy_label">HAPPY</string>
+    <string name="mood_section_title">Your Mood</string>
+    <string name="mood_note_hint">Add a note (optional)</string>
+    <string name="mood_happy_description">Happy</string>
+    <string name="mood_sad_description">Sad</string>
+    <string name="mood_angry_description">Angry</string>
+    <string name="mood_fear_description">Fear</string>
+    <string name="mood_disgust_description">Disgust</string>
+    <string name="mood_calendar_day_placeholder">1</string>
+    <string name="mood_calendar_emoji_placeholder">Mood</string>
+    <string name="save_mood">Save Mood</string>
+
+    <!-- Mood tracker -->
+    <string name="moodtracker_title">Mood Tracker</string>
+    <string name="moodtracker_weekly_title">Weekly Mood</string>
+    <string name="moodtracker_month_placeholder">December 2025</string>
+    <string name="moodtracker_today_title">Todays Mood</string>
+    <string name="moodtracker_edit_button">Edit Mood</string>
+
+    <!-- Contributions -->
+    <string name="no_contributions_yet">No contributions yet</string>
+
+    <!-- Profile -->
+    <string name="profile_statistics_title">Your Statistics</string>
+    <string name="profile_total_tasks">Total Tasks Completed</string>
+    <string name="profile_mood_entries">Mood Entries</string>
+    <string name="profile_journal_entries">Journal Entries</string>
+    <string name="profile_image_description">Profile Image</string>
+
+    <!-- Savings -->
+    <string name="savings_goal_title">Savings Goal</string>
+    <string name="savings_amount_placeholder">R0.00</string>
+    <string name="savings_progress_placeholder">0% - 0 days left</string>
+    <string name="savings_days_left_twenty">20 days left</string>
+    <string name="savings_days_left_seven">7 days left</string>
+    <string name="savings_goal_amount_one">R8500.00</string>
+    <string name="savings_goal_amount_two">R2,631.00</string>
+    <string name="savings_goal_health">Health &amp; Medical</string>
+    <string name="savings_goal_trip">New York Road Trip</string>
+    <string name="savings_manage_button">Manage</string>
+    <string name="savings_overview_greeting">Hi, Alex!</string>
+    <string name="savings_overview_reminder">Dont forget to save your money!</string>
+    <string name="savings_overview_amount_placeholder">R11131.00</string>
+    <string name="savings_progress_sixty">60%</string>
+    <string name="savings_progress_ninetyfive">95%</string>
+    <string name="savings_saved_label">Saved</string>
+    <string name="savings_title">Savings</string>
+    <string name="savings_target_label">Savings Target</string>
+
+    <!-- Misc UI -->
+    <string name="see_all">See all &gt;</string>
+    <string name="settings_clear_cache">Clear Cache</string>
+    <string name="settings_dark_mode_description">Switch to dark theme</string>
+    <string name="settings_data_and_privacy">Data And Privacy</string>
+    <string name="settings_enable_notifications_description">Receive reminders and updates</string>
+    <string name="study_hours">Study Hours</string>
+    <string name="study_hours_placeholder">4.5h</string>
+    <string name="target_name">Target Name</string>
+    <string name="target_deadline">Target Deadline</string>
+
+    <!-- Task details -->
+    <string name="task_add_category">Add category</string>
+    <string name="task_category_hint">Work</string>
+    <string name="task_category_ui_design">UI Design</string>
+    <string name="task_category_web_design">Web Design</string>
+    <string name="task_category_designer">Designer</string>
+    <string name="task_category_uiux">UIUX</string>
+    <string name="task_title_placeholder">Task Title</string>
+    <string name="task_description_placeholder">Task description</string>
+    <string name="task_title_hint">Complete Job Applications</string>
+    <string name="task_description_hint">Complete outstanding applications</string>
+    <string name="tasks_completed">Tasks Completed</string>
+    <string name="tasks_completed_placeholder">7/12</string>
+    <string name="title_label">Title</string>
+    <string name="tuition">Tuition</string>
+    <string name="unlock_with_biometrics">Unlock with biometrics</string>
+    <string name="upcoming_assignments">Upcoming Assignments</string>
+    <string name="value_zero">0</string>
+
+    <!-- Navigation titles -->
+    <string name="mood">Mood</string>
+    <string name="title_splash">Splash</string>
+    <string name="title_login">Login</string>
+    <string name="title_create_mood">Create Mood</string>
+    <string name="title_create_journal_entry">Create Journal Entry</string>
+    <string name="title_add_edit_habit">Add/Edit Habit</string>
+    <string name="title_create_savings_goal">Create Savings Goal</string>
 
 </resources>

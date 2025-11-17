@@ -30,7 +30,7 @@ class SettingsFragment : Fragment() {
     private var updatingBiometricSwitch = false
 
     // Language support
-    private val supportedLanguageCodes = listOf("en", "af")
+    private val supportedLanguageCodes = listOf("en", "af", "zu")
     private var isLanguageSpinnerInitialized = false
     private var currentLanguageCode: String = supportedLanguageCodes.first()
 

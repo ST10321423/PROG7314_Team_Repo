@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Top bar: Back + Goal type spinner -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Back"
+                    android:text="@string/action_back"
                     android:textAllCaps="false" />
 
                 <View
@@ -45,6 +46,7 @@
                     android:spinnerMode="dropdown" />
             </LinearLayout>
 
+            <!-- Goal card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +64,7 @@
                         android:id="@+id/tvGoalName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Savings Goal"
+                        android:text="@string/savings_goal_title"
                         android:textColor="#000000"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -93,7 +95,7 @@
                                 android:id="@+id/txtAmount"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="R0.00"
+                                android:text="@string/savings_amount_placeholder"
                                 android:textColor="#000000"
                                 android:textSize="28sp"
                                 android:textStyle="bold"
@@ -103,7 +105,7 @@
                                 android:id="@+id/txtProgress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="0% • 0 days left"
+                                android:text="@string/savings_progress_placeholder"
                                 android:textColor="#666666"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -114,22 +116,24 @@
                         style="@style/Widget.Material3.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Add Contribution"
+                        android:text="@string/add_contribution"
                         android:textAllCaps="false"
                         android:backgroundTint="#12BFA2"
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Activity title -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Activity"
+                android:text="@string/activity_section_title"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp" />
 
+            <!-- Contributions list -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/contributionsRecyclerView"
                 android:layout_width="match_parent"
@@ -138,28 +142,31 @@
                 android:clipToPadding="false"
                 android:paddingBottom="16dp" />
 
+            <!-- Empty state -->
             <TextView
                 android:id="@+id/tvEmptyState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No contributions yet"
+                android:text="@string/no_contributions_yet"
                 android:textColor="#666666"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:visibility="gone"
                 android:paddingVertical="24dp" />
 
+            <!-- Bottom "Back" button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSavingsGoalBack"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Back"
+                android:text="@string/action_back"
                 android:textAllCaps="false"
                 android:layout_marginTop="16dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- Fixed Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
