@@ -17,6 +17,12 @@
 
     <string name="settings_user_fallback_email">Awekho imeyili</string>
 
+    <plurals name="mood_total_format">
+        <item quantity="one">%d mood logged</item>
+        <item quantity="other">%d moods logged</item>
+    </plurals>
+    <string name="mood_week_range">%1$s - %2$s</string>
+
     <!-- Biometrics -->
     <string name="privacy_security">Ubumfihlo nezokuphepha</string>
     <string name="biometric_unlock">Ukuvula ngebhayomethrikhi</string>
