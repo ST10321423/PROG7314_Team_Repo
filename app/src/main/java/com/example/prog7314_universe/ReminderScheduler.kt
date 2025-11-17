@@ -14,6 +14,60 @@ import java.util.concurrent.TimeUnit
 class ReminderScheduler(private val context: Context) {
 
     private val workManager = WorkManager.getInstance(context)
+    private val notificationHelper = NotificationHelper(context)
+
+    /**
+     * Send immediate notification for mood creation
+     */
+    fun sendMoodCreatedNotification(moodName: String, moodEmoji: String) {
+        notificationHelper.sendNotification(
+            title = "$moodEmoji Mood Logged",
+            message = "You're feeling $moodName today. Keep track of your emotional journey!",
+            type = NotificationHelper.NOTIFICATION_TYPE_GENERAL,
+            itemId = "",
+            notificationId = System.currentTimeMillis().toInt()
+        )
+    }
+
+    /**
+     * Send immediate notification for journal creation
+     */
+    fun sendJournalCreatedNotification(journalTitle: String, isUpdate: Boolean = false) {
+        val action = if (isUpdate) "updated" else "created"
+        notificationHelper.sendNotification(
+            title = "📝 Journal Entry ${action.capitalize()}",
+            message = "\"$journalTitle\" has been successfully saved!",
+            type = NotificationHelper.NOTIFICATION_TYPE_GENERAL,
+            itemId = "",
+            notificationId = System.currentTimeMillis().toInt()
+        )
+    }
+
+    /**
+     * Send immediate notification for task creation
+     */
+    fun sendTaskCreatedNotification(taskTitle: String) {
+        notificationHelper.sendNotification(
+            title = "✅ New Task Added",
+            message = "\"$taskTitle\" has been added to your task list!",
+            type = NotificationHelper.NOTIFICATION_TYPE_GENERAL,
+            itemId = "",
+            notificationId = System.currentTimeMillis().toInt()
+        )
+    }
+
+    /**
+     * Send immediate notification for habit creation
+     */
+    fun sendHabitCreatedNotification(habitName: String) {
+        notificationHelper.sendNotification(
+            title = "🎯 New Habit Created",
+            message = "Start building your new habit: $habitName",
+            type = NotificationHelper.NOTIFICATION_TYPE_GENERAL,
+            itemId = "",
+            notificationId = System.currentTimeMillis().toInt()
+        )
+    }
 
     /**
      * Schedule exam reminders

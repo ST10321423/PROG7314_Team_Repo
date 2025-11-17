@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         if (isGranted) {
             Toast.makeText(
                 this,
-                "Notifications enabled! You'll receive reminders for exams and tasks.",
+                "Notifications enabled! You'll receive notifications for updates and alerts.",
                 Toast.LENGTH_SHORT
             ).show()
         } else {

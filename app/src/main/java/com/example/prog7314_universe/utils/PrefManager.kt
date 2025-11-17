@@ -1,6 +1,7 @@
 package com.example.prog7314_universe.utils
 
 import android.content.Context
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -105,4 +106,8 @@ class PrefManager(private val context: Context) {
     suspend fun setLanguage(value: String) {
         context.dataStore.edit { it[Keys.LANGUAGE] = value }
     }
+
+
+
+
 }

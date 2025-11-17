@@ -1,7 +1,11 @@
 package com.example.prog7314_universe
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.prog7314_universe.databinding.ActivitySettingsBinding
 import com.example.prog7314_universe.utils.PrefManager
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
@@ -28,6 +33,7 @@ class SettingsFragment : Fragment() {
     private lateinit var prefManager: PrefManager
     private var biometricSupported = false
     private var updatingBiometricSwitch = false
+    private var updatingNotificationSwitch = false
 
     // Language support
     private val supportedLanguageCodes = listOf("en", "af", "zu")
@@ -74,18 +80,24 @@ class SettingsFragment : Fragment() {
     // ---------------- Load settings from SharedPreferences ----------------
 
     private fun loadSettings() {
+        // Load dark mode setting
         lifecycleScope.launch {
             prefManager.isDarkMode.collect { isDark ->
                 binding.switchDarkMode.isChecked = isDark
             }
         }
 
+        // Load notification setting
         lifecycleScope.launch {
             prefManager.notificationsEnabled.collect { enabled ->
+                updatingNotificationSwitch = true
                 binding.switchNotifications.isChecked = enabled
+                updatingNotificationSwitch = false
+                updateNotificationSwitchAppearance(enabled)
             }
         }
 
+        // Load text scale setting
         lifecycleScope.launch {
             prefManager.textScale.collect { scale ->
                 val progress = (scale * 100).toInt().coerceIn(80, 120)
@@ -94,6 +106,7 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        // Load biometric setting
         lifecycleScope.launch {
             prefManager.biometricEnabled.collect { enabled ->
                 updatingBiometricSwitch = true
@@ -166,12 +179,37 @@ class SettingsFragment : Fragment() {
 
         // Notifications toggle
         binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
+            if (updatingNotificationSwitch) return@setOnCheckedChangeListener
+
+            // Check if system notifications are enabled for Android 13+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (isChecked && !areSystemNotificationsEnabled()) {
+                    // Show dialog to guide user to system settings
+                    showSystemNotificationSettingsDialog()
+
+                    // Revert the switch
+                    updatingNotificationSwitch = true
+                    binding.switchNotifications.isChecked = false
+                    updatingNotificationSwitch = false
+                    return@setOnCheckedChangeListener
+                }
+            }
+
+            // Save preference
             lifecycleScope.launch {
                 prefManager.setNotificationsEnabled(isChecked)
             }
+
+            // Update UI
+            updateNotificationSwitchAppearance(isChecked)
+
+            // Show feedback
             Toast.makeText(
                 requireContext(),
-                if (isChecked) "Notifications enabled" else "Notifications disabled",
+                if (isChecked)
+                    "✅ Notifications enabled! You'll receive updates for moods, journals, and more."
+                else
+                    "🔕 Notifications disabled. You won't receive any updates.",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -191,6 +229,11 @@ class SettingsFragment : Fragment() {
                 lifecycleScope.launch {
                     prefManager.setTextScale(scale)
                 }
+                Toast.makeText(
+                    requireContext(),
+                    "Text size updated to $progress%",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 
@@ -204,6 +247,7 @@ class SettingsFragment : Fragment() {
             showDeleteAccountDialog()
         }
 
+        // Biometric lock toggle
         binding.switchBiometricLock.setOnCheckedChangeListener { _, isChecked ->
             if (updatingBiometricSwitch) return@setOnCheckedChangeListener
 
@@ -258,26 +302,125 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    // ---------------- Dialogs ----------------
+    // ---------------- Notification Helper Methods ----------------
 
-    private fun showClearCacheDialog() {
+    /**
+     * Check if system notifications are enabled for the app (Android 13+)
+     */
+    private fun areSystemNotificationsEnabled(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val notificationManager = requireContext().getSystemService(android.app.NotificationManager::class.java)
+            notificationManager?.areNotificationsEnabled() ?: false
+        } else {
+            true // Pre-Android N always returns true
+        }
+    }
+
+    /**
+     * Show dialog to guide user to system notification settings
+     */
+    private fun showSystemNotificationSettingsDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Clear Cache")
-            .setMessage("Are you sure you want to clear all cached data?")
-            .setPositiveButton("Clear") { _, _ ->
-                requireContext().cacheDir.deleteRecursively()
-                Toast.makeText(requireContext(), "Cache cleared", Toast.LENGTH_SHORT).show()
+            .setTitle("Enable Notifications")
+            .setMessage("To receive notifications, you need to enable them in your device settings. Would you like to open settings now?")
+            .setPositiveButton("Open Settings") { _, _ ->
+                openSystemNotificationSettings()
             }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
+    /**
+     * Open system notification settings for this app
+     */
+    private fun openSystemNotificationSettings() {
+        val intent = Intent().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+            } else {
+                action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                data = Uri.parse("package:${requireContext().packageName}")
+            }
+        }
+        startActivity(intent)
+    }
+
+    /**
+     * Update the visual appearance of notification switch based on state
+     */
+    private fun updateNotificationSwitchAppearance(enabled: Boolean) {
+        // Optional: Add visual feedback
+        binding.switchNotifications.alpha = if (enabled) 1.0f else 0.7f
+    }
+
+    // ---------------- Dialogs ----------------
+
+    private fun showClearCacheDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Clear Cache")
+            .setMessage("Are you sure you want to clear all cached data? This will remove temporary files and may improve performance.")
+            .setPositiveButton("Clear") { _, _ ->
+                clearCache()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun clearCache() {
+        try {
+            val cacheSize = requireContext().cacheDir.walkTopDown().sumOf { it.length() }
+            val cacheSizeMB = cacheSize / (1024 * 1024)
+
+            requireContext().cacheDir.deleteRecursively()
+
+            Toast.makeText(
+                requireContext(),
+                "Cache cleared! Freed up ${cacheSizeMB}MB",
+                Toast.LENGTH_SHORT
+            ).show()
+        } catch (e: Exception) {
+            Toast.makeText(
+                requireContext(),
+                "Failed to clear cache: ${e.message}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun showDeleteAccountDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Account")
-            .setMessage("This action cannot be undone. Are you sure you want to delete your account?")
-            .setPositiveButton("Delete") { _, _ ->
-                deleteAccount()
+            .setTitle("⚠️ Delete Account")
+            .setMessage("This action cannot be undone. All your data including moods, journals, tasks, and habits will be permanently deleted. Are you absolutely sure?")
+            .setPositiveButton("Delete Forever") { _, _ ->
+                showFinalConfirmationDialog()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showFinalConfirmationDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Final Confirmation")
+            .setMessage("Type 'DELETE' to confirm account deletion")
+            .setView(
+                android.widget.EditText(requireContext()).apply {
+                    hint = "Type DELETE here"
+                }
+            )
+            .setPositiveButton("Confirm") { dialog, _ ->
+                val editText = (dialog as AlertDialog).findViewById<android.widget.EditText>(android.R.id.edit)
+                val input = editText?.text.toString()
+
+                if (input == "DELETE") {
+                    deleteAccount()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Account deletion cancelled - text did not match",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
             .setNegativeButton("Cancel", null)
             .show()
@@ -285,17 +428,55 @@ class SettingsFragment : Fragment() {
 
     private fun deleteAccount() {
         val user = auth.currentUser
-        user?.delete()
-            ?.addOnSuccessListener {
-                Toast.makeText(requireContext(), "Account deleted", Toast.LENGTH_SHORT).show()
-                requireActivity().finish()
-            }
-            ?.addOnFailureListener { e ->
+        if (user == null) {
+            Toast.makeText(
+                requireContext(),
+                "No user is currently signed in",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        user.delete()
+            .addOnSuccessListener {
                 Toast.makeText(
                     requireContext(),
-                    "Failed to delete account: ${e.message}",
+                    "Account deleted successfully",
                     Toast.LENGTH_SHORT
                 ).show()
+
+
+
+                // Close the app
+                requireActivity().finish()
             }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to delete account: ${e.message}\n\nYou may need to sign in again to delete your account.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh notification status when returning from system settings
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            lifecycleScope.launch {
+                val appPreference = prefManager.notificationsEnabled.first()
+                val systemEnabled = areSystemNotificationsEnabled()
+
+                // If app preference is on but system notifications are off, update the switch
+                if (appPreference && !systemEnabled) {
+                    updatingNotificationSwitch = true
+                    binding.switchNotifications.isChecked = false
+                    updatingNotificationSwitch = false
+
+                    // Update the preference to match system state
+                    prefManager.setNotificationsEnabled(false)
+                }
+            }
+        }
     }
 }

@@ -10,10 +10,15 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.prog7314_universe.databinding.FragmentCreatejournalBinding
+import com.example.prog7314_universe.utils.PrefManager
+import com.example.prog7314_universe.utils.ReminderScheduler
 import com.example.prog7314_universe.viewmodel.JournalViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,6 +34,8 @@ class CreateJournalFragment : Fragment() {
     private val viewModel: JournalViewModel by viewModels()
     private var currentEntryId: String? = null
     private var selectedImageUri: Uri? = null
+    private lateinit var prefManager: PrefManager
+    private lateinit var reminderScheduler: ReminderScheduler
 
     // Image picker launcher
     private val imagePickerLauncher = registerForActivityResult(
@@ -48,6 +55,8 @@ class CreateJournalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreatejournalBinding.inflate(inflater, container, false)
+        prefManager = PrefManager(requireContext())
+        reminderScheduler = ReminderScheduler(requireContext())
         return binding.root
     }
 
@@ -160,27 +169,34 @@ class CreateJournalFragment : Fragment() {
 
         // Save or update entry
         val imageUriString = selectedImageUri?.toString()
+        val isUpdate = currentEntryId != null
 
         if (currentEntryId != null) {
             // Update existing entry
-            viewModel.updateJournalEntry(currentEntryId!!, title, content, imageUriString as Uri?)
-            android.widget.Toast.makeText(
-                requireContext(),
-                "Journal entry updated!",
-                android.widget.Toast.LENGTH_SHORT
-            ).show()
+            viewModel.updateJournalEntry(currentEntryId!!, title, content, selectedImageUri)
         } else {
             // Create new entry
-            viewModel.createJournalEntry(title, content, imageUriString as Uri?)
-            android.widget.Toast.makeText(
-                requireContext(),
-                "Journal entry created!",
-                android.widget.Toast.LENGTH_SHORT
-            ).show()
+            viewModel.createJournalEntry(title, content, selectedImageUri)
         }
 
-        // Navigate back
-        findNavController().navigateUp()
+        // Check if notifications are enabled and send notification
+        lifecycleScope.launch {
+            val notificationsEnabled = prefManager.notificationsEnabled.first()
+            if (notificationsEnabled) {
+                reminderScheduler.sendJournalCreatedNotification(title, isUpdate)
+            }
+
+            // Show success message
+            val message = if (isUpdate) "Journal entry updated!" else "Journal entry created!"
+            android.widget.Toast.makeText(
+                requireContext(),
+                message,
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
+
+            // Navigate back
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroyView() {
@@ -188,7 +204,3 @@ class CreateJournalFragment : Fragment() {
         _binding = null
     }
 }
-
-
-
-

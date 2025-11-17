@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.prog7314_universe.databinding.FragmentCreatemoodBinding
 import com.example.prog7314_universe.Models.MoodScale
+import com.example.prog7314_universe.utils.PrefManager
+import com.example.prog7314_universe.utils.ReminderScheduler
 import com.example.prog7314_universe.viewmodel.MoodViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,6 +30,9 @@ class CreateMoodFragment : Fragment() {
     private val viewModel: MoodViewModel by viewModels()
     private var selectedMood: MoodScale? = null
     private var selectedDate: Date = Date()
+    private lateinit var prefManager: PrefManager
+    private lateinit var reminderScheduler: ReminderScheduler
+    private var isEditMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +40,8 @@ class CreateMoodFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreatemoodBinding.inflate(inflater, container, false)
+        prefManager = PrefManager(requireContext())
+        reminderScheduler = ReminderScheduler(requireContext())
         return binding.root
     }
 
@@ -51,8 +61,9 @@ class CreateMoodFragment : Fragment() {
         setupUI()
         setupClickListeners()
         loadExistingMood()
+
         viewModel.moodEntries.observe(viewLifecycleOwner) {
-            loadExistingMood()
+            // No need to reload here as we handle it in loadExistingMood
         }
     }
 
@@ -101,15 +112,24 @@ class CreateMoodFragment : Fragment() {
     private fun loadExistingMood() {
         val existingMood = viewModel.getMoodForDate(selectedDate)
         existingMood?.let { mood ->
+            isEditMode = true
             selectedMood = mood.getMoodScale()
             binding.etNote.setText(mood.note)
             updateMoodDisplay()
+
+            // Update button text to indicate edit mode
+            binding.btnSaveMood.text = "Update Mood"
         }
     }
 
     private fun selectMood(mood: MoodScale) {
         selectedMood = mood
         updateMoodDisplay()
+
+        // Add haptic feedback (optional)
+        binding.root.performHapticFeedback(
+            android.view.HapticFeedbackConstants.VIRTUAL_KEY
+        )
     }
 
     private fun updateMoodDisplay() {
@@ -132,6 +152,10 @@ class CreateMoodFragment : Fragment() {
                     MoodScale.FEAR -> highlightButton(btnFear)
                     MoodScale.DISGUST -> highlightButton(btnDisgust)
                 }
+
+                // Enable save button
+                btnSaveMood.isEnabled = true
+                btnSaveMood.alpha = 1.0f
             }
         } ?: run {
             binding.apply {
@@ -140,6 +164,10 @@ class CreateMoodFragment : Fragment() {
                 cardMoodDisplay.setCardBackgroundColor(
                     android.graphics.Color.parseColor("#E8F5E9")
                 )
+
+                // Disable save button until mood is selected
+                btnSaveMood.isEnabled = false
+                btnSaveMood.alpha = 0.5f
             }
         }
     }
@@ -155,29 +183,58 @@ class CreateMoodFragment : Fragment() {
     }
 
     private fun highlightButton(button: View) {
-        button.alpha = 1.0f
-        button.scaleX = 1.1f
-        button.scaleY = 1.1f
+        button.animate()
+            .alpha(1.0f)
+            .scaleX(1.1f)
+            .scaleY(1.1f)
+            .setDuration(200)
+            .start()
     }
 
     private fun saveMood() {
         selectedMood?.let { mood ->
             val note = binding.etNote.text.toString().trim()
+
+            // Disable button to prevent double-click
+            binding.btnSaveMood.isEnabled = false
+
+            // Save the mood entry
             viewModel.saveMoodEntry(
                 date = selectedDate,
                 scale = mood,
                 note = note.ifEmpty { null }
             )
 
-            // Show success message
-            android.widget.Toast.makeText(
-                requireContext(),
-                "Mood saved successfully!",
-                android.widget.Toast.LENGTH_SHORT
-            ).show()
+            // Check if notifications are enabled and send notification
+            lifecycleScope.launch {
+                val notificationsEnabled = prefManager.notificationsEnabled.first()
 
-            // Navigate back
-            findNavController().navigateUp()
+                if (notificationsEnabled) {
+                    // Send notification
+                    reminderScheduler.sendMoodCreatedNotification(
+                        moodName = mood.displayName,
+                        moodEmoji = mood.emoji
+                    )
+                }
+
+                // Show success message
+                val message = if (isEditMode) {
+                    "Mood updated successfully!"
+                } else {
+                    "Mood saved successfully!"
+                }
+
+                android.widget.Toast.makeText(
+                    requireContext(),
+                    message,
+                    android.widget.Toast.LENGTH_SHORT
+                ).show()
+
+                // Navigate back with a slight delay for better UX
+                binding.root.postDelayed({
+                    findNavController().navigateUp()
+                }, 300)
+            }
         } ?: run {
             // Show error - no mood selected
             android.widget.Toast.makeText(
@@ -193,7 +250,3 @@ class CreateMoodFragment : Fragment() {
         _binding = null
     }
 }
-
-
-
-
