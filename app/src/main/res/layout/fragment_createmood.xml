@@ -68,10 +68,10 @@
                 app:cardCornerRadius="24dp"
                 app:cardElevation="4dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="24dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="24dp">
 
                     <!-- Cloud decorations -->
                     <ImageView
@@ -81,7 +81,7 @@
                         android:contentDescription="Cloud"
                         android:src="@drawable/ic_cloud"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_mood_emoji"
@@ -124,44 +124,73 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="5">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_happy"
                     style="@style/MoodButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:layout_marginEnd="4dp"
                     android:contentDescription="Happy"
                     android:text="😊"
-                    android:textAllCaps="false"/>
+                    android:textSize="15sp"
+                    android:textAllCaps="false" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_sad"
                     style="@style/MoodButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:layout_marginHorizontal="4dp"
                     android:contentDescription="Sad"
                     android:text="😢"
-                    android:textAllCaps="false"/>
+                    android:textSize="15sp"
+                    android:textAllCaps="false" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_angry"
                     style="@style/MoodButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:layout_marginHorizontal="4dp"
                     android:contentDescription="Angry"
                     android:text="😠"
-                    android:textAllCaps="false"/>
+                    android:textSize="15sp"
+                    android:textAllCaps="false" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_fear"
                     style="@style/MoodButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:layout_marginHorizontal="4dp"
                     android:contentDescription="Fear"
                     android:text="😰"
-                    android:textAllCaps="false"/>
+                    android:textSize="15sp"
+                    android:textAllCaps="false" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_disgust"
                     style="@style/MoodButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:layout_marginStart="4dp"
                     android:contentDescription="Disgust"
                     android:text="😖"
-                    android:textAllCaps="false"/>
+                    android:textSize="15sp"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
             <!-- Optional Note -->
