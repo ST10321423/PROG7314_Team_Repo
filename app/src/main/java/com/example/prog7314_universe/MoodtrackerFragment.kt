@@ -68,10 +68,10 @@ class MoodTrackerFragment : Fragment() {
             )
         }
 
-        binding.rvMoodCalendar.apply {
-            layoutManager = GridLayoutManager(requireContext(), 7) // 7 days per week
-            adapter = moodCalendarAdapter
-        }
+      //  binding.rvMoodCalendar.apply {
+          //  layoutManager = GridLayoutManager(requireContext(), 7) // 7 days per week
+  //          adapter = moodCalendarAdapter
+    //    }
     }
 
     private fun setupMoodList() {
@@ -84,10 +84,10 @@ class MoodTrackerFragment : Fragment() {
 
     private fun setupObservers() {
         // Observe selected month
-        viewModel.selectedMonth.observe(viewLifecycleOwner) { month ->
-            updateMonthDisplay(month)
-            updateCalendar()
-        }
+     //   viewModel.selectedMonth.observe(viewLifecycleOwner) { month ->
+        //    updateMonthDisplay(month)
+  //          updateCalendar()
+    //    }
 
         viewModel.selectedDate.observe(viewLifecycleOwner) { date ->
             updateDateDisplay(date)
@@ -115,14 +115,14 @@ class MoodTrackerFragment : Fragment() {
 
     private fun setupClickListeners() {
         // Previous month button
-        binding.btnPreviousMonth.setOnClickListener {
-            viewModel.previousMonth()
-        }
+     //   binding.btnPreviousMonth.setOnClickListener {
+    //        viewModel.previousMonth()
+    //    }
 
         // Next month button
-        binding.btnNextMonth.setOnClickListener {
-            viewModel.nextMonth()
-        }
+   //     binding.btnNextMonth.setOnClickListener {
+     //       viewModel.nextMonth()
+     //   }
 
         binding.chipDaily.setOnClickListener {
             viewModel.setViewMode(ViewMode.DAILY)
@@ -159,10 +159,10 @@ class MoodTrackerFragment : Fragment() {
         }
     }
 
-    private fun updateMonthDisplay(month: Date) {
-        val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
-        binding.tvMonthYear.text = dateFormat.format(month)
-    }
+   // private fun updateMonthDisplay(month: Date) {
+   //     val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
+   //     binding.tvMonthYear.text = dateFormat.format(month)
+   // }
 
     private fun updateDateDisplay(date: Date) {
         val mode = viewModel.viewMode.value
