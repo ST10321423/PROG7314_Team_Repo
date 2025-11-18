@@ -44,19 +44,19 @@
         <item
             android:id="@+id/profileFragment"
             android:icon="@drawable/ic_person"
-            android:title="Profile" />
+            android:title="@string/menu_profile" />
 
         <item
             android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="@string/menu_settings" />
     </group>
 
     <group android:id="@+id/group_auth">
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
-            android:title="Logout" />
+            android:title="@string/menu_logout" />
     </group>
 
 </menu>
